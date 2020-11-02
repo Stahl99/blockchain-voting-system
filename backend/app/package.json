@@ -1,0 +1,19 @@
+{
+  "name": "dhbw-truffle-project",
+  "version": "0.1.0",
+  "description": "A simple project to learn Ethereum Smart Contract development",
+  "private": true,
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack-dev-server"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^4.6.0",
+    "webpack": "^4.28.1",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "dependencies": {
+    "web3": "^1.0.0-beta.37"
+  }
+}

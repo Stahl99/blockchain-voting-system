@@ -1,0 +1,28 @@
+{
+  "name": "dhbw-truffle-project",
+  "version": "0.1.0",
+  "description": "A simple project to learn Ethereum Smart Contract development",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "ganache-cli -h 0.0.0.0 -p 7545 -i 5777 -s dhbw",
+    "migrate": "truffle migrate",
+    "test": "truffle test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkqavi/dhbw-truffle-project.git"
+  },
+  "author": "Marvin König <dev@mkqavi.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mkqavi/dhbw-truffle-project/issues"
+  },
+  "homepage": "https://github.com/mkqavi/dhbw-truffle-project#readme",
+  "devDependencies": {
+    "ganache-cli": "^6.12.0",
+    "truffle": "^5.1.47"
+  }
+}
