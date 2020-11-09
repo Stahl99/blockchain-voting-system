@@ -1,0 +1,7 @@
+{
+    "projectName": "BlockchainVotingSystem",
+    "namespace": "BlockchainVotingSystem.Contracts",
+    "lang": 0,
+    "autoCodeGen": true,
+    "projectPath": "../backend-api"
+}
