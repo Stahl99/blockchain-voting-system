@@ -35,5 +35,6 @@ namespace Blockchain_Wahlclient
         {
             InitializeComponent();
         }
+
     }
 }

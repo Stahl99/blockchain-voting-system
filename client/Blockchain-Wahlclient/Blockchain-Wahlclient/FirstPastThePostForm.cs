@@ -10,18 +10,16 @@ namespace Blockchain_Wahlclient
 {
     public partial class FirstPastThePostForm : Form
     {
-        private FirstPastThePostModel model;
+        public FirstPastThePostModel Model { get; set; } = new FirstPastThePostModel();
 
         public FirstPastThePostForm()
         {
             InitializeComponent();
-            model = new FirstPastThePostModel();
         }
 
-        private void VoteButton_Click(object sender, EventArgs e)
+        public void SetCandidateList(FirstPastThePostModel model)
         {
-            HideErrorText();
-            model.VerifyVote(textBox1.Text, checkedListBox1.CheckedItems);
+            this.Model = model;
         }
 
         public void ShowErrorText(string text)
@@ -34,6 +32,22 @@ namespace Blockchain_Wahlclient
         {
             ErrorLabel.Text = "";
             ErrorLabel.Visible = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            HideErrorText();
+            Model.VerifyVote(textBox1.Text);
+        }
+
+        private void FirstPastThePostForm_Load(object sender, EventArgs e)
+        {
+            Model.BuildCandidateList(ref this.flowLayoutPanel1);
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -6,9 +6,11 @@ using static System.Windows.Forms.CheckedListBox;
 
 namespace Blockchain_Wahlclient
 {
-    class FirstPastThePostModel
+    public class FirstPastThePostModel
     {
         private FirstPastThePostForm FPTPform;
+        private List<Candidate> candidates = new List<Candidate>();
+        private List<StandardVotingCandidate> candidatesViewList = new List<StandardVotingCandidate>();
 
         public FirstPastThePostModel()
         {
@@ -28,14 +30,51 @@ namespace Blockchain_Wahlclient
             }
         }
 
+        public void AddCandidate(Candidate c)
+        {
+            this.candidates.Add(c);
+        }
+
+        public void BuildCandidateList(ref FlowLayoutPanel flp)
+        {
+            foreach( Candidate c in candidates)
+            {
+                StandardVotingCandidate svc = new StandardVotingCandidate();
+                svc.SetName(c.GetFullName());
+                svc.SetParty(c.GetParty());
+
+                candidatesViewList.Add(svc);
+            }
+
+            foreach( StandardVotingCandidate svc in candidatesViewList)
+            {
+                flp.Controls.Add(svc);
+            }
+        }
+
         // verify the voting logic
-        public bool VerifyVote(String votingAdress, CheckedItemCollection checkedItems)
+        public bool VerifyVote(String votingAdress)
         {
             InitFormReference();
             // check if exactly one item is checkd
-            if (checkedItems.Count != 1)
+            int items_checked = 0;
+            foreach(StandardVotingCandidate c in candidatesViewList)
             {
-                FPTPform.ShowErrorText("Please select a voting option");
+                if (c.GetChecked())
+                {
+                    items_checked++;
+                }
+            }
+
+            if(items_checked < 1)
+            {
+                FPTPform.ShowErrorText("You have to vote a candidate");
+                return false;
+            }
+
+            if (items_checked > 1)
+            {
+                FPTPform.ShowErrorText("You can only vote one candidate");
                 return false;
             }
 

@@ -23,7 +23,6 @@ namespace Blockchain_Wahlclient
 
 
             //initialize candidatlist
-            CandidateList candidateList = new CandidateList();
 
             Candidate a = new Candidate("christian", "linder", "fdp");
             Candidate b = new Candidate("angela", "merkel", "cdu");
@@ -32,6 +31,17 @@ namespace Blockchain_Wahlclient
             Candidate g = new Candidate("gregor", "gysi", "linke");
             Candidate f = new Candidate("alexander", "gauland", "afd");
 
+            FirstPastThePostForm FPTPform = new FirstPastThePostForm();
+            FPTPform.Model.AddCandidate(a);
+            FPTPform.Model.AddCandidate(b);
+            FPTPform.Model.AddCandidate(c);
+            FPTPform.Model.AddCandidate(d);
+            FPTPform.Model.AddCandidate(g);
+            FPTPform.Model.AddCandidate(f);
+
+
+            FPTPform.Show();
+            /*
             candidateList.AddCandidate(a);
             candidateList.AddCandidate(b);
             candidateList.AddCandidate(c);
@@ -39,9 +49,11 @@ namespace Blockchain_Wahlclient
             candidateList.AddCandidate(g);
             candidateList.AddCandidate(f);
 
-            AlternativeVoting av = new AlternativeVoting();
+            /*
+            FirstPastThePostForm av = new FirstPastThePostForm();
             av.SetCandList(candidateList);
             av.Show();
+            */
         }
     }
 }
