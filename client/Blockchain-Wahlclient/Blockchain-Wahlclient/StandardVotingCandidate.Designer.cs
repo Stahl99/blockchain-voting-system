@@ -65,11 +65,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.votingCheckbox);
             this.Controls.Add(this.party);
             this.Controls.Add(this.name);
             this.Name = "StandardVotingCandidate";
-            this.Size = new System.Drawing.Size(368, 76);
+            this.Size = new System.Drawing.Size(366, 74);
             this.ResumeLayout(false);
             this.PerformLayout();
 
