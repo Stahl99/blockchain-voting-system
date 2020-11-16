@@ -81,4 +81,8 @@ contract DHBWVoting {
     function concatString(string memory a, string memory b, string memory c, string memory d) internal pure returns (string memory) {
         return string(abi.encodePacked(a, b, c, d));
     }
+
+    function multiply(uint256 a, uint256 b) public pure returns (uint256) {
+        return a*b;
+    }
 }
