@@ -85,4 +85,27 @@ contract bvs_backend {
         return true;
     }
 
+    function getVote (uint256 electionId) public returns (string memory) {
+        require(_elections[electionId].usedAddresses[msg.sender] == true, "No vote submitted");
+        Ballot memory ballot;
+        for (uint256 i = 0; i <= _elections[electionId].ballots.length; i++) {
+            ballot = _elections[electionId].ballots[i];
+            if (ballot.voterAddress == msg.sender) {
+                break;
+            }
+        }
+        if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
+            return string(abi.encode("You voted for ", _elections[electionId].electoralList[ballot.candidateId].firstName,
+                " ", _elections[electionId].electoralList[ballot.candidateId].lastName));
+        }
+    }
+
+    function countVotes (uint256 electionId) public returns (Candidate[] memory, uint256[] memory) {
+        
+    }
+
+    function isOver (uint256 electionId) public view returns (bool) {
+        return (_elections[electionId].endTimestamp < block.timestamp);
+    }
+
 }
