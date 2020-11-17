@@ -21,7 +21,8 @@ contract bvs_backend {
 
     struct Election {
         uint256 electionId;
-    
+        string electionName;
+
         Candidate[] electoralList; 
         Ballot[] ballots;
         address[] eligibleVoters;
@@ -38,7 +39,7 @@ contract bvs_backend {
 
     constructor() {}
 
-    function createElection (address electionAdminAddress, VotingSystem electionVotingSystem, 
+    function createElection (address electionAdminAddress, VotingSystem electionVotingSystem, string memory electionName,
     uint256 electionStartTime, uint256 electionEndTimestamp) public view returns (uint256) {
 
     }
