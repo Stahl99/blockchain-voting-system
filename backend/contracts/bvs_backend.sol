@@ -1,4 +1,5 @@
 pragma solidity ^0.7.2;
+pragma experimental ABIEncoderV2;
 
 contract bvs_backend {
 
@@ -25,8 +26,8 @@ contract bvs_backend {
 
         Candidate[] electoralList; 
         Ballot[] ballots;
-        address[] eligibleVoters;
-        address[] usedAddresses;
+        mapping (address => bool) eligibleVoters;
+        mapping (address => bool) usedAddresses;
         VotingSystem votingSystem;
 
         address adminAddress;
@@ -42,5 +43,11 @@ contract bvs_backend {
     function createElection (address electionAdminAddress, VotingSystem electionVotingSystem, string memory electionName,
     uint256 electionStartTime, uint256 electionEndTimestamp) public view returns (uint256) {
 
+    }
+
+    function vote (uint256 electionId, Ballot memory ballot) public returns (bool) {
+        require(_elections[electionId].eligibleVoters[msg.sender] == true, "");
+
+        return true;
     }
 }
