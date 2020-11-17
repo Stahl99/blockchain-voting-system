@@ -6,21 +6,21 @@ contract bvs_backend {
         string firstName;
         string lastName;
         string party;
-        int id;
+        uint256 id;
     }
 
     enum VotingSystem { standardVoting, alternativeVoting }
 
     struct Ballot {
         // standardVoting 
-        int candidateId;
+        uint256 candidateId;
 
         // alternativeVoting
-        int[] ranking; // by candidate id
+        uint256[] ranking; // by candidate id
     }
 
     struct Election {
-        int electionId;
+        uint256 electionId;
     
         Candidate[] electoralList; 
         Ballot[] ballots;
@@ -28,14 +28,18 @@ contract bvs_backend {
         address[] usedAddresses;
         VotingSystem votingSystem;
 
-        uint256 startTime;
-        uint256 endTime;
+        address adminAddress;
+
+        uint256 startTimestamp;
+        uint256 endTimestamp;
     }
 
-   Election[] private _elections;
+    Election[] private _elections;
 
     constructor() {}
 
+    function createElection (address electionAdminAddress, VotingSystem electionVotingSystem, 
+    uint256 electionStartTime, uint256 electionEndTimestamp) public view returns (uint256) {
 
-
+    }
 }
