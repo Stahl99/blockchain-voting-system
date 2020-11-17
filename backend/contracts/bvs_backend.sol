@@ -19,11 +19,20 @@ contract bvs_backend {
         int[] ranking; // by candidate id
     }
 
-    Candidate[] private _electoralList; 
-    Ballot[] private _ballots;
-    address[] private _eligibleVoters;
-    address[] private _usedAddresses;
-    VotingSystem private _votingSystem;
+    struct Election {
+        int electionId;
+    
+        Candidate[] electoralList; 
+        Ballot[] ballots;
+        address[] eligibleVoters;
+        address[] usedAddresses;
+        VotingSystem votingSystem;
+
+        uint256 startTime;
+        uint256 endTime;
+    }
+
+   Election[] private _elections;
 
     constructor() {}
 
