@@ -46,7 +46,19 @@ contract bvs_backend {
     }
 
     function vote (uint256 electionId, Ballot memory ballot) public returns (bool) {
-        require(_elections[electionId].eligibleVoters[msg.sender] == true, "");
+        // Check if the address is allowed to vote
+        require(_elections[electionId].eligibleVoters[msg.sender] == true, "Address not allowed for voting");
+        // Check if the address has already been used
+        require(_elections[electionId].usedAddresses[msg.sender] == false, "Address was already used");
+        // Check the election time
+        require(_elections[electionId].startTimestamp < block.timestamp, "Voting has not started yet");
+        require(_elections[electionId].endTimestamp > block.timestamp, "Voting already ended");
+
+        // Add the ballot to the election
+        _elections[electionId].ballots.push(ballot);
+
+        // Remember the address has voted
+        _elections[electionId].usedAddresses[msg.sender] = true;
 
         return true;
     }
