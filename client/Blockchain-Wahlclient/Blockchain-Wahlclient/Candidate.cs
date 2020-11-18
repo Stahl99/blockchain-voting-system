@@ -6,6 +6,8 @@ namespace Blockchain_Wahlclient
 {
     public class Candidate
     {
+        private int id;
+
         private string surname;
 
         private string lastName;
@@ -14,7 +16,7 @@ namespace Blockchain_Wahlclient
 
         private int rank;
 
-        public Candidate(string surname, string lastName, string party)
+        public Candidate(int id, string surname, string lastName, string party)
         {
 
             this.surname = surname;
@@ -47,6 +49,10 @@ namespace Blockchain_Wahlclient
             return this.rank;
         }
 
+        public int GetId()
+        {
+            return this.id;
+        }
         
 
     }

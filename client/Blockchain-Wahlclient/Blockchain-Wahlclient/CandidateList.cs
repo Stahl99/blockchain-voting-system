@@ -69,6 +69,7 @@ namespace Blockchain_Wahlclient
                 avc.SetName(c.GetFullName());
                 avc.SetParty(c.GetParty());
                 avc.SetMax(candidates.Count);
+                avc.SetId(c.GetId());
 
                 candsFrontend.Add(avc);                
             }

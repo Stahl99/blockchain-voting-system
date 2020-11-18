@@ -10,6 +10,7 @@ namespace Blockchain_Wahlclient
 {
     public partial class StandardVotingCandidate : UserControl
     {
+        private int id;
         public StandardVotingCandidate()
         {
             InitializeComponent();
@@ -25,9 +26,29 @@ namespace Blockchain_Wahlclient
             this.party.Text = party;
         }
 
+        public String GetName()
+        {
+            return this.name.Text;
+        }
+
+        public String GetParty()
+        {
+            return this.party.Text;
+        }
+
         public bool GetChecked()
         {
             return this.votingCheckbox.Checked;
+        }
+
+        public void SetId(int id)
+        {
+            this.id = id; 
+        }
+
+        public int GetId()
+        {
+            return this.id;
         }
     }
 }
