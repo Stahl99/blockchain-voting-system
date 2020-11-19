@@ -1,4 +1,4 @@
-pragma solidity ^0.7.2;
+pragma solidity ^0.5.17;
 
 contract DHBWCoin {
     mapping(address => uint256) private _balances;

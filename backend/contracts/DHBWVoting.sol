@@ -1,4 +1,4 @@
-pragma solidity ^0.7.2;
+pragma solidity ^0.5.17;
 
 contract DHBWVoting {
     // Mapping that stores the votes
@@ -11,7 +11,7 @@ contract DHBWVoting {
     // Event fired when someone has voted
     event Vote(address indexed _voter, string _votingOption);
 
-    constructor() {}
+    //constructor() {}
 
     // Gets the currently winning option(s)
     function getWinners() public view returns (string memory) {

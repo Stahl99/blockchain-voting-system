@@ -1,4 +1,4 @@
-pragma solidity ^0.7.2;
+pragma solidity ^0.5.17;
 pragma experimental ABIEncoderV2;
 
 contract bvs_backend {
@@ -42,26 +42,21 @@ contract bvs_backend {
     }
 
     Election[] private _elections; // array of all elections
-    uint256 private currentElectionId; // global election id counter
-
-    constructor() {
-        currentElectionId = 0; // initialize the global election id counter
-    }
 
     // creates a new election and returns the election id to the caller
     function createElection (address electionAdminAddress, VotingSystem electionVotingSystem, string memory electionName,
     uint256 electionStartTimestamp, uint256 electionEndTimestamp) public returns (uint256) {
         
+        _elections.length++;
+        Election storage e = _elections[_elections.length-1];
+
         // create new election and set values
-        Election memory e;
-        e.electionId = currentElectionId++; // set and increment id 
+        e.electionId = _elections.length-1; // set and increment id 
         e.electionName = electionName;
         e.votingSystem = electionVotingSystem;
         e.adminAddress = electionAdminAddress;
         e.startTimestamp = electionStartTimestamp;
         e.endTimestamp = electionEndTimestamp;
-
-        _elections.push(e); // save the new election on the blockchain
 
         return e.electionId; // return the id of the new election
     }
@@ -70,7 +65,7 @@ contract bvs_backend {
     // returns true if successfull; false otherwise
     function replaceListOfEligibleVoters (uint256 electionId, address[] memory newEligibleVoterList) public returns (bool) {
 
-        for (uint i = 0; i < currentElectionId; i++) {
+        for (uint i = 0; i < _elections.length; i++) {
 
             // find the correct election
             if (_elections[i].electionId == electionId) {
@@ -95,9 +90,9 @@ contract bvs_backend {
 
     // replaces the list of the current electoral list for a given election
     // returns true if successfull; false otherwise
-    function replaceElectoralList (uint256 electionId, Candidate[] memory newElectoralList) public returns (bool) {
+    /*function replaceElectoralList (uint256 electionId, Candidate[] memory newElectoralList) public returns (bool) {
 
-        for (uint i = 0; i < currentElectionId; i++) {
+        for (uint i = 0; i < _elections.length; i++) {
 
             // find the correct election
             if (_elections[i].electionId == electionId) {
@@ -118,20 +113,20 @@ contract bvs_backend {
         // return false if the election was not found 
         return false;
 
-    }
+    }*/
 
     // returns the ids, names, start- and end-timestamps of all elections
     function getElectionInformation () public view returns (uint256[] memory, string[] memory, uint256[] memory, uint256[] memory) {
 
         // creates arrays for all values that have to be returned
         // the size of the arrays is equal to the number of current election
-        uint256[] memory ids = new uint256[](currentElectionId-1);
-        string[] memory names = new string[](currentElectionId-1);
-        uint256[] memory startTimestamps = new uint256[](currentElectionId-1);
-        uint256[] memory endTimestamps = new uint256[](currentElectionId-1);
+        uint256[] memory ids = new uint256[](_elections.length-1);
+        string[] memory names = new string[](_elections.length-1);
+        uint256[] memory startTimestamps = new uint256[](_elections.length-1);
+        uint256[] memory endTimestamps = new uint256[](_elections.length-1);
 
         // go through all elections
-        for (uint i = 0; i < currentElectionId; i++) {
+        for (uint i = 0; i < _elections.length; i++) {
 
             // save the election elements to the corresponding arrays
             ids[i] = _elections[i].electionId;
