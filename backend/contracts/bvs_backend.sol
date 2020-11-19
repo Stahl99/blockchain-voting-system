@@ -147,25 +147,51 @@ contract bvs_backend {
     }
 
     function vote (uint256 electionId, Ballot memory ballot) public returns (bool) {
+        if (!verifyElectionId(electionId)) {
+            return false;
+        }
+
         // Check if the address is allowed to vote
-        require(_elections[electionId].eligibleVoters[msg.sender] == true, "Address not allowed for voting");
+        uint256 iterator = 0;
+        while (_elections[electionId].eligibleVoters[iterator] != msg.sender) {
+            iterator++;
+            if (iterator >= _elections[electionId].eligibleVoters.length) {
+                return false;
+            }
+        }
         // Check if the address has already been used
-        require(_elections[electionId].usedAddresses[msg.sender] == false, "Address was already used");
+        for (uint256 i = 0; i <= _elections[electionId].usedAddresses.length; i++) {
+            if (_elections[electionId].usedAddresses[i] == msg.sender) {
+                return false;
+            }
+        }
         // Check the election time
-        require(_elections[electionId].startTimestamp < block.timestamp, "Voting has not started yet");
-        require(_elections[electionId].endTimestamp > block.timestamp, "Voting already ended");
+        require(hasStarted(electionId), "Voting has not started yet");
+        require(!isOver(electionId), "Voting already ended");
 
         // Add the ballot to the election
         _elections[electionId].ballots.push(ballot);
 
         // Remember the address has voted
-        _elections[electionId].usedAddresses[msg.sender] = true;
+        _elections[electionId].usedAddresses.push(msg.sender);
 
         return true;
     }
 
-    function getVote (uint256 electionId) public returns (string memory) {
-        require(_elections[electionId].usedAddresses[msg.sender] == true, "No vote submitted");
+    function getVote (uint256 electionId) public view returns (string memory) {
+        if (!verifyElectionId(electionId)) {
+            return "Invalid Election ID";
+        }
+
+        // Check if the address has voted
+        uint256 iterator = 0;
+        while (_elections[electionId].usedAddresses[iterator] != msg.sender) {
+            iterator++;
+            if (iterator >= _elections[electionId].usedAddresses.length) {
+                return "No vote submitted";
+            }
+        }
+        // Find the ballot
         Ballot memory ballot;
         for (uint256 i = 0; i <= _elections[electionId].ballots.length; i++) {
             ballot = _elections[electionId].ballots[i];
@@ -173,18 +199,42 @@ contract bvs_backend {
                 break;
             }
         }
+        // Return result based on voting system (standard or alternative)
         if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
             return string(abi.encode("You voted for ", _elections[electionId].electoralList[ballot.candidateId].firstName,
                 " ", _elections[electionId].electoralList[ballot.candidateId].lastName));
+        } else {
+            return ""; // Not implemented yet
         }
     }
 
-    function countVotes (uint256 electionId) public returns (Candidate[] memory, uint256[] memory) {
-        
+    function countVotes (uint256 electionId) public view returns (Candidate[] memory, uint256[] memory) {
+        // Create empty return variables     
+        Candidate[] memory candidateRanking;
+        uint256[] memory voteCount;
+        if (!verifyElectionId(electionId) || !hasStarted(electionId)) {
+            return (candidateRanking, voteCount);
+        }
+
+        // Count votes here (not implemented yet)
     }
 
-    function isOver (uint256 electionId) public view returns (bool) {
+    function isOver (uint256 electionId) private view returns (bool) {
         return (_elections[electionId].endTimestamp < block.timestamp);
     }
 
+    function hasStarted (uint256 electionId) private view returns (bool) {
+        return (_elections[electionId].startTimestamp < block.timestamp);
+    }
+
+    function verifyElectionId (uint256 electionId) private view returns (bool) {
+        // Check if an election ID is valid
+        for (uint256 i = 0; i < _elections.length; i++) {
+            if (electionId == _elections[i].electionId) {
+                return true;
+            }
+        }
+        // Return false if ID has not been found
+        return false;
+    }
 }
