@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: UNLICENSED */
 pragma solidity ^0.7.2;
 pragma experimental ABIEncoderV2;
 
@@ -95,7 +96,7 @@ contract bvs_backend {
 
     // replaces the list of the current electoral list for a given election
     // returns true if successfull; false otherwise
-    /*function replaceElectoralList (uint256 electionId, Candidate[] memory newElectoralList) public returns (bool) {
+    function replaceElectoralList (uint256 electionId, Candidate[] memory newElectoralList) public returns (bool) {
 
         for (uint i = 0; i < currentElectionId; i++) {
 
@@ -105,7 +106,10 @@ contract bvs_backend {
                 // check if the request was sent from the admin account of the election
                 if (_elections[i].adminAddress == msg.sender) {
                     // replace the current electoral list with the new one and return true
-                    _elections[i].electoralList = newElectoralList;
+                    delete _elections[i].electoralList;
+                    for (uint256 j = 0; j < newElectoralList.length; j++) {
+                        _elections[i].electoralList.push(newElectoralList[j]);
+                    }
                     return true;
                 }
                 else {
@@ -118,7 +122,7 @@ contract bvs_backend {
         // return false if the election was not found 
         return false;
 
-    }*/
+    }
 
     // returns the ids, names, start- and end-timestamps of all elections
     function getElectionInformation () public view returns (uint256[] memory, string[] memory, uint256[] memory, uint256[] memory) {
@@ -208,10 +212,7 @@ contract bvs_backend {
         }
     }
 
-    function countVotes (uint256 electionId) public view returns (Candidate[] memory, uint256[] memory) {
-        // Create empty return variables     
-        Candidate[] memory candidateRanking;
-        uint256[] memory voteCount;
+    function countVotes (uint256 electionId) public view returns (Candidate[] memory candidateRanking, uint256[] memory voteCount) {
         if (!verifyElectionId(electionId) || !hasStarted(electionId)) {
             return (candidateRanking, voteCount);
         }
