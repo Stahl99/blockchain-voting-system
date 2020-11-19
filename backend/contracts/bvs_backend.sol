@@ -42,6 +42,7 @@ contract bvs_backend {
     }
 
     Election[] private _elections; // array of all elections
+    Election temp; // temporary election storage
     uint256 private currentElectionId; // global election id counter
 
     constructor() {
@@ -52,18 +53,17 @@ contract bvs_backend {
     function createElection (address electionAdminAddress, VotingSystem electionVotingSystem, string memory electionName,
     uint256 electionStartTimestamp, uint256 electionEndTimestamp) public returns (uint256) {
         
-        // create new election and set values
-        Election memory e;
-        e.electionId = currentElectionId++; // set and increment id 
-        e.electionName = electionName;
-        e.votingSystem = electionVotingSystem;
-        e.adminAddress = electionAdminAddress;
-        e.startTimestamp = electionStartTimestamp;
-        e.endTimestamp = electionEndTimestamp;
+        // set values in temporary election
+        temp.electionId = currentElectionId++; // set and increment id 
+        temp.electionName = electionName;
+        temp.votingSystem = electionVotingSystem;
+        temp.adminAddress = electionAdminAddress;
+        temp.startTimestamp = electionStartTimestamp;
+        temp.endTimestamp = electionEndTimestamp;
 
-        _elections.push(e); // save the new election on the blockchain
+        _elections.push(temp); // save the new election on the blockchain
 
-        return e.electionId; // return the id of the new election
+        return temp.electionId; // return the id of the new election
     }
 
     // replaces the list of the current eligible voters for a given election
@@ -95,7 +95,7 @@ contract bvs_backend {
 
     // replaces the list of the current electoral list for a given election
     // returns true if successfull; false otherwise
-    function replaceElectoralList (uint256 electionId, Candidate[] memory newElectoralList) public returns (bool) {
+    /*function replaceElectoralList (uint256 electionId, Candidate[] memory newElectoralList) public returns (bool) {
 
         for (uint i = 0; i < currentElectionId; i++) {
 
@@ -118,7 +118,7 @@ contract bvs_backend {
         // return false if the election was not found 
         return false;
 
-    }
+    }*/
 
     // returns the ids, names, start- and end-timestamps of all elections
     function getElectionInformation () public view returns (uint256[] memory, string[] memory, uint256[] memory, uint256[] memory) {
