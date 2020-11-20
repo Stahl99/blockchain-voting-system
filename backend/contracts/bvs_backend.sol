@@ -2,6 +2,29 @@
 pragma solidity ^0.7.2;
 pragma experimental ABIEncoderV2;
 
+// Sorting array off-chain for optimization
+// Sorts both arrays (votes and candidates) according to the amount of votes using QuickSort
+function sortVotes (uint256[] memory votes, bvs_backend.Candidate[] memory candidates, int left, int right) pure {
+    int i = left;
+    int j = right;
+    if (i == j) return;
+    uint pivot = votes[uint(left + (right - left) / 2)];
+    while (i <= j) {
+        while (votes[uint(i)] < pivot) i++;
+        while (pivot < votes[uint(j)]) j--;
+        if (i <= j) {
+            (votes[uint(i)], votes[uint(j)]) = (votes[uint(j)], votes[uint(i)]);
+            (candidates[uint(i)], candidates[uint(j)]) = (candidates[uint(j)], candidates[uint(i)]);
+            i++;
+            j--;
+        }
+    }
+    if (left < j)
+        sortVotes(votes, candidates, left, j);
+    if (i < right)
+        sortVotes(votes, candidates, i, right);
+}
+
 contract bvs_backend {
 
     struct Candidate {
@@ -29,7 +52,8 @@ contract bvs_backend {
         uint256 electionId;
         string electionName; // name describing the election
 
-        Candidate[] electoralList; // all candidates in the election 
+        Candidate[] electoralList; // all candidates in the election
+        uint256[] votes; // stores votes for according candidates (prio 1 for alternative voting) 
         Ballot[] ballots; // all cast votes
         address[] eligibleVoters; // list of all eligible voters
         address[] usedAddresses; // all addresses that already voted
@@ -104,8 +128,10 @@ contract bvs_backend {
                 if (_elections[i].adminAddress == msg.sender) {
                     // replace the current electoral list with the new one and return true
                     delete _elections[i].electoralList;
+                    delete _elections[i].votes;
                     for (uint256 j = 0; j < newElectoralList.length; j++) {
                         _elections[i].electoralList.push(newElectoralList[j]);
+                        _elections[i].votes[j] = 0; // Set vote count for each candidate to 0
                     }
                     return true;
                 }
@@ -161,7 +187,7 @@ contract bvs_backend {
             }
         }
         // Check if the address has already been used
-        for (uint256 i = 0; i <= _elections[electionId].usedAddresses.length; i++) {
+        for (uint i = 0; i < _elections[electionId].usedAddresses.length; i++) {
             if (_elections[electionId].usedAddresses[i] == msg.sender) {
                 return false;
             }
@@ -172,6 +198,18 @@ contract bvs_backend {
 
         // Add the ballot to the election
         _elections[electionId].ballots.push(ballot);
+
+        // Store the vote
+        if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
+            _elections[electionId].votes[ballot.candidateId]++;
+        } else {
+            // Find prio 1 in ballot and store as vote
+            for (uint i = 0; i < ballot.ranking.length; i++) {
+                if (ballot.ranking[i] == 1) {
+                    _elections[electionId].votes[i]++;
+                }
+            }
+        } 
 
         // Remember the address has voted
         _elections[electionId].usedAddresses.push(msg.sender);
@@ -213,8 +251,16 @@ contract bvs_backend {
         if (!verifyElectionId(electionId) || !hasStarted(electionId)) {
             return (candidateRanking, voteCount);
         }
-
-        // Count votes here (not implemented yet)
+        // Copy candidate array
+    	Candidate[] memory electoralListCopy = _elections[electionId].electoralList;
+        // Copy votes array
+        uint256[] memory votesCopy = _elections[electionId].votes;
+        // If election is not over or uses standard voting, "votes" array can be used
+        if (!isOver(electionId) || (_elections[electionId].votingSystem == VotingSystem.standardVoting)) {
+            // Quicksort implementation, stores candidate IDs in the order arrray
+            sortVotes(votesCopy, electoralListCopy, int(0), int(votesCopy.length - 1));
+            return (candidateRanking, voteCount);
+        }
     }
 
     function isOver (uint256 electionId) private view returns (bool) {
