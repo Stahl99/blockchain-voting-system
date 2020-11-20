@@ -66,6 +66,13 @@ contract bvs_backend {
         uint256 endTimestamp;
     }
 
+    struct TmpElectionObject {
+        uint256 id;
+        string name;
+        uint256 startTimestamp;
+        uint256 endTimestamp;
+    }
+
     Election[] private _elections; // array of all elections
     Election temp; // temporary election storage
 
@@ -148,28 +155,26 @@ contract bvs_backend {
     }
 
     // returns the ids, names, start- and end-timestamps of all elections
-    function getElectionInformation () public view returns (uint256[] memory, string[] memory, uint256[] memory, uint256[] memory) {
+    // in a temporary election object with all needed return values
+    // this is done so that the C# code can be generated better
+    function getElectionInformation () public view returns (TmpElectionObject[] memory) {
 
-        // creates arrays for all values that have to be returned
-        // the size of the arrays is equal to the number of current election
-        uint256[] memory ids = new uint256[](_elections.length-1);
-        string[] memory names = new string[](_elections.length-1);
-        uint256[] memory startTimestamps = new uint256[](_elections.length-1);
-        uint256[] memory endTimestamps = new uint256[](_elections.length-1);
+        // creates tmp election object with all elements that have to be returned
+        TmpElectionObject[] memory obj = new TmpElectionObject[](_elections.length-1);
 
         // go through all elections
         for (uint i = 0; i < _elections.length; i++) {
 
-            // save the election elements to the corresponding arrays
-            ids[i] = _elections[i].electionId;
-            names[i] = _elections[i].electionName;
-            startTimestamps[i] = _elections[i].startTimestamp;
-            endTimestamps[i] = _elections[i].endTimestamp;
+            // save the election elements to the corresponding temporary object
+            obj[i].id = _elections[i].electionId;
+            obj[i].name = _elections[i].electionName;
+            obj[i].startTimestamp = _elections[i].startTimestamp;
+            obj[i].endTimestamp = _elections[i].endTimestamp;
 
         }
 
-        // return the lists
-        return (ids, names, startTimestamps, endTimestamps);
+        // return the temporary objects
+        return obj;
 
     }
 
