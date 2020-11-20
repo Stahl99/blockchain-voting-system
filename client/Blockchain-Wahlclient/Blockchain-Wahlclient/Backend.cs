@@ -15,10 +15,6 @@ namespace Blockchain_Wahlclient
 
         public Backend()
         {
-            this.web3 = new Web3("http://localhost:7545");
-
-            // TODO: change this to real voting contract
-            this.votingService = new DHBWVotingService(web3, "49AF7218B87F8fFaf2CD2f53D46819756cC2664b");
         }
 
         // Init the contract service with a blockchain url and contractAdress
@@ -37,7 +33,7 @@ namespace Blockchain_Wahlclient
 
         public List<Candidate> GetCandidateInfo()
         {
-
+            return new List<Candidate>();
         }
 
         public void SendVote(String votingAdress, Candidate candidate)

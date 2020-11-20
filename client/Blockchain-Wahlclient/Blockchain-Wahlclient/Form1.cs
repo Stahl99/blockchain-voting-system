@@ -12,7 +12,7 @@ namespace Blockchain_Wahlclient
 {
     public partial class Form1 : Form
     {
-        private Backend backend;
+        private Backend backend = new Backend();
         public Form1()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace Blockchain_Wahlclient
             if(electionType)
             {
                 this.Hide();
-                var FPTPform = new FirstPastThePostForm();
+                var FPTPform = new FirstPastThePostForm(this.backend);
                 FPTPform.Show();
                 this.Close();
             }
