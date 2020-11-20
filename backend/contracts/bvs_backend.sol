@@ -174,19 +174,17 @@ contract bvs_backend {
     }
 
     // returns the electoral list for a given election
-    function getElectoralList (uint256 electionId) public view returns (Candidate[] memory) {
+    function getElectoralList (uint256 electionId) public view returns (Candidate[] memory candidates) {
 
         for (uint256 i = 0; i < _elections.length; i++) {
 
             if (electionId == _elections[i].electionId) {
-                return (_elections[i].electoralList);
+                return _elections[i].electoralList;
             }
 
         }
 
-        Candidate[] memory c = new Candidate[];
-        return (c);
-
+        return candidates;
     }
 
     function vote (uint256 electionId, Ballot memory ballot) public returns (bool) {
