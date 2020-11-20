@@ -3,7 +3,7 @@ pragma solidity ^0.7.2;
 pragma experimental ABIEncoderV2;
 
 // Sorting array off-chain for optimization
-// Sorts both arrays (votes and candidates) according to the amount of votes
+// Sorts both arrays (votes and candidates) according to the amount of votes using QuickSort
 function sortVotes (uint256[] memory votes, bvs_backend.Candidate[] memory candidates, int left, int right) pure {
     int i = left;
     int j = right;
