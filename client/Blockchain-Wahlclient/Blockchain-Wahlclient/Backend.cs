@@ -5,13 +5,16 @@ using System.Text;
 using System.Windows.Forms;
 using Nethereum.Web3;
 using BlockchainVotingSystem.Contracts.DHBWVoting;
+using BlockchainVotingSystem.Contracts.bvs_backend;
+using BlockchainVotingSystem.Contracts.bvs_backend.ContractDefinition;
 
 namespace Blockchain_Wahlclient
 {
     public class Backend
     {
         Web3 web3;
-        DHBWVotingService votingService;
+        Bvs_backendService votingService;
+        GetElectionInformationOutputDTO allElectionInfo;
 
         public Backend()
         {
@@ -56,7 +59,17 @@ namespace Blockchain_Wahlclient
             }
 
             // create voting service with new contract adress
-            this.votingService = new DHBWVotingService(web3, contractAdress);
+            this.votingService = new Bvs_backendService(web3, contractAdress);
+        }
+
+        public async void LoadElectionInformation()
+        {
+            allElectionInfo =  await this.votingService.GetElectionInformationQueryAsync();
+        }
+
+        public void GetElectionNames()
+        {
+            this.allElectionInfo.
         }
 
         private bool OnlyHexInString(string test)
