@@ -24,11 +24,16 @@ namespace Blockchain_Wahlclient
         }
 
         // Init the contract service with a blockchain url and contractAdress
-        public void InitService(String url, String contractAdress)
+        public bool InitService(String url, String contractAdress)
         {
             // The order of these functions is important! Web3 object is needed for service
             SetBlockchainUrl(url);
-            SetContractAdress(contractAdress);
+            if(!SetContractAdress(contractAdress))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         // Return enum of election type
@@ -50,27 +55,43 @@ namespace Blockchain_Wahlclient
             return frontendCandidates;
         }
 
-        public void SendVote(String votingAdress, Candidate candidate)
+        public void SendVoteStandard(String votingAdress, Candidate candidate)
         {
+            Ballot ballot = new Ballot();
+            ballot.CandidateId = candidate.GetId();
+            ballot.VoterAddress = votingAdress;
             // call service vote function
+            votingService.VoteRequestAsync(currentElection.Id, ballot);
+        }
+
+        public void SendVoteAlternative(String votingAdress, List<Candidate> candidateList)
+        {
+            Ballot ballot = new Ballot();
+            List<BigInteger> rankings = new List<BigInteger>();
+            candidateList.ForEach(x => rankings.Add(x.GetRank()));
+            ballot.Ranking
         }
 
         public void SetBlockchainUrl(String url)
         {
-            this.web3 = new Web3(url);
+            if (url.Length != 0)
+            {
+                this.web3 = new Web3(url);
+            }
         }
 
-        public void SetContractAdress(String contractAdress)
+        public bool SetContractAdress(String contractAdress)
         {
             // check format 
             if (!OnlyHexInString(contractAdress))
             {
                 MessageBox.Show("Wrong format for election adresss (must be hex-string)");
-                return;
+                return false;
             }
 
             // create voting service with new contract adress
             this.votingService = new Bvs_backendService(web3, contractAdress);
+            return true;
         }
 
         public async Task<List<TmpElectionObject>> LoadElectionInformationAsync()

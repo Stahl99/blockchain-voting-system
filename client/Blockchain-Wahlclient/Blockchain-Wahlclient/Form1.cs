@@ -19,15 +19,11 @@ namespace Blockchain_Wahlclient
         }
         private void submitButton_Click(object sender, EventArgs e)
         {
-            backend.InitService(this.blockchainUrlTB.Text, this.electionAdressTB.Text);
-
-            // Change bool to electionType enum
-            bool electionType = backend.GetElectionType();
-            if(electionType)
+            if(backend.InitService(this.blockchainUrlTB.Text, this.electionAdressTB.Text))
             {
                 this.Hide();
-                var FPTPform = new FirstPastThePostForm(this.backend);
-                FPTPform.Show();
+                var electionPickerForm = new ElectionPickerForm(this.backend);
+                electionPickerForm.Show();
                 this.Close();
             }
         }

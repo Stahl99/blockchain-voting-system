@@ -25,7 +25,22 @@ namespace Blockchain_Wahlclient
             if (model.ValidatePick())
             {
                 this.Hide();
-                // switch on election type
+
+                // load standard voting form
+                if (model.GetVotingType() == 0)
+                {
+                    var FPTPForm = new FirstPastThePostForm(this.model.Backend);
+                    FPTPForm.Show();
+                    this.Close();
+                }
+
+                // load alternative voting form
+                if (model.GetVotingType() == 1)
+                {
+                    var AltVotingForm = new AlternativeVoting();
+                    AltVotingForm.Show();
+                    this.Close();
+                }
             }
         }
 

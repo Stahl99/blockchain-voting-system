@@ -10,7 +10,8 @@ namespace Blockchain_Wahlclient
     {
         public Backend Backend { get; set; }
         private List<TmpElectionObject> elections;
-        private List<ElectionControl> frontendElections;
+        private TmpElectionObject pickedElection;
+        private List<ElectionControl> frontendElections = new List<ElectionControl>();
 
         public ElectionPickerModel()
         {
@@ -47,6 +48,7 @@ namespace Blockchain_Wahlclient
                 {
                     checkedItems++;
                     pickedElectionControl = ec;
+                    pickedElection = elections.Find(x => (x.Id == ec.GetId()));
                 }
             }
 
@@ -74,5 +76,10 @@ namespace Blockchain_Wahlclient
             }
         }
 
+        // Return voting type 0 = Standard, 1 = Alternative Voting
+        public int GetVotingType()
+        {
+            return (int) pickedElection.VotingSystem;
+        }
     }
 }
