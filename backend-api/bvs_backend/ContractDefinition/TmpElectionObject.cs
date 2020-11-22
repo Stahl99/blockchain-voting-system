@@ -19,5 +19,7 @@ namespace BlockchainVotingSystem.Contracts.bvs_backend.ContractDefinition
         public virtual BigInteger StartTimestamp { get; set; }
         [Parameter("uint256", "endTimestamp", 4)]
         public virtual BigInteger EndTimestamp { get; set; }
+        [Parameter("uint8", "votingSystem", 5)]
+        public virtual byte VotingSystem { get; set; }
     }
 }
