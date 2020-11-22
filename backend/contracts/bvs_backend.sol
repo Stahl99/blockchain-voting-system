@@ -71,6 +71,7 @@ contract bvs_backend {
         string name;
         uint256 startTimestamp;
         uint256 endTimestamp;
+        VotingSystem votingSystem;
     }
 
     Election[] private _elections; // array of all elections
@@ -170,6 +171,7 @@ contract bvs_backend {
             obj[i].name = _elections[i].electionName;
             obj[i].startTimestamp = _elections[i].startTimestamp;
             obj[i].endTimestamp = _elections[i].endTimestamp;
+            obj[i].votingSystem = _elections[i].votingSystem;
 
         }
 
