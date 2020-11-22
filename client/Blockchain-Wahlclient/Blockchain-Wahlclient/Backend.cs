@@ -7,6 +7,7 @@ using Nethereum.Web3;
 using BlockchainVotingSystem.Contracts.DHBWVoting;
 using BlockchainVotingSystem.Contracts.bvs_backend;
 using BlockchainVotingSystem.Contracts.bvs_backend.ContractDefinition;
+using System.Threading.Tasks;
 
 namespace Blockchain_Wahlclient
 {
@@ -15,6 +16,8 @@ namespace Blockchain_Wahlclient
         Web3 web3;
         Bvs_backendService votingService;
         GetElectionInformationOutputDTO allElectionInfo;
+        TmpElectionObject currentElection;
+        GetElectoralListOutputDTO backendCandidates;
 
         public Backend()
         {
@@ -25,7 +28,7 @@ namespace Blockchain_Wahlclient
         {
             // The order of these functions is important! Web3 object is needed for service
             SetBlockchainUrl(url);
-            SetContactAdress(contractAdress);
+            SetContractAdress(contractAdress);
         }
 
         // Return enum of election type
@@ -34,9 +37,17 @@ namespace Blockchain_Wahlclient
             return true;
         }
 
+        // Return a List of Candidates for the current election
         public List<Candidate> GetCandidateInfo()
         {
-            return new List<Candidate>();
+            List<Candidate> frontendCandidates = new List<Candidate>();
+            foreach (BlockchainVotingSystem.Contracts.bvs_backend.ContractDefinition.Candidate c in backendCandidates.Candidates)
+            {
+                Candidate frontendC = new Candidate(c);
+                frontendCandidates.Add(frontendC);
+            }
+
+            return frontendCandidates;
         }
 
         public void SendVote(String votingAdress, Candidate candidate)
@@ -49,7 +60,7 @@ namespace Blockchain_Wahlclient
             this.web3 = new Web3(url);
         }
 
-        public void SetContactAdress(String contractAdress)
+        public void SetContractAdress(String contractAdress)
         {
             // check format 
             if (!OnlyHexInString(contractAdress))
@@ -62,14 +73,16 @@ namespace Blockchain_Wahlclient
             this.votingService = new Bvs_backendService(web3, contractAdress);
         }
 
-        public async void LoadElectionInformation()
+        public async Task<List<TmpElectionObject>> LoadElectionInformationAsync()
         {
             allElectionInfo =  await this.votingService.GetElectionInformationQueryAsync();
+            return allElectionInfo.ReturnValue1;
         }
 
-        public void GetElectionNames()
+        // Set which election is currently selected
+        public void SetCurrentElection(int electionId)
         {
-            this.allElectionInfo.
+            currentElection = allElectionInfo.ReturnValue1.Find(x => (x.Id == electionId));
         }
 
         private bool OnlyHexInString(string test)

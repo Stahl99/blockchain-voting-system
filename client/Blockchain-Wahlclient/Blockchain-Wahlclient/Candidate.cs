@@ -16,8 +16,19 @@ namespace Blockchain_Wahlclient
 
         private int rank;
 
+        // Contructor to convert Backen candidate type to frontend candidate
+        public Candidate(BlockchainVotingSystem.Contracts.bvs_backend.ContractDefinition.Candidate candidate)
+        {
+            this.id = (int) candidate.Id;
+            this.surname = candidate.FirstName;
+            this.lastName = candidate.LastName;
+            this.party = candidate.Party;
+            this.rank = 0;
+        }
+
         public Candidate(int id, string surname, string lastName, string party)
         {
+            this.id = id;
 
             this.surname = surname;
 

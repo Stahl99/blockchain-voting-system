@@ -16,6 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="ElectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="AlternativeVoting - Copy.resx">
       <DependentUpon>AlternativeVoting.resx</DependentUpon>
     </EmbeddedResource>
