@@ -57,6 +57,7 @@ namespace Blockchain_Wahlclient
 
         public void SendVoteStandard(String votingAdress, Candidate candidate)
         {
+            // Create ballot with voted candidate
             Ballot ballot = new Ballot();
             ballot.CandidateId = candidate.GetId();
             ballot.VoterAddress = votingAdress;
@@ -66,10 +67,13 @@ namespace Blockchain_Wahlclient
 
         public void SendVoteAlternative(String votingAdress, List<Candidate> candidateList)
         {
+            // Create ballot with voted candidate rankings
             Ballot ballot = new Ballot();
             List<BigInteger> rankings = new List<BigInteger>();
             candidateList.ForEach(x => rankings.Add(x.GetRank()));
-            ballot.Ranking
+            ballot.Ranking = rankings;
+
+            votingService.VoteRequestAsync(currentElection.Id, ballot);
         }
 
         public void SetBlockchainUrl(String url)

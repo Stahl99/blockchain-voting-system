@@ -37,7 +37,7 @@ namespace Blockchain_Wahlclient
                 // load alternative voting form
                 if (model.GetVotingType() == 1)
                 {
-                    var AltVotingForm = new AlternativeVoting();
+                    var AltVotingForm = new AlternativeVoting(this.model.Backend);
                     AltVotingForm.Show();
                     this.Close();
                 }
