@@ -11,9 +11,13 @@ namespace Blockchain_Wahlclient
         private FirstPastThePostForm FPTPform;
         private List<Candidate> candidates = new List<Candidate>();
         private List<StandardVotingCandidate> candidatesViewList = new List<StandardVotingCandidate>();
+        private Candidate votedCandidate;
+        private Backend backend;
 
-        public FirstPastThePostModel()
+        public FirstPastThePostModel(Backend backend)
         {
+            this.backend = backend;
+            this.candidates = backend.GetCandidateInfo();
         }
 
         // Get Reference to the active Form
@@ -42,6 +46,7 @@ namespace Blockchain_Wahlclient
                 StandardVotingCandidate svc = new StandardVotingCandidate();
                 svc.SetName(c.GetFullName());
                 svc.SetParty(c.GetParty());
+                svc.SetId(c.GetId());
 
                 candidatesViewList.Add(svc);
             }
@@ -62,6 +67,7 @@ namespace Blockchain_Wahlclient
             {
                 if (c.GetChecked())
                 {
+                    votedCandidate = this.candidates.Find(x => x.GetId() == c.GetId());
                     items_checked++;
                 }
             }
@@ -94,6 +100,11 @@ namespace Blockchain_Wahlclient
 
             // if everything is ok return true
             return true;
+        }
+
+        public void SendVote(String votingAdress)
+        {
+            backend.SendVoteStandard(votingAdress, votedCandidate);
         }
 
         public bool OnlyHexInString(string test)

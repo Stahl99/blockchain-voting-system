@@ -12,14 +12,15 @@ namespace Blockchain_Wahlclient
     {
 
         private CandidateList cl = new CandidateList();
+        private Backend backend;
         
-        public AlternativeVoting()
+        public AlternativeVoting(Backend backend)
         {
 
 
             InitializeComponent();
-           
 
+            this.backend = backend;
             
         }
 
@@ -40,7 +41,16 @@ namespace Blockchain_Wahlclient
             if (!cl.CheckRanks())
             {
                 MessageBox.Show("Ranking not correct!");
+                return;
             }
+
+            if(!cl.OnlyHexInString(this.textBox1.Text))
+            {
+                MessageBox.Show("Wrong adress format");
+                return;
+            }
+
+            backend.SendVoteAlternative(this.textBox1.Text, cl.GetCandidates());
         }
     }
 }

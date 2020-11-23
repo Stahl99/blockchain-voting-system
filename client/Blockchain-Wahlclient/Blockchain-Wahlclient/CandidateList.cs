@@ -69,6 +69,7 @@ namespace Blockchain_Wahlclient
                 avc.SetName(c.GetFullName());
                 avc.SetParty(c.GetParty());
                 avc.SetMax(candidates.Count);
+                avc.SetId(c.GetId());
 
                 candsFrontend.Add(avc);                
             }
@@ -88,6 +89,17 @@ namespace Blockchain_Wahlclient
                 candidates[index].SetRank(avc.GetRank());
                 index++;
             }
+        }
+
+        public List<Candidate> GetCandidates()
+        {
+            return candidates;
+        }
+
+        public bool OnlyHexInString(string test)
+        {
+            // For C-style hex notation (0xFF) you can use @"\A\b(0[xX])?[0-9a-fA-F]+\b\Z"
+            return System.Text.RegularExpressions.Regex.IsMatch(test, @"\A\b(0[xX])?[0-9a-fA-F]+\b\Z");
         }
     }
 }

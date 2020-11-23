@@ -8,6 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Nethereum.Web3" Version="3.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\backend-api\BlockchainVotingSystem.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ElectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="AlternativeVoting - Copy.resx">
       <DependentUpon>AlternativeVoting.resx</DependentUpon>
     </EmbeddedResource>

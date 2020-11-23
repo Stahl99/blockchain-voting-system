@@ -8,10 +8,10 @@ using System.Windows.Forms;
 
 namespace Blockchain_Wahlclient
 {
-    public partial class StandardVotingCandidate : UserControl
+    public partial class ElectionControl : UserControl
     {
         private int id;
-        public StandardVotingCandidate()
+        public ElectionControl()
         {
             InitializeComponent();
         }
@@ -21,9 +21,9 @@ namespace Blockchain_Wahlclient
             this.name.Text = name;
         }
 
-        public void SetParty(string party)
+        public void SetTimestamp(string timestamp)
         {
-            this.party.Text = party;
+            this.timestamp.Text = timestamp;
         }
 
         public String GetName()
@@ -31,9 +31,9 @@ namespace Blockchain_Wahlclient
             return this.name.Text;
         }
 
-        public String GetParty()
+        public String GetTimestamp()
         {
-            return this.party.Text;
+            return this.timestamp.Text;
         }
 
         public bool GetChecked()
