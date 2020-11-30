@@ -183,6 +183,18 @@ contract bvs_backend {
 
     }
 
+    function getElectionStrings () public view returns (string[] memory) {
+        string[] memory obj  = new string[](_elections.length);
+
+        for (uint i = 0; i < _elections.length; i++) {
+
+            // save the election elements to the corresponding temporary object
+            obj[i] = _elections[i].electionName;
+        }
+
+        return obj;
+    }
+
     // returns the electoral list for a given election
     function getElectoralList (uint256 electionId) public view returns (Candidate[] memory candidates) {
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Blockchain_Wahlclient
@@ -19,9 +20,9 @@ namespace Blockchain_Wahlclient
         }
 
         // Load all elections from Backend and show them in Form
-        public void LoadElections(ref FlowLayoutPanel flp)
+        public async Task LoadElections()
         {
-            //WaitForElections();
+            await WaitForElections();
 
             Backend.LoadElectoralList();
 
@@ -35,21 +36,20 @@ namespace Blockchain_Wahlclient
                 frontendElections.Add(electionControl);
             }
 
-            foreach(ElectionControl ec in frontendElections)
+            
+        }
+
+        public void ShowElections(ref FlowLayoutPanel flp)
+        {
+            foreach (ElectionControl ec in frontendElections)
             {
                 flp.Controls.Add(ec);
             }
         }
 
-        public void WaitForElections()
+        public async Task WaitForElections()
         {
-
-            var task = Backend.LoadElectionInformationAsync();
-
-            task.Wait();
-
-            this.elections = task.Result;
-
+            this.elections = await Backend.LoadElectionInformationAsync();
 
         }
             
@@ -84,7 +84,7 @@ namespace Blockchain_Wahlclient
             // everything is oke. Set picked election ID in backend and return true
             if (pickedElectionControl != null)
             {
-                Backend.SetCurrentElection(pickedElectionControl.GetId());
+                //Backend.SetCurrentElection(pickedElectionControl.GetId());
                 return true;
             }
             else

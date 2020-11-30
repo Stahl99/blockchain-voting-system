@@ -8,6 +8,7 @@ using BlockchainVotingSystem.Contracts.DHBWVoting;
 using BlockchainVotingSystem.Contracts.bvs_backend;
 using BlockchainVotingSystem.Contracts.bvs_backend.ContractDefinition;
 using System.Threading.Tasks;
+using Nethereum.Web3.Accounts;
 
 namespace Blockchain_Wahlclient
 {
@@ -80,7 +81,10 @@ namespace Blockchain_Wahlclient
         {
             if (url.Length != 0)
             {
-                this.web3 = new Web3(url);
+                var privateKey = "0x5569b93622765c3100095da4d24e9494231dc01873ad7c07d69acc06cc1ca3b3";
+                var account = new Account(privateKey);
+
+                this.web3 = new Web3(account, url);
             }
         }
 
@@ -107,10 +111,10 @@ namespace Blockchain_Wahlclient
         }
 
         // Set which election is currently selected
-        public void SetCurrentElection(int electionId)
+        /*public void SetCurrentElection(int electionId)
         {
             currentElection = allElectionInfo.ReturnValue1.Find(x => (x.Id == electionId));
-        }
+        } */
 
         public void LoadElectoralList()
         {
