@@ -164,7 +164,7 @@ contract bvs_backend {
     function getElectionInformation () public view returns (TmpElectionObject[] memory) {
 
         // creates tmp election object with all elements that have to be returned
-        TmpElectionObject[] memory obj = new TmpElectionObject[](_elections.length-1);
+        TmpElectionObject[] memory obj = new TmpElectionObject[](_elections.length);
 
         // go through all elections
         for (uint i = 0; i < _elections.length; i++) {
