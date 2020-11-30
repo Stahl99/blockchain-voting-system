@@ -81,10 +81,10 @@ contract bvs_backend {
 
     // creates a new election and returns the election id to the caller
     function createElection (address electionAdminAddress, VotingSystem electionVotingSystem, string memory electionName,
-    uint256 electionStartTimestamp, uint256 electionEndTimestamp) public returns (uint256) {
+    uint256 electionStartTimestamp, uint256 electionEndTimestamp) public {
         
         // set values in temporary election
-        temp.electionId = _elections.length-1; // set and increment id 
+        temp.electionId = _elections.length; // set and increment id 
         temp.electionName = electionName;
         temp.votingSystem = electionVotingSystem;
         temp.adminAddress = electionAdminAddress;
@@ -93,7 +93,10 @@ contract bvs_backend {
 
         _elections.push(temp); // save the new election on the blockchain
 
-        return temp.electionId; // return the id of the new election
+    }
+
+    function getLastElectionId () public view returns (uint256) {
+        return _elections.length-1;
     }
 
     // replaces the list of the current eligible voters for a given election
