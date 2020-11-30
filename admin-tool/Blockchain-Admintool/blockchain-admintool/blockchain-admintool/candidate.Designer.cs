@@ -32,8 +32,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.surname = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.lastname = new System.Windows.Forms.TextBox();
+            this.party = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -71,19 +71,19 @@
             this.surname.Size = new System.Drawing.Size(152, 23);
             this.surname.TabIndex = 1;
             // 
-            // textBox2
+            // lastname
             // 
-            this.textBox2.Location = new System.Drawing.Point(345, 52);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(152, 23);
-            this.textBox2.TabIndex = 1;
+            this.lastname.Location = new System.Drawing.Point(345, 52);
+            this.lastname.Name = "lastname";
+            this.lastname.Size = new System.Drawing.Size(152, 23);
+            this.lastname.TabIndex = 1;
             // 
-            // textBox3
+            // party
             // 
-            this.textBox3.Location = new System.Drawing.Point(566, 52);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(152, 23);
-            this.textBox3.TabIndex = 1;
+            this.party.Location = new System.Drawing.Point(566, 52);
+            this.party.Name = "party";
+            this.party.Size = new System.Drawing.Size(152, 23);
+            this.party.TabIndex = 1;
             // 
             // label4
             // 
@@ -101,8 +101,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.party);
+            this.Controls.Add(this.lastname);
             this.Controls.Add(this.surname);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -120,8 +120,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox surname;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox lastname;
+        private System.Windows.Forms.TextBox party;
         private System.Windows.Forms.Label label4;
     }
 }

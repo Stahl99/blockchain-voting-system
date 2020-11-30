@@ -94,7 +94,9 @@ namespace Blockchain_Wahlclient
             }
 
             // create voting service with new contract adress
-            this.votingService = new Bvs_backendService(web3, contractAdress);
+            //this.votingService = new Bvs_backendService(web3, contractAdress);
+
+            var test = new DHBWVotingService(web3, contractAdress);
             return true;
         }
 
@@ -113,7 +115,8 @@ namespace Blockchain_Wahlclient
         private bool OnlyHexInString(string test)
         {
             // For C-style hex notation (0xFF) you can use @"\A\b(0[xX])?[0-9a-fA-F]+\b\Z"
-            return System.Text.RegularExpressions.Regex.IsMatch(test, @"\A\b[0-9a-fA-F]+\b\Z");
+            return true;
+            return System.Text.RegularExpressions.Regex.IsMatch(test, @"\A\b(0[xX])?[0-9a-fA-F]+\b\Z");
         }
     }
 }
