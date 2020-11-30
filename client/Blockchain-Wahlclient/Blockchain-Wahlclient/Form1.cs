@@ -23,7 +23,7 @@ namespace Blockchain_Wahlclient
             {
                 this.Hide();
                 var electionPickerForm = new ElectionPickerForm(this.backend);
-                electionPickerForm.Show();
+                electionPickerForm.ShowDialog();
                 this.Close();
             }
         }

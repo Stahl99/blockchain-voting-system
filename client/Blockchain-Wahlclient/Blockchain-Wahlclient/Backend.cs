@@ -94,9 +94,9 @@ namespace Blockchain_Wahlclient
             }
 
             // create voting service with new contract adress
-            //this.votingService = new Bvs_backendService(web3, contractAdress);
+            this.votingService = new Bvs_backendService(web3, contractAdress);
 
-            var test = new DHBWVotingService(web3, contractAdress);
+            
             return true;
         }
 
@@ -110,6 +110,17 @@ namespace Blockchain_Wahlclient
         public void SetCurrentElection(int electionId)
         {
             currentElection = allElectionInfo.ReturnValue1.Find(x => (x.Id == electionId));
+        }
+
+        public void LoadElectoralList()
+        {
+            var task = votingService.GetElectoralListQueryAsync(0);
+
+            task.Wait();
+
+            var resu = task.Result;
+
+
         }
 
         private bool OnlyHexInString(string test)

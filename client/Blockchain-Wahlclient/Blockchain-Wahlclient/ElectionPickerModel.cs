@@ -21,7 +21,10 @@ namespace Blockchain_Wahlclient
         // Load all elections from Backend and show them in Form
         public void LoadElections(ref FlowLayoutPanel flp)
         {
-            this.elections = Backend.LoadElectionInformationAsync().Result;
+            //WaitForElections();
+
+            Backend.LoadElectoralList();
+
             foreach (TmpElectionObject election in this.elections)
             {
                 ElectionControl electionControl = new ElectionControl();
@@ -37,6 +40,20 @@ namespace Blockchain_Wahlclient
                 flp.Controls.Add(ec);
             }
         }
+
+        public void WaitForElections()
+        {
+
+            var task = Backend.LoadElectionInformationAsync();
+
+            task.Wait();
+
+            this.elections = task.Result;
+
+
+        }
+            
+               
 
         public bool ValidatePick()
         {

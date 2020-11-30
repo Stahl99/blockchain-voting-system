@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using Nethereum.Web3.Accounts;
+using Nethereum.HdWallet;
 using BlockchainVotingSystem.Contracts.DHBWVoting;
 using BlockchainVotingSystem.Contracts.bvs_backend;
 using BlockchainVotingSystem.Contracts.bvs_backend.ContractDefinition;
 using Nethereum.Web3;
+using Nethereum.Hex.HexConvertors.Extensions;
 
 namespace blockchain_admintool
 {
@@ -18,18 +21,15 @@ namespace blockchain_admintool
         TmpElectionObject currentElection;
         GetElectoralListOutputDTO backendCandidates;
 
-        public void CreateElection(string admAdr, int votingSys, List<Candidate> candList, DateTime start, DateTime stop, string description)
+        public async void CreateElection(string admAdr, int votingSys, List<Candidate> candList, DateTime start, DateTime stop, string description)
         {
 
             
-            string id = votingService.CreateElectionRequestAsync(admAdr, (byte)votingSys, description, DateToUnix(start), DateToUnix(stop)).Result;
+            await votingService.CreateElectionRequestAsync(admAdr, (byte)votingSys, description, DateToUnix(start), DateToUnix(stop));
 
-            string id_1 = votingService.ReplaceElectoralListRequestAsync((System.Numerics.BigInteger)(Convert.ToInt32(id)), candList).Result;
+            System.Numerics.BigInteger id = votingService.GetLastElectionIdQueryAsync().Result;
 
-            if(String.Compare(id, id_1) != 0)
-            {
-                MessageBox.Show("das sollte so nicht sein");
-            }
+            MessageBox.Show(id.ToString());
 
         }
 
@@ -67,8 +67,16 @@ namespace blockchain_admintool
             if (url.Length != 0)
             {
 
+
+                var privateKey = "0x5569b93622765c3100095da4d24e9494231dc01873ad7c07d69acc06cc1ca3b3";
+                var account = new Account(privateKey);
+
+
                 MessageBox.Show(url);
-                this.web3 = new Web3(url);
+                this.web3 = new Web3(account, url);
+
+                MessageBox.Show(account.PrivateKey.ToString() + " . " + account.Address.ToString());
+            
             }
         }
 
