@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.CheckedListBox;
 
@@ -17,6 +18,8 @@ namespace Blockchain_Wahlclient
         public FirstPastThePostModel(Backend backend)
         {
             this.backend = backend;
+            var task = Task.Run(async () => { await backend.LoadCandidateInfoAsync(); });
+            task.Wait();
             this.candidates = backend.GetCandidateInfo();
         }
 

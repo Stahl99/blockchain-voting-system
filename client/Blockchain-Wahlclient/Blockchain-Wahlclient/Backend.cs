@@ -110,11 +110,16 @@ namespace Blockchain_Wahlclient
             return allElectionInfo.ReturnValue1;
         }
 
+        public async Task LoadCandidateInfoAsync()
+        {
+            backendCandidates = await votingService.GetElectoralListQueryAsync(currentElection.Id);
+        }
+
         // Set which election is currently selected
-        /*public void SetCurrentElection(int electionId)
+        public void SetCurrentElection(int electionId)
         {
             currentElection = allElectionInfo.ReturnValue1.Find(x => (x.Id == electionId));
-        } */
+        }
 
         public void LoadElectoralList()
         {
