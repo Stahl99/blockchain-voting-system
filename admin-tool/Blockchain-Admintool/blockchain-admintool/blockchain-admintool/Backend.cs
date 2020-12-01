@@ -9,6 +9,7 @@ using BlockchainVotingSystem.Contracts.bvs_backend;
 using BlockchainVotingSystem.Contracts.bvs_backend.ContractDefinition;
 using Nethereum.Web3;
 using Nethereum.Hex.HexConvertors.Extensions;
+using Nethereum.Web3.Accounts.Managed;
 
 namespace blockchain_admintool
 {
@@ -21,7 +22,7 @@ namespace blockchain_admintool
         TmpElectionObject currentElection;
         GetElectoralListOutputDTO backendCandidates;
 
-        public async void CreateElection(string admAdr, int votingSys, List<Candidate> candList, DateTime start, DateTime stop, string description)
+        public async void CreateElection(string admAdr, int votingSys, List<Candidate> candList, DateTime start, DateTime stop, string description, int voterCount)
         {
 
             
@@ -30,6 +31,9 @@ namespace blockchain_admintool
             System.Numerics.BigInteger id = votingService.GetLastElectionIdQueryAsync().Result;
 
             MessageBox.Show(id.ToString());
+
+            await votingService.ReplaceElectoralListRequestAsync(id, candList);
+
 
         }
 
@@ -62,29 +66,31 @@ namespace blockchain_admintool
             return true;
         }
 
-        public void SetBlockchainUrl(String url)
+        public void SetBlockchainUrl(String url, String walletAddr)
         {
             if (url.Length != 0)
             {
 
-
+                /*
                 var privateKey = "0x5569b93622765c3100095da4d24e9494231dc01873ad7c07d69acc06cc1ca3b3";
-                var account = new Account(privateKey);
+                var account = new Account(privateKey);*/
+
+                var account = new ManagedAccount(walletAddr, "test");
 
 
-                MessageBox.Show(url);
+               
                 this.web3 = new Web3(account, url);
 
-                MessageBox.Show(account.PrivateKey.ToString() + " . " + account.Address.ToString());
+                
             
             }
         }
 
         // Init the contract service with a blockchain url and contractAdress
-        public bool InitService(String url, String contractAdress)
+        public bool InitService(String url, String contractAdress, string walletAddr)
         {
             // The order of these functions is important! Web3 object is needed for service
-            SetBlockchainUrl(url);
+            SetBlockchainUrl(url, walletAddr);
             if (!SetContractAdress(contractAdress))
             {
                 return false;

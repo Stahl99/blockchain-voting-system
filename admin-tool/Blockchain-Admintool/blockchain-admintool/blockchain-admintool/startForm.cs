@@ -29,7 +29,7 @@ namespace blockchain_admintool
 
             Backend backend = new Backend();
 
-            if (backend.InitService(this.bcurl.Text, this.contractAddr.Text))
+            if (backend.InitService(this.bcurl.Text, this.contractAddr.Text, this.adminadress.Text))
             {
                 int index = 0;
                 foreach(candidate c in candList.Controls)
@@ -57,7 +57,7 @@ namespace blockchain_admintool
                     return;
                 }
 
-                backend.CreateElection(adminadress.Text, votingSys, candidates, GetStartDate(), GetStopDate(), name.Text);
+                backend.CreateElection(adminadress.Text, votingSys, candidates, GetStartDate(), GetStopDate(), name.Text, (int)voterCount.Value);
 
             }
 

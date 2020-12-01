@@ -52,7 +52,10 @@
             this.bcurl = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.contractAddr = new System.Windows.Forms.TextBox();
+            this.voterCount = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
             this.candList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.voterCount)).BeginInit();
             this.SuspendLayout();
             // 
             // electionkind_picker
@@ -249,7 +252,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(22, 492);
+            this.label8.Location = new System.Drawing.Point(22, 493);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(138, 25);
             this.label8.TabIndex = 2;
@@ -270,6 +273,7 @@
             this.bcurl.Name = "bcurl";
             this.bcurl.Size = new System.Drawing.Size(192, 23);
             this.bcurl.TabIndex = 14;
+            this.bcurl.Text = "http://127.0.0.1:7545";
             // 
             // label10
             // 
@@ -286,12 +290,32 @@
             this.contractAddr.Name = "contractAddr";
             this.contractAddr.Size = new System.Drawing.Size(192, 23);
             this.contractAddr.TabIndex = 16;
+            this.contractAddr.Text = "0x173677665DB87d1e01df0344B11386A8d9640d50";
+            // 
+            // voterCount
+            // 
+            this.voterCount.Location = new System.Drawing.Point(22, 712);
+            this.voterCount.Name = "voterCount";
+            this.voterCount.Size = new System.Drawing.Size(120, 23);
+            this.voterCount.TabIndex = 17;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label11.Location = new System.Drawing.Point(19, 663);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(194, 25);
+            this.label11.TabIndex = 2;
+            this.label11.Text = "Zugelassene Wähler:";
             // 
             // startForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1192, 850);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.voterCount);
             this.Controls.Add(this.contractAddr);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.bcurl);
@@ -318,6 +342,7 @@
             this.Name = "startForm";
             this.Text = "Admintool Blockchainwahl 0.1";
             this.candList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.voterCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -349,6 +374,8 @@
         private System.Windows.Forms.TextBox bcurl;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox contractAddr;
+        private System.Windows.Forms.NumericUpDown voterCount;
+        private System.Windows.Forms.Label label11;
     }
 }
 
