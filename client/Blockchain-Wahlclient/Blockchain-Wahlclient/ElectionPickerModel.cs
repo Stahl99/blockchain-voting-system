@@ -84,7 +84,7 @@ namespace Blockchain_Wahlclient
             // everything is oke. Set picked election ID in backend and return true
             if (pickedElectionControl != null)
             {
-                //Backend.SetCurrentElection(pickedElectionControl.GetId());
+                Backend.SetCurrentElection(pickedElectionControl.GetId());
                 return true;
             }
             else

@@ -28,19 +28,19 @@ namespace Blockchain_Wahlclient
             {
                 this.Hide();
 
-                // load standard voting form
+                // load alternative voting form
                 if (model.GetVotingType() == 0)
                 {
-                    var FPTPForm = new FirstPastThePostForm(this.model.Backend);
-                    FPTPForm.Show();
+                    var AltVotingForm = new AlternativeVoting(this.model.Backend);
+                    AltVotingForm.ShowDialog();
                     this.Close();
                 }
 
-                // load alternative voting form
+                // load standard voting form
                 if (model.GetVotingType() == 1)
                 {
-                    var AltVotingForm = new AlternativeVoting(this.model.Backend);
-                    AltVotingForm.Show();
+                    var FPTPForm = new FirstPastThePostForm(this.model.Backend);
+                    FPTPForm.ShowDialog();
                     this.Close();
                 }
             }
