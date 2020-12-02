@@ -84,6 +84,7 @@ contract bvs_backend {
     Election[] private _elections; // array of all elections
     Election temp; // temporary election storage
     Candidate tempCandidate;
+    Ballot tempBallot;
 
     event Vote(address sender, Ballot _ballot);
 
@@ -250,15 +251,18 @@ contract bvs_backend {
         }
 
         // Add the ballot to the election
-        _elections[electionId].ballots.push(ballot);
+        tempBallot.voterAddress = ballot.voterAddress;
+        tempBallot.candidateId = ballot.candidateId;
+        tempBallot.ranking = ballot.ranking;
+        _elections[electionId].ballots.push(tempBallot);
 
         // Store the vote
         if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
-            _elections[electionId].votes[ballot.candidateId]++;
+            _elections[electionId].votes[tempBallot.candidateId]++;
         } else {
             // Find prio 1 in ballot and store as vote
-            for (uint i = 0; i < ballot.ranking.length; i++) {
-                if (ballot.ranking[i] == 1) {
+            for (uint i = 0; i < tempBallot.ranking.length; i++) {
+                if (tempBallot.ranking[i] == 1) {
                     _elections[electionId].votes[i]++;
                 }
             }
