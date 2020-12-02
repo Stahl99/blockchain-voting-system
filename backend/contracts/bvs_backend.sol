@@ -85,7 +85,7 @@ contract bvs_backend {
     Election temp; // temporary election storage
     Candidate tempCandidate;
 
-    event Vote(Ballot _ballot);
+    event Vote(address sender, Ballot _ballot);
 
     constructor() {}
 
@@ -267,7 +267,7 @@ contract bvs_backend {
         // Remember the address has voted
         _elections[electionId].usedAddresses.push(msg.sender);
 
-        emit Vote(ballot);
+        emit Vote(msg.sender, ballot);
 
         return true;
     }
