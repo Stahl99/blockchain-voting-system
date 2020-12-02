@@ -232,13 +232,16 @@ contract bvs_backend {
         }
 
         // Check if the address is allowed to vote
-        uint256 iterator = 0;
-        while (_elections[electionId].eligibleVoters[iterator] != msg.sender) {
-            iterator++;
-            if (iterator >= _elections[electionId].eligibleVoters.length) {
+        for (uint256 i = 0; i < _elections[electionId].eligibleVoters.length; i++) {
+            if (_elections[electionId].eligibleVoters[i] == msg.sender) {
+                break;
+            }
+
+            if (i == _elections[electionId].eligibleVoters.length - 1) {
                 return false;
             }
         }
+    
         // Check if the address has already been used
         for (uint i = 0; i < _elections[electionId].usedAddresses.length; i++) {
             if (_elections[electionId].usedAddresses[i] == msg.sender) {
@@ -313,6 +316,7 @@ contract bvs_backend {
 
         Ballot memory ballot;
         ballot.voterAddress = address(0);
+        ballot.candidateId = _elections[electionId].ballots.length; // return length of ballot array for debug
 
         if (!verifyElectionId(electionId)) {
             return ballot;
