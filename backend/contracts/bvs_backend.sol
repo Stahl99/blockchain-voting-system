@@ -215,9 +215,9 @@ contract bvs_backend {
         return candidates;
     }
 
-    function vote (uint256 electionId, Ballot memory ballot) public returns (uint256) {
+    function vote (uint256 electionId, Ballot memory ballot) public returns (bool, uint256) {
         if (!verifyElectionId(electionId)) {
-            return 0;
+            return (false, 0);
         }
 
         // Check if the address is allowed to vote
@@ -225,18 +225,18 @@ contract bvs_backend {
         while (_elections[electionId].eligibleVoters[iterator] != msg.sender) {
             iterator++;
             if (iterator >= _elections[electionId].eligibleVoters.length) {
-                return 0;
+                return (false, 0);
             }
         }
         // Check if the address has already been used
         for (uint i = 0; i < _elections[electionId].usedAddresses.length; i++) {
             if (_elections[electionId].usedAddresses[i] == msg.sender) {
-                return 0;
+                return (false, 0);
             }
         }
         // Check the election time
         if (!hasStarted(electionId) || isOver(electionId)) {
-            return 0;
+            return (false, 0);
         }
 
         // Add the ballot to the election
@@ -257,7 +257,7 @@ contract bvs_backend {
         // Remember the address has voted
         _elections[electionId].usedAddresses.push(msg.sender);
 
-        return 1;
+        return (true, 1);
     }
 
     function getVote (uint256 electionId) public view returns (string memory) {
