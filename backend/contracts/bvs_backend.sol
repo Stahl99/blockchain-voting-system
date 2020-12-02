@@ -2,7 +2,6 @@
 pragma solidity ^0.7.2;
 pragma experimental ABIEncoderV2;
 
-// Sorting array off-chain for optimization
 // Sorts both arrays (votes and candidates) according to the amount of votes using QuickSort
 function sortVotes (uint256[] memory votes, bvs_backend.Candidate[] memory candidates, int left, int right) pure {
     int i = left;
@@ -236,8 +235,9 @@ contract bvs_backend {
             }
         }
         // Check the election time
-        require(hasStarted(electionId), "Voting has not started yet");
-        require(!isOver(electionId), "Voting already ended");
+        if (!hasStarted(electionId) || isOver(electionId)) {
+            return false;
+        }
 
         // Add the ballot to the election
         _elections[electionId].ballots.push(ballot);
@@ -303,6 +303,31 @@ contract bvs_backend {
             // Quicksort implementation, stores candidate IDs in the order arrray
             sortVotes(votesCopy, electoralListCopy, int(0), int(votesCopy.length - 1));
             return (candidateRanking, voteCount);
+        }
+        else if (isOver(electionId) || (_elections[electionId].votingSystem == VotingSystem.alternativeVoting)) {
+
+        }
+    }
+    
+    function checkForWinner(uint256 electionId) private view returns (bool) {
+        bool twoMax = false; // true if there are two leading candidates
+        uint256 votersAmount = _elections[electionId].ballots.length; // amount of total votes received
+        uint maximum = 0; // index of candidate with the highest vote count
+        uint256[] memory votesCpy = _elections[electionId].votes;
+        for (uint i = 1; i < _elections[electionId].electoralList.length; i++) {
+            if (votesCpy[i] >= votesCpy[maximum]) {
+                maximum = i;
+                if (votesCpy[i] == votesCpy[maximum]) {
+                    twoMax = true;
+                } else {
+                    twoMax = false;
+                }
+            }
+        }
+        if (votesCpy[maximum] >= votersAmount/2) {
+            return true;
+        } else {
+            return false;
         }
     }
 
