@@ -60,6 +60,8 @@ contract bvs_backend {
 
         address adminAddress; // wallet address of the admin
 
+        Result result; // Stores the result
+
         // unix timestamps
         uint256 startTimestamp;
         uint256 endTimestamp;
@@ -73,9 +75,17 @@ contract bvs_backend {
         VotingSystem votingSystem;
     }
 
+    struct Result {
+        bool empty;
+        Candidate[] candidates;
+        uint256[] votes;
+    }
+
     Election[] private _elections; // array of all elections
     Election temp; // temporary election storage
     Candidate tempCandidate;
+
+    event Vote(Ballot _ballot);
 
     constructor() {}
 
@@ -215,9 +225,9 @@ contract bvs_backend {
         return candidates;
     }
 
-    function vote (uint256 electionId, Ballot memory ballot) public returns (string memory) {
+    function vote (uint256 electionId, Ballot memory ballot) public returns (bool) {
         if (!verifyElectionId(electionId)) {
-            return "0";
+            return false;
         }
 
         // Check if the address is allowed to vote
@@ -225,18 +235,18 @@ contract bvs_backend {
         while (_elections[electionId].eligibleVoters[iterator] != msg.sender) {
             iterator++;
             if (iterator >= _elections[electionId].eligibleVoters.length) {
-                return "0";
+                return false;
             }
         }
         // Check if the address has already been used
         for (uint i = 0; i < _elections[electionId].usedAddresses.length; i++) {
             if (_elections[electionId].usedAddresses[i] == msg.sender) {
-                return "0";
+                return false;
             }
         }
         // Check the election time
         if (!hasStarted(electionId) || isOver(electionId)) {
-            return "0";
+            return false;
         }
 
         // Add the ballot to the election
@@ -257,7 +267,9 @@ contract bvs_backend {
         // Remember the address has voted
         _elections[electionId].usedAddresses.push(msg.sender);
 
-        return "1";
+        emit Vote(ballot);
+
+        return true;
     }
 
     function getVote (uint256 electionId) public view returns (string memory) {
@@ -294,6 +306,14 @@ contract bvs_backend {
         if (!verifyElectionId(electionId) || !hasStarted(electionId)) {
             return (candidateRanking, voteCount);
         }
+
+        // If a result is already stored, return it
+        if (_elections[electionId].result.empty == false) {
+            return (_elections[electionId].result.candidates, _elections[electionId].result.votes);
+        }
+
+        // Calculate result:
+
         // Copy candidate array
     	Candidate[] memory electoralListCopy = _elections[electionId].electoralList;
         // Copy votes array
@@ -302,6 +322,10 @@ contract bvs_backend {
         if (!isOver(electionId) || (_elections[electionId].votingSystem == VotingSystem.standardVoting)) {
             // Quicksort implementation, stores candidate IDs in the order arrray
             sortVotes(votesCopy, electoralListCopy, int(0), int(votesCopy.length - 1));
+            // If election is over, store the calculated result
+            if (isOver(electionId)) {
+
+            }
             return (candidateRanking, voteCount);
         }
         else if (isOver(electionId) || (_elections[electionId].votingSystem == VotingSystem.alternativeVoting)) {
