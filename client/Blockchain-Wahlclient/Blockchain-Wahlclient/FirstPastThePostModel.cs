@@ -107,7 +107,8 @@ namespace Blockchain_Wahlclient
 
         public void SendVote(String votingAdress)
         {
-            backend.SendVoteStandard(votingAdress, votedCandidate);
+            var task = Task.Run(async () => { await backend.SendVoteStandard(votingAdress, votedCandidate); } );
+            task.Wait();
         }
 
         public bool OnlyHexInString(string test)

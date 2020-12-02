@@ -56,14 +56,21 @@ namespace Blockchain_Wahlclient
             return frontendCandidates;
         }
 
-        public void SendVoteStandard(String votingAdress, Candidate candidate)
+        public async Task SendVoteStandard(String votingAdress, Candidate candidate)
         {
             // Create ballot with voted candidate
             Ballot ballot = new Ballot();
             ballot.CandidateId = candidate.GetId();
             ballot.VoterAddress = votingAdress;
             // call service vote function
-            votingService.VoteRequestAsync(currentElection.Id, ballot);
+            var voteEvent = votingService.ContractHandler.GetEvent<VoteEventDTO>();
+            var voteReceipt = votingService.VoteRequestAndWaitForReceiptAsync(currentElection.Id, ballot);
+            var filterAll = await voteEvent.CreateFilterAsync();
+            var log = await voteEvent.GetAllChanges(filterAll);
+
+            var result = await votingService.GetVoteQueryAsync(currentElection.Id);
+            MessageBox.Show(result);
+
         }
 
         public void SendVoteAlternative(String votingAdress, List<Candidate> candidateList)
