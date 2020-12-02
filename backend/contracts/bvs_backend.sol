@@ -278,17 +278,16 @@ contract bvs_backend {
         } 
 
         // Check if the address has voted
-        uint256 iterator = 0;
-        while (_elections[electionId].usedAddresses[iterator] != msg.sender) {
-            if (iterator >= _elections[electionId].usedAddresses.length) {
+        address[] memory usedAddressesCpy = _elections[electionId].usedAddresses;
+        for (uint256 i = 0; i < usedAddressesCpy.length; i++) {
+            if (usedAddressesCpy[i] == msg.sender) {
+                break;
+            }
+            if (i == usedAddressesCpy.length - 1) {
                 return "No vote submitted";
             }
-            iterator++;
-        } 
+        }        
 
-        return "vote found";
-
-        /*
         // Find the ballot
         Ballot memory ballot;
         for (uint256 i = 0; i <= _elections[electionId].ballots.length; i++) {
@@ -304,7 +303,6 @@ contract bvs_backend {
         } else {
             return ""; // Not implemented yet
         }
-        */
     }
 
     function countVotes (uint256 electionId) public view returns (Candidate[] memory candidateRanking, uint256[] memory voteCount) {
