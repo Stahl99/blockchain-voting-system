@@ -305,10 +305,12 @@ contract bvs_backend {
             return (candidateRanking, voteCount);
         }
         else if (isOver(electionId) || (_elections[electionId].votingSystem == VotingSystem.alternativeVoting)) {
-
+            while (!checkForWinner(electionId)) {
+                sortVotes(votesCopy, electoralListCopy, int(0), int(votesCopy.length - 1));
+            }
         }
     }
-    
+
     function checkForWinner(uint256 electionId) private view returns (bool) {
         bool twoMax = false; // true if there are two leading candidates
         uint256 votersAmount = _elections[electionId].ballots.length; // amount of total votes received
