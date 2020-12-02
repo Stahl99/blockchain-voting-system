@@ -272,7 +272,7 @@ contract bvs_backend {
         return true;
     }
 
-    function getVote (uint256 electionId) public view returns (string memory) {
+    function getVote (uint256 electionId, address requestAddress) public view returns (string memory) {
         if (!verifyElectionId(electionId)) {
             return "Invalid Election ID";
         } 
@@ -280,7 +280,7 @@ contract bvs_backend {
         // Check if the address has voted
         address[] memory usedAddressesCpy = _elections[electionId].usedAddresses;
         for (uint256 i = 0; i < usedAddressesCpy.length; i++) {
-            if (usedAddressesCpy[i] == msg.sender) {
+            if (usedAddressesCpy[i] == requestAddress) {
                 break;
             }
             if (i == usedAddressesCpy.length - 1) {
@@ -292,18 +292,48 @@ contract bvs_backend {
         Ballot memory ballot;
         for (uint256 i = 0; i < _elections[electionId].ballots.length; i++) {
             ballot = _elections[electionId].ballots[i];
-            if (ballot.voterAddress == msg.sender) {
+            if (ballot.voterAddress == requestAddress) {
                 break;
             }
         }
 
         // Return result based on voting system (standard or alternative)
         if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
-            return string(abi.encode("You voted for ", _elections[electionId].electoralList[ballot.candidateId].firstName,
-                " ", _elections[electionId].electoralList[ballot.candidateId].lastName));
+            return "not implemented yet";
         } else {
             return "not implemented yet"; // Not implemented yet
         } 
+    }
+
+    function getVoteBallot (uint256 electionId) public view returns (Ballot memory) {
+
+        Ballot memory ballot;
+        ballot.voterAddress = address(0);
+
+        if (!verifyElectionId(electionId)) {
+            return ballot;
+        } 
+
+        // Check if the address has voted
+        address[] memory usedAddressesCpy = _elections[electionId].usedAddresses;
+        for (uint256 i = 0; i < usedAddressesCpy.length; i++) {
+            if (usedAddressesCpy[i] == msg.sender) {
+                break;
+            }
+            if (i == usedAddressesCpy.length - 1) {
+                return ballot;
+            }
+        }        
+
+        // Find the ballot
+        for (uint256 i = 0; i < _elections[electionId].ballots.length; i++) {
+            ballot = _elections[electionId].ballots[i];
+            if (ballot.voterAddress == msg.sender) {
+                break;
+            }
+        }
+
+        return ballot;
     }
 
     function countVotes (uint256 electionId) public view returns (Candidate[] memory candidateRanking, uint256[] memory voteCount) {
