@@ -73,7 +73,7 @@ namespace Blockchain_Wahlclient
 
         }
 
-        public void SendVoteAlternative(String votingAdress, List<Candidate> candidateList)
+        public async Task SendVoteAlternativeAsync(String votingAdress, List<Candidate> candidateList)
         {
             // Create ballot with voted candidate rankings
             Ballot ballot = new Ballot();
@@ -81,7 +81,10 @@ namespace Blockchain_Wahlclient
             candidateList.ForEach(x => rankings.Add(x.GetRank()));
             ballot.Ranking = rankings;
 
-            votingService.VoteRequestAsync(currentElection.Id, ballot);
+            await votingService.VoteRequestAsync(currentElection.Id, ballot);
+
+            var result = await votingService.GetVoteQueryAsync(currentElection.Id);
+            MessageBox.Show(result);
         }
 
         public void SetBlockchainUrl(String url)

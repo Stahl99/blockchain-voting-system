@@ -290,19 +290,20 @@ contract bvs_backend {
 
         // Find the ballot
         Ballot memory ballot;
-        for (uint256 i = 0; i <= _elections[electionId].ballots.length; i++) {
+        for (uint256 i = 0; i < _elections[electionId].ballots.length; i++) {
             ballot = _elections[electionId].ballots[i];
             if (ballot.voterAddress == msg.sender) {
                 break;
             }
         }
+
         // Return result based on voting system (standard or alternative)
         if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
             return string(abi.encode("You voted for ", _elections[electionId].electoralList[ballot.candidateId].firstName,
                 " ", _elections[electionId].electoralList[ballot.candidateId].lastName));
         } else {
-            return ""; // Not implemented yet
-        }
+            return "not implemented yet"; // Not implemented yet
+        } 
     }
 
     function countVotes (uint256 electionId) public view returns (Candidate[] memory candidateRanking, uint256[] memory voteCount) {

@@ -47,9 +47,13 @@ namespace blockchain_admintool
 
                 int votingSys = 0;
 
-                if(electionkind_picker.SelectedIndex == 1)
+                if(electionkind_picker.SelectedIndex == 0)
                 {
                     votingSys = 1;
+                }
+                else if (electionkind_picker.SelectedIndex == 1)
+                {
+                    votingSys = 0;
                 }
                 else if(electionkind_picker.SelectedItem is null)
                 {
