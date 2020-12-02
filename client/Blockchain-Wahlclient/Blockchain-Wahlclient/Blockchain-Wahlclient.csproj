@@ -16,9 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="ElectionControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="ElectionControl.cs" />
   </ItemGroup>
 
   <ItemGroup>

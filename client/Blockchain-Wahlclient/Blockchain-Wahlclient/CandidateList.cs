@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Blockchain_Wahlclient
@@ -11,8 +12,17 @@ namespace Blockchain_Wahlclient
 
         private List<Candidate> candidates = new List<Candidate>();
         private List<AlternativeVotingCandidate> candsFrontend = new List<AlternativeVotingCandidate>();
+        private Backend backend;
 
         int position = 0;
+
+        public CandidateList(Backend backend)
+        {
+            this.backend = backend;
+            var task = Task.Run(async () => { await backend.LoadCandidateInfoAsync(); });
+            task.Wait();
+            this.candidates = backend.GetCandidateInfo();
+        }
 
         public IEnumerator GetEnumerator()
         {

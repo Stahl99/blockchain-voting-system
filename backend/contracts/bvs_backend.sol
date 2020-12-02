@@ -76,6 +76,7 @@ contract bvs_backend {
 
     Election[] private _elections; // array of all elections
     Election temp; // temporary election storage
+    Candidate tempCandidate;
 
     constructor() {}
 
@@ -140,9 +141,15 @@ contract bvs_backend {
                     // replace the current electoral list with the new one and return true
                     delete _elections[i].electoralList;
                     delete _elections[i].votes;
+
                     for (uint256 j = 0; j < newElectoralList.length; j++) {
-                        _elections[i].electoralList.push(newElectoralList[j]);
-                        _elections[i].votes[j] = 0; // Set vote count for each candidate to 0
+                        tempCandidate.firstName = newElectoralList[j].firstName;
+                        tempCandidate.lastName = newElectoralList[j].lastName;
+                        tempCandidate.party = newElectoralList[j].party;
+                        tempCandidate.id = newElectoralList[j].id;
+
+                        _elections[i].electoralList.push(tempCandidate);
+                        _elections[i].votes.push(0);
                     }
                     return true;
                 }
@@ -183,10 +190,22 @@ contract bvs_backend {
 
     }
 
+    function getElectionStrings () public view returns (string[] memory) {
+        string[] memory obj  = new string[](_elections.length);
+
+        for (uint i = 0; i < _elections.length; i++) {
+
+            // save the election elements to the corresponding temporary object
+            obj[i] = _elections[i].electionName;
+        }
+
+        return obj;
+    }
+
     // returns the electoral list for a given election
     function getElectoralList (uint256 electionId) public view returns (Candidate[] memory candidates) {
 
-        for (uint256 i = 0; i < _elections.length; i++) {
+        for (uint i = 0; i < _elections.length; i++) {
 
             if (electionId == _elections[i].electionId) {
                 return _elections[i].electoralList;

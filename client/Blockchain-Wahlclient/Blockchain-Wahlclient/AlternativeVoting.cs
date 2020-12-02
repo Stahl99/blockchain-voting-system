@@ -11,7 +11,7 @@ namespace Blockchain_Wahlclient
     public partial class AlternativeVoting : Form
     {
 
-        private CandidateList cl = new CandidateList();
+        private CandidateList cl;
         private Backend backend;
         
         public AlternativeVoting(Backend backend)
@@ -21,6 +21,7 @@ namespace Blockchain_Wahlclient
             InitializeComponent();
 
             this.backend = backend;
+            this.cl = new CandidateList(this.backend);
             
         }
 

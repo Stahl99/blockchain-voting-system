@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Blockchain_Wahlclient
@@ -19,9 +20,12 @@ namespace Blockchain_Wahlclient
         }
 
         // Load all elections from Backend and show them in Form
-        public void LoadElections(ref FlowLayoutPanel flp)
+        public async Task LoadElections()
         {
-            this.elections = Backend.LoadElectionInformationAsync().Result;
+            await WaitForElections();
+
+            Backend.LoadElectoralList();
+
             foreach (TmpElectionObject election in this.elections)
             {
                 ElectionControl electionControl = new ElectionControl();
@@ -32,11 +36,24 @@ namespace Blockchain_Wahlclient
                 frontendElections.Add(electionControl);
             }
 
-            foreach(ElectionControl ec in frontendElections)
+            
+        }
+
+        public void ShowElections(ref FlowLayoutPanel flp)
+        {
+            foreach (ElectionControl ec in frontendElections)
             {
                 flp.Controls.Add(ec);
             }
         }
+
+        public async Task WaitForElections()
+        {
+            this.elections = await Backend.LoadElectionInformationAsync();
+
+        }
+            
+               
 
         public bool ValidatePick()
         {

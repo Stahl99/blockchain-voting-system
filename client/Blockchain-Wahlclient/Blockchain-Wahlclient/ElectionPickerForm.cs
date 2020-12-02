@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Blockchain_Wahlclient
@@ -26,19 +28,19 @@ namespace Blockchain_Wahlclient
             {
                 this.Hide();
 
-                // load standard voting form
+                // load alternative voting form
                 if (model.GetVotingType() == 0)
                 {
-                    var FPTPForm = new FirstPastThePostForm(this.model.Backend);
-                    FPTPForm.Show();
+                    var AltVotingForm = new AlternativeVoting(this.model.Backend);
+                    AltVotingForm.ShowDialog();
                     this.Close();
                 }
 
-                // load alternative voting form
+                // load standard voting form
                 if (model.GetVotingType() == 1)
                 {
-                    var AltVotingForm = new AlternativeVoting(this.model.Backend);
-                    AltVotingForm.Show();
+                    var FPTPForm = new FirstPastThePostForm(this.model.Backend);
+                    FPTPForm.ShowDialog();
                     this.Close();
                 }
             }
@@ -46,7 +48,9 @@ namespace Blockchain_Wahlclient
 
         private void ElectionPickerForm_Load(object sender, EventArgs e)
         {
-            model.LoadElections(ref this.flowLayoutPanel1);
+            var task = Task.Run(async () => {await model.LoadElections(); } );
+            task.Wait();
+            model.ShowElections(ref flowLayoutPanel1);
         }
     }
 }
