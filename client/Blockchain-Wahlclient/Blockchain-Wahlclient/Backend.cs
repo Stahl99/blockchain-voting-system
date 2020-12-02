@@ -63,13 +63,10 @@ namespace Blockchain_Wahlclient
             ballot.CandidateId = candidate.GetId();
             ballot.VoterAddress = votingAdress;
             // call service vote function
-            var voteEvent = votingService.ContractHandler.GetEvent<VoteEventDTO>();
             var voteReceipt = votingService.VoteRequestAndWaitForReceiptAsync(currentElection.Id, ballot);
-            var filterAll = await voteEvent.CreateFilterAsync();
-            var log = await voteEvent.GetAllChanges(filterAll);
 
-            var result = await votingService.GetVoteQueryAsync(currentElection.Id);
-            MessageBox.Show(result);
+            var result = await votingService.GetVoteBallotQueryAsync(currentElection.Id);
+            MessageBox.Show(result.ReturnValue1.CandidateId.ToString());
 
         }
 
@@ -83,8 +80,8 @@ namespace Blockchain_Wahlclient
 
             await votingService.VoteRequestAsync(currentElection.Id, ballot);
 
-            var result = await votingService.GetVoteQueryAsync(currentElection.Id);
-            MessageBox.Show(result);
+            //var result = await votingService.GetVoteBallotQueryAsync(currentElection.Id);
+            //MessageBox.Show(result);
         }
 
         public void SetBlockchainUrl(String url)
