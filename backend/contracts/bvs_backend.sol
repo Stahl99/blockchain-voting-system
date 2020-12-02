@@ -215,7 +215,7 @@ contract bvs_backend {
         return candidates;
     }
 
-    function vote (uint256 electionId, Ballot memory ballot) public returns (uint) {
+    function vote (uint256 electionId, Ballot memory ballot) public returns (uint256) {
         if (!verifyElectionId(electionId)) {
             return 0;
         }
