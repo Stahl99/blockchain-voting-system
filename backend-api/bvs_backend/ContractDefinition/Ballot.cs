@@ -15,7 +15,5 @@ namespace BlockchainVotingSystem.Contracts.bvs_backend.ContractDefinition
         public virtual string VoterAddress { get; set; }
         [Parameter("uint256", "candidateId", 2)]
         public virtual BigInteger CandidateId { get; set; }
-        [Parameter("uint256[]", "ranking", 3)]
-        public virtual List<BigInteger> Ranking { get; set; }
     }
 }

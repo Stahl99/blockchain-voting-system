@@ -76,7 +76,7 @@ namespace Blockchain_Wahlclient
             Ballot ballot = new Ballot();
             List<BigInteger> rankings = new List<BigInteger>();
             candidateList.ForEach(x => rankings.Add(x.GetRank()));
-            ballot.Ranking = rankings;
+            //ballot.Ranking = rankings;
 
             await votingService.VoteRequestAsync(currentElection.Id, ballot);
 

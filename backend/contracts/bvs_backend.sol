@@ -251,13 +251,17 @@ contract bvs_backend {
         // Check the election time
         if (!hasStarted(electionId) || isOver(electionId)) {
             return false;
-        }
+        } 
 
         // Add the ballot to the election
-        tempBallot.voterAddress = ballot.voterAddress;
-        tempBallot.candidateId = ballot.candidateId;
-        tempBallot.ranking = ballot.ranking;
-        _elections[electionId].ballots.push(tempBallot);
+        //tempBallot.voterAddress = ballot.voterAddress;
+        //tempBallot.candidateId = ballot.candidateId;
+        //tempBallot.ranking = ballot.ranking;
+
+        //Ballot[] storage tmpBallots = _elections[electionId].ballots;
+        //tmpBallots.push(tempBallot);
+
+        _elections[electionId].ballots.push(ballot);
 
         // Store the vote
         if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
@@ -269,12 +273,10 @@ contract bvs_backend {
                     _elections[electionId].votes[i]++;
                 }
             }
-        } 
+        }  
 
         // Remember the address has voted
         _elections[electionId].usedAddresses.push(msg.sender);
-
-        emit Vote(msg.sender, ballot);
 
         return true;
     }
