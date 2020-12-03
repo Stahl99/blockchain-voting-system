@@ -36,7 +36,7 @@ namespace Blockchain_Wahlclient
             cl.BuildFrontend(ref this.flowLayoutPanel1);
         }
 
-        private void submitVote_Click(object sender, EventArgs e)
+        private async void submitVote_Click(object sender, EventArgs e)
         {
             cl.SecureRanks();
 
@@ -52,8 +52,19 @@ namespace Blockchain_Wahlclient
                 return;
             }
 
-            var task = Task.Run(async () => { await backend.SendVoteAlternativeAsync(this.textBox1.Text, cl.GetCandidates()); } );
-            task.Wait();
+            if (await backend.SendVoteAlternativeAsync(textBox1.Text, cl.GetCandidates()))
+            {
+                // Vote successfull redirect to ElectionPicker
+                MessageBox.Show("Vote sucessfull");
+                this.Hide();
+                var electionPickerForm = new ElectionPickerForm(this.backend);
+                electionPickerForm.ShowDialog();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("There was an error with your Vote. Please check your address and try again");
+            }
         }
     }
 }

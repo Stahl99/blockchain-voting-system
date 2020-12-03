@@ -14,6 +14,9 @@ namespace Blockchain_Wahlclient
 {
     public class Backend
     {
+        private String url;
+        private String contractAddress;
+        private Account votingAccount;
         Web3 web3;
         Bvs_backendService votingService;
         GetElectionInformationOutputDTO allElectionInfo;
@@ -56,44 +59,61 @@ namespace Blockchain_Wahlclient
             return frontendCandidates;
         }
 
-        public async Task SendVoteStandard(String votingAdress, Candidate candidate)
+        public async Task<bool> SendVoteStandard(String votingAdress, Candidate candidate)
         {
+            SetAccount(votingAdress);
+
             // Create ballot with voted candidate
             Ballot ballot = new Ballot();
             ballot.CandidateId = candidate.GetId();
-            ballot.VoterAddress = votingAdress;
             ballot.Ranking = new List<BigInteger>();
+            ballot.VoterAddress = "0x00000000000000000000000000000000000000000";
+
             // call service vote function
             var receipt = await votingService.VoteRequestAndWaitForReceiptAsync(currentElection.Id, ballot);
 
             var result = await votingService.GetVoteBallotQueryAsync(currentElection.Id);
-            MessageBox.Show(result.ReturnValue1.CandidateId.ToString());
 
+            return AreBallotsEqual(ballot, result.ReturnValue1);
         }
 
-        public async Task SendVoteAlternativeAsync(String votingAdress, List<Candidate> candidateList)
+        public async Task<bool> SendVoteAlternativeAsync(String votingAdress, List<Candidate> candidateList)
         {
+            // Set account
+            SetAccount(votingAdress);
+
             // Create ballot with voted candidate rankings
             Ballot ballot = new Ballot();
             List<BigInteger> rankings = new List<BigInteger>();
             candidateList.ForEach(x => rankings.Add(x.GetRank())); 
-            //ballot.Ranking = rankings;
+            ballot.Ranking = rankings;
+            ballot.VoterAddress = new Account("0").Address;
 
-            await votingService.VoteRequestAsync(currentElection.Id, ballot);
+            var receipt = await votingService.VoteRequestAndWaitForReceiptAsync(currentElection.Id, ballot);
 
             var result = await votingService.GetVoteBallotQueryAsync(currentElection.Id);
-            MessageBox.Show(result.ReturnValue1.CandidateId.ToString());
+
+            return AreBallotsEqual(ballot, result.ReturnValue1);
         }
 
         public void SetBlockchainUrl(String url)
         {
             if (url.Length != 0)
             {
-                var privateKey = "0x5569b93622765c3100095da4d24e9494231dc01873ad7c07d69acc06cc1ca3b3";
-                var account = new Account(privateKey);
+                this.url = url;
 
-                this.web3 = new Web3(account, url);
-                this.web3.TransactionManager.DefaultGas = 5000000;
+                this.web3 = new Web3(url);
+
+            }
+        }
+
+        public void SetAccount(String voterKey)
+        {
+            if (OnlyHexInString(voterKey))
+            {
+                this.votingAccount = new Account(voterKey);
+                this.web3 = new Web3(this.votingAccount, this.url);
+                this.votingService = new Bvs_backendService(this.web3, this.contractAddress);
             }
         }
 
@@ -105,6 +125,8 @@ namespace Blockchain_Wahlclient
                 MessageBox.Show("Wrong format for election adresss (must be hex-string)");
                 return false;
             }
+
+            this.contractAddress = contractAdress;
 
             // create voting service with new contract adress
             this.votingService = new Bvs_backendService(web3, contractAdress);
@@ -130,22 +152,51 @@ namespace Blockchain_Wahlclient
             currentElection = allElectionInfo.ReturnValue1.Find(x => (x.Id == electionId));
         }
 
-        public void LoadElectoralList()
-        {
-            var task = votingService.GetElectoralListQueryAsync(0);
-
-            task.Wait();
-
-            var resu = task.Result;
-
-
-        }
-
+        /// <summary>
+        /// Checks if only hex characters are in a String and its has the format 0x....
+        /// </summary>
+        /// <param name="test"></param>
+        /// <returns><c>True</c> if only Hex characters are in the given String
+        /// <c>False</c> if the String contains other characters</returns>
         private bool OnlyHexInString(string test)
         {
             // For C-style hex notation (0xFF) you can use @"\A\b(0[xX])?[0-9a-fA-F]+\b\Z"
-            return true;
             return System.Text.RegularExpressions.Regex.IsMatch(test, @"\A\b(0[xX])?[0-9a-fA-F]+\b\Z");
+        }
+
+        /// <summary>
+        /// Compares two Ballots 
+        /// </summary>
+        /// <param name="a">First Ballot to compare</param>
+        /// <param name="b">Second Ballot to compare</param>
+        /// <returns> <c>True</c> if they contain the same values. 
+        /// <c>False</c> if atleast one value is different</returns>
+        private bool AreBallotsEqual(Ballot a, Ballot b)
+        {
+            // compare candidateIds and VoterAdresses
+            if (a.CandidateId == b.CandidateId )
+            {
+                if (this.votingAccount.Address.ToLower().Equals((b.VoterAddress.ToLower())))
+                {
+                    // Compare Rankings
+                    for (int i = 0; i < a.Ranking.Count; i++)
+                    {
+                        BigInteger compA = a.Ranking[i];
+                        if (compA.CompareTo(b.Ranking[i]) == 0)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    // Ranking is the same
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
