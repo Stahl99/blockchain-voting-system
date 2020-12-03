@@ -29,7 +29,7 @@ namespace Blockchain_Wahlclient
                 this.Hide();
 
                 // load alternative voting form
-                if (model.GetVotingType() == 0)
+                if (model.GetVotingType() == 1)
                 {
                     var AltVotingForm = new AlternativeVoting(this.model.Backend);
                     AltVotingForm.ShowDialog();
@@ -37,7 +37,7 @@ namespace Blockchain_Wahlclient
                 }
 
                 // load standard voting form
-                if (model.GetVotingType() == 1)
+                if (model.GetVotingType() == 0)
                 {
                     var FPTPForm = new FirstPastThePostForm(this.model.Backend);
                     FPTPForm.ShowDialog();

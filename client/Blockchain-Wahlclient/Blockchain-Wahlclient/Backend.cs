@@ -56,25 +56,33 @@ namespace Blockchain_Wahlclient
             return frontendCandidates;
         }
 
-        public void SendVoteStandard(String votingAdress, Candidate candidate)
+        public async Task SendVoteStandard(String votingAdress, Candidate candidate)
         {
             // Create ballot with voted candidate
             Ballot ballot = new Ballot();
             ballot.CandidateId = candidate.GetId();
             ballot.VoterAddress = votingAdress;
+            ballot.Ranking = new List<BigInteger>();
             // call service vote function
-            votingService.VoteRequestAsync(currentElection.Id, ballot);
+            var receipt = await votingService.VoteRequestAndWaitForReceiptAsync(currentElection.Id, ballot);
+
+            var result = await votingService.GetVoteBallotQueryAsync(currentElection.Id);
+            MessageBox.Show(result.ReturnValue1.CandidateId.ToString());
+
         }
 
-        public void SendVoteAlternative(String votingAdress, List<Candidate> candidateList)
+        public async Task SendVoteAlternativeAsync(String votingAdress, List<Candidate> candidateList)
         {
             // Create ballot with voted candidate rankings
             Ballot ballot = new Ballot();
             List<BigInteger> rankings = new List<BigInteger>();
-            candidateList.ForEach(x => rankings.Add(x.GetRank()));
-            ballot.Ranking = rankings;
+            candidateList.ForEach(x => rankings.Add(x.GetRank())); 
+            //ballot.Ranking = rankings;
 
-            votingService.VoteRequestAsync(currentElection.Id, ballot);
+            await votingService.VoteRequestAsync(currentElection.Id, ballot);
+
+            var result = await votingService.GetVoteBallotQueryAsync(currentElection.Id);
+            MessageBox.Show(result.ReturnValue1.CandidateId.ToString());
         }
 
         public void SetBlockchainUrl(String url)
@@ -85,6 +93,7 @@ namespace Blockchain_Wahlclient
                 var account = new Account(privateKey);
 
                 this.web3 = new Web3(account, url);
+                this.web3.TransactionManager.DefaultGas = 5000000;
             }
         }
 

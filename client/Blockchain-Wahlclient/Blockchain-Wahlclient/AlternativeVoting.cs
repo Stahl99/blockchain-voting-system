@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Blockchain_Wahlclient
@@ -51,7 +52,8 @@ namespace Blockchain_Wahlclient
                 return;
             }
 
-            backend.SendVoteAlternative(this.textBox1.Text, cl.GetCandidates());
+            var task = Task.Run(async () => { await backend.SendVoteAlternativeAsync(this.textBox1.Text, cl.GetCandidates()); } );
+            task.Wait();
         }
     }
 }

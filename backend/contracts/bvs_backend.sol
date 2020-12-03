@@ -2,7 +2,6 @@
 pragma solidity ^0.7.2;
 pragma experimental ABIEncoderV2;
 
-// Sorting array off-chain for optimization
 // Sorts both arrays (votes and candidates) according to the amount of votes using QuickSort
 function sortVotes (uint256[] memory votes, bvs_backend.Candidate[] memory candidates, int left, int right) pure {
     int i = left;
@@ -61,6 +60,8 @@ contract bvs_backend {
 
         address adminAddress; // wallet address of the admin
 
+        Result result; // Stores the result
+
         // unix timestamps
         uint256 startTimestamp;
         uint256 endTimestamp;
@@ -74,9 +75,18 @@ contract bvs_backend {
         VotingSystem votingSystem;
     }
 
+    struct Result {
+        bool empty;
+        Candidate[] candidates;
+        uint256[] votes;
+    }
+
     Election[] private _elections; // array of all elections
     Election temp; // temporary election storage
     Candidate tempCandidate;
+    Ballot tempBallot;
+
+    event Vote(address sender, Ballot _ballot);
 
     constructor() {}
 
@@ -222,37 +232,42 @@ contract bvs_backend {
         }
 
         // Check if the address is allowed to vote
-        uint256 iterator = 0;
-        while (_elections[electionId].eligibleVoters[iterator] != msg.sender) {
-            iterator++;
-            if (iterator >= _elections[electionId].eligibleVoters.length) {
+        for (uint256 i = 0; i < _elections[electionId].eligibleVoters.length; i++) {
+            if (_elections[electionId].eligibleVoters[i] == msg.sender) {
+                break;
+            }
+
+            if (i == _elections[electionId].eligibleVoters.length - 1) {
                 return false;
             }
         }
+    
         // Check if the address has already been used
         for (uint i = 0; i < _elections[electionId].usedAddresses.length; i++) {
             if (_elections[electionId].usedAddresses[i] == msg.sender) {
                 return false;
             }
         }
+        
         // Check the election time
-        require(hasStarted(electionId), "Voting has not started yet");
-        require(!isOver(electionId), "Voting already ended");
-
-        // Add the ballot to the election
+        if (!hasStarted(electionId) || isOver(electionId)) {
+            return false;
+        } 
+        
         _elections[electionId].ballots.push(ballot);
 
+        
         // Store the vote
         if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
-            _elections[electionId].votes[ballot.candidateId]++;
+            _elections[electionId].votes[tempBallot.candidateId]++;
         } else {
             // Find prio 1 in ballot and store as vote
-            for (uint i = 0; i < ballot.ranking.length; i++) {
-                if (ballot.ranking[i] == 1) {
+            for (uint i = 0; i < tempBallot.ranking.length; i++) {
+                if (tempBallot.ranking[i] == 1) {
                     _elections[electionId].votes[i]++;
                 }
             }
-        } 
+        }   
 
         // Remember the address has voted
         _elections[electionId].usedAddresses.push(msg.sender);
@@ -260,40 +275,84 @@ contract bvs_backend {
         return true;
     }
 
-    function getVote (uint256 electionId) public view returns (string memory) {
+    function getVote (uint256 electionId, address requestAddress) public view returns (string memory) {
         if (!verifyElectionId(electionId)) {
             return "Invalid Election ID";
-        }
+        } 
 
         // Check if the address has voted
-        uint256 iterator = 0;
-        while (_elections[electionId].usedAddresses[iterator] != msg.sender) {
-            iterator++;
-            if (iterator >= _elections[electionId].usedAddresses.length) {
+        address[] memory usedAddressesCpy = _elections[electionId].usedAddresses;
+        for (uint256 i = 0; i < usedAddressesCpy.length; i++) {
+            if (usedAddressesCpy[i] == requestAddress) {
+                break;
+            }
+            if (i == usedAddressesCpy.length - 1) {
                 return "No vote submitted";
             }
-        }
+        }        
+
         // Find the ballot
         Ballot memory ballot;
-        for (uint256 i = 0; i <= _elections[electionId].ballots.length; i++) {
+        for (uint256 i = 0; i < _elections[electionId].ballots.length; i++) {
             ballot = _elections[electionId].ballots[i];
+            if (ballot.voterAddress == requestAddress) {
+                break;
+            }
+        }
+
+        // Return result based on voting system (standard or alternative)
+        if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
+            return "not implemented yet";
+        } else {
+            return "not implemented yet"; // Not implemented yet
+        } 
+    }
+
+    function getVoteBallot (uint256 electionId) public view returns (Ballot memory) {
+
+        Ballot memory ballot;
+        ballot.voterAddress = address(0);
+        ballot.candidateId = block.timestamp;// return length of ballot array for debug
+
+        if (!verifyElectionId(electionId)) {
+            return ballot;
+        } 
+
+        // Check if the address has voted
+        address[] memory usedAddressesCpy = _elections[electionId].usedAddresses;
+        for (uint256 i = 0; i < usedAddressesCpy.length; i++) {
+            if (usedAddressesCpy[i] == msg.sender) {
+                break;
+            }
+            if (i == usedAddressesCpy.length - 1) {
+                return ballot;
+            }
+        }        
+
+        // Find the ballot
+        for (uint256 i = 0; i < _elections[electionId].ballots.length; i++) {
+            ballot = _elections[electionId].ballots[i];
+            //ballot.candidateId = 10;
             if (ballot.voterAddress == msg.sender) {
                 break;
             }
         }
-        // Return result based on voting system (standard or alternative)
-        if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
-            return string(abi.encode("You voted for ", _elections[electionId].electoralList[ballot.candidateId].firstName,
-                " ", _elections[electionId].electoralList[ballot.candidateId].lastName));
-        } else {
-            return ""; // Not implemented yet
-        }
+
+        return ballot;
     }
 
     function countVotes (uint256 electionId) public view returns (Candidate[] memory candidateRanking, uint256[] memory voteCount) {
         if (!verifyElectionId(electionId) || !hasStarted(electionId)) {
             return (candidateRanking, voteCount);
         }
+
+        // If a result is already stored, return it
+        if (_elections[electionId].result.empty == false) {
+            return (_elections[electionId].result.candidates, _elections[electionId].result.votes);
+        }
+
+        // Calculate result:
+
         // Copy candidate array
     	Candidate[] memory electoralListCopy = _elections[electionId].electoralList;
         // Copy votes array
@@ -302,7 +361,38 @@ contract bvs_backend {
         if (!isOver(electionId) || (_elections[electionId].votingSystem == VotingSystem.standardVoting)) {
             // Quicksort implementation, stores candidate IDs in the order arrray
             sortVotes(votesCopy, electoralListCopy, int(0), int(votesCopy.length - 1));
+            // If election is over, store the calculated result
+            if (isOver(electionId)) {
+
+            }
             return (candidateRanking, voteCount);
+        }
+        else if (isOver(electionId) || (_elections[electionId].votingSystem == VotingSystem.alternativeVoting)) {
+            while (!checkForWinner(electionId)) {
+                sortVotes(votesCopy, electoralListCopy, int(0), int(votesCopy.length - 1));
+            }
+        }
+    }
+
+    function checkForWinner(uint256 electionId) private view returns (bool) {
+        bool twoMax = false; // true if there are two leading candidates
+        uint256 votersAmount = _elections[electionId].ballots.length; // amount of total votes received
+        uint maximum = 0; // index of candidate with the highest vote count
+        uint256[] memory votesCpy = _elections[electionId].votes;
+        for (uint i = 1; i < _elections[electionId].electoralList.length; i++) {
+            if (votesCpy[i] >= votesCpy[maximum]) {
+                maximum = i;
+                if (votesCpy[i] == votesCpy[maximum]) {
+                    twoMax = true;
+                } else {
+                    twoMax = false;
+                }
+            }
+        }
+        if (votesCpy[maximum] >= votersAmount/2) {
+            return true;
+        } else {
+            return false;
         }
     }
 

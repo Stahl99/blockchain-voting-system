@@ -34,13 +34,20 @@ namespace blockchain_admintool
 
             await votingService.ReplaceElectoralListRequestAsync(id, candList);
 
+            List<String> voters = new List<string>(){"0x3D350e8FAdDFE27C33CD16c03178326E82012b4c", "0x861E2334a5A0Ab09Db7d2E49cb4f1c138dA55253", "0xf722b4A940C7f7A20CA3bF4ff5d21C49875FC34c", "0x4d93FF07B5b7D3B24Fc6374F6470785C67FB6ba4",
+                "0x2d3E9280E7bFACa1720f302fB49172719A60dBa4", "0x072D8d0979c2Ff8b2367886FCDB04600392863eC", "0x1f96059FEBFc08C3fA2ba0b57921569227810A62", "0x3F60c6eBF19A76801Fc5e96db993b9d6082E34F6", "0xb35d1689421D7a51b778F70CF7990Fe01F4A3894",
+                "0xA30668a30C500388D687fB2E50c35eaaB3dF1eA8" };
+
+            await votingService.ReplaceListOfEligibleVotersRequestAsync(id, voters);
+
+
 
         }
 
         public System.Numerics.BigInteger DateToUnix(DateTime d)
         {
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            Int32 unixdt = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            Int32 unixdt = (Int32)(d.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 
             MessageBox.Show(unixdt.ToString());
 

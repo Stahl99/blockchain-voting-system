@@ -47,9 +47,13 @@ namespace blockchain_admintool
 
                 int votingSys = 0;
 
-                if(electionkind_picker.SelectedIndex == 1)
+                if(electionkind_picker.SelectedIndex == 0)
                 {
                     votingSys = 1;
+                }
+                else if (electionkind_picker.SelectedIndex == 1)
+                {
+                    votingSys = 0;
                 }
                 else if(electionkind_picker.SelectedItem is null)
                 {
@@ -66,26 +70,15 @@ namespace blockchain_admintool
 
         private DateTime GetStartDate()
         {
-            DateTime dt = new DateTime();
-            dt.AddDays(day_start.Value.Day);
-            dt.AddMonths(day_start.Value.Month);
-            dt.AddYears(day_start.Value.Year);
-
-            dt.AddMinutes(clock_start.Value.Minute);
-            dt.AddHours(clock_start.Value.Hour);
+            DateTime dt = new DateTime(day_start.Value.Year, day_start.Value.Month, day_start.Value.Day, clock_start.Value.Hour, clock_start.Value.Minute, 0);
 
             return dt;
         }
 
         private DateTime GetStopDate()
         {
-            DateTime dt = new DateTime();
-            dt.AddDays(day_stop.Value.Day);
-            dt.AddMonths(day_stop.Value.Month);
-            dt.AddYears(day_stop.Value.Year);
+            DateTime dt = new DateTime(day_stop.Value.Year, day_stop.Value.Month, day_stop.Value.Day, clock_stop.Value.Hour, clock_stop.Value.Minute, 0);
 
-            dt.AddMinutes(clock_stop.Value.Minute);
-            dt.AddHours(clock_stop.Value.Hour);
 
             return dt;
         }

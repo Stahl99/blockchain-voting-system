@@ -41,6 +41,7 @@
             this.blockchainUrlTB.Name = "blockchainUrlTB";
             this.blockchainUrlTB.Size = new System.Drawing.Size(302, 23);
             this.blockchainUrlTB.TabIndex = 1;
+            this.blockchainUrlTB.Text = "http://localhost:7545";
             // 
             // blockchainURLLabel
             // 
@@ -58,6 +59,7 @@
             this.electionAdressTB.Name = "electionAdressTB";
             this.electionAdressTB.Size = new System.Drawing.Size(302, 23);
             this.electionAdressTB.TabIndex = 3;
+            this.electionAdressTB.Text = "0x173677665DB87d1e01df0344B11386A8d9640d50";
             // 
             // electionAdressLabel
             // 
