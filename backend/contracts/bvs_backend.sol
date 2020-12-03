@@ -254,6 +254,7 @@ contract bvs_backend {
             return false;
         } 
         
+        ballot.voterAddress = msg.sender;
         _elections[electionId].ballots.push(ballot);
 
         

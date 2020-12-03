@@ -24,8 +24,6 @@ namespace Blockchain_Wahlclient
         {
             await WaitForElections();
 
-            Backend.LoadElectoralList();
-
             foreach (TmpElectionObject election in this.elections)
             {
                 ElectionControl electionControl = new ElectionControl();
