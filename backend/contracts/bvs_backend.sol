@@ -248,21 +248,15 @@ contract bvs_backend {
                 return false;
             }
         }
+        
         // Check the election time
         if (!hasStarted(electionId) || isOver(electionId)) {
             return false;
         } 
-
-        // Add the ballot to the election
-        //tempBallot.voterAddress = ballot.voterAddress;
-        //tempBallot.candidateId = ballot.candidateId;
-        //tempBallot.ranking = ballot.ranking;
-
-        //Ballot[] storage tmpBallots = _elections[electionId].ballots;
-        //tmpBallots.push(tempBallot);
-
+        
         _elections[electionId].ballots.push(ballot);
 
+        
         // Store the vote
         if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
             _elections[electionId].votes[tempBallot.candidateId]++;
@@ -273,7 +267,7 @@ contract bvs_backend {
                     _elections[electionId].votes[i]++;
                 }
             }
-        }  
+        }   
 
         // Remember the address has voted
         _elections[electionId].usedAddresses.push(msg.sender);
@@ -318,7 +312,7 @@ contract bvs_backend {
 
         Ballot memory ballot;
         ballot.voterAddress = address(0);
-        ballot.candidateId = _elections[electionId].ballots.length; // return length of ballot array for debug
+        ballot.candidateId = block.timestamp;// return length of ballot array for debug
 
         if (!verifyElectionId(electionId)) {
             return ballot;
@@ -338,6 +332,7 @@ contract bvs_backend {
         // Find the ballot
         for (uint256 i = 0; i < _elections[electionId].ballots.length; i++) {
             ballot = _elections[electionId].ballots[i];
+            //ballot.candidateId = 10;
             if (ballot.voterAddress == msg.sender) {
                 break;
             }

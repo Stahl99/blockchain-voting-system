@@ -62,8 +62,9 @@ namespace Blockchain_Wahlclient
             Ballot ballot = new Ballot();
             ballot.CandidateId = candidate.GetId();
             ballot.VoterAddress = votingAdress;
+            ballot.Ranking = new List<BigInteger>();
             // call service vote function
-            var voteReceipt = votingService.VoteRequestAndWaitForReceiptAsync(currentElection.Id, ballot);
+            var receipt = await votingService.VoteRequestAndWaitForReceiptAsync(currentElection.Id, ballot);
 
             var result = await votingService.GetVoteBallotQueryAsync(currentElection.Id);
             MessageBox.Show(result.ReturnValue1.CandidateId.ToString());
@@ -75,13 +76,13 @@ namespace Blockchain_Wahlclient
             // Create ballot with voted candidate rankings
             Ballot ballot = new Ballot();
             List<BigInteger> rankings = new List<BigInteger>();
-            candidateList.ForEach(x => rankings.Add(x.GetRank()));
+            candidateList.ForEach(x => rankings.Add(x.GetRank())); 
             //ballot.Ranking = rankings;
 
             await votingService.VoteRequestAsync(currentElection.Id, ballot);
 
-            //var result = await votingService.GetVoteBallotQueryAsync(currentElection.Id);
-            //MessageBox.Show(result);
+            var result = await votingService.GetVoteBallotQueryAsync(currentElection.Id);
+            MessageBox.Show(result.ReturnValue1.CandidateId.ToString());
         }
 
         public void SetBlockchainUrl(String url)
@@ -92,6 +93,7 @@ namespace Blockchain_Wahlclient
                 var account = new Account(privateKey);
 
                 this.web3 = new Web3(account, url);
+                this.web3.TransactionManager.DefaultGas = 5000000;
             }
         }
 

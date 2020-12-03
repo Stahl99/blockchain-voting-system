@@ -47,7 +47,7 @@ namespace blockchain_admintool
         public System.Numerics.BigInteger DateToUnix(DateTime d)
         {
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            Int32 unixdt = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            Int32 unixdt = (Int32)(d.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 
             MessageBox.Show(unixdt.ToString());
 
