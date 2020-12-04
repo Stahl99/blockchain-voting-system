@@ -112,17 +112,6 @@ namespace BlockchainVotingSystem.Contracts.bvs_backend
             return ContractHandler.QueryDeserializingToObjectAsync<GetElectionInformationFunction, GetElectionInformationOutputDTO>(null, blockParameter);
         }
 
-        public Task<List<string>> GetElectionStringsQueryAsync(GetElectionStringsFunction getElectionStringsFunction, BlockParameter blockParameter = null)
-        {
-            return ContractHandler.QueryAsync<GetElectionStringsFunction, List<string>>(getElectionStringsFunction, blockParameter);
-        }
-
-        
-        public Task<List<string>> GetElectionStringsQueryAsync(BlockParameter blockParameter = null)
-        {
-            return ContractHandler.QueryAsync<GetElectionStringsFunction, List<string>>(null, blockParameter);
-        }
-
         public Task<GetElectoralListOutputDTO> GetElectoralListQueryAsync(GetElectoralListFunction getElectoralListFunction, BlockParameter blockParameter = null)
         {
             return ContractHandler.QueryDeserializingToObjectAsync<GetElectoralListFunction, GetElectoralListOutputDTO>(getElectoralListFunction, blockParameter);
