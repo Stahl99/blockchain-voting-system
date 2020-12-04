@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using BlockchainVotingSystem.Contracts.bvs_backend.ContractDefinition;
 using System.Windows.Forms;
+using Nethereum.Web3;
+using Nethereum.Model;
+using Nethereum.Web3.Accounts;
+
 
 namespace blockchain_admintool
 {
@@ -61,7 +65,12 @@ namespace blockchain_admintool
                     return;
                 }
 
-                backend.CreateElection(adminadress.Text, votingSys, candidates, GetStartDate(), GetStopDate(), name.Text, (int)voterCount.Value);
+                if (fileLocPicker.ShowDialog() == DialogResult.OK)
+                {
+                    backend.CreateElection(adminadress.Text, votingSys, candidates, GetStartDate(), GetStopDate(), name.Text, (int)voterCount.Value, fileLocPicker.SelectedPath);
+                }
+
+                
 
             }
 
@@ -115,6 +124,18 @@ namespace blockchain_admintool
             {
                 this.candList.Controls.RemoveAt(this.candList.Controls.Count - 1);
             }
+        }
+
+        private async void button2_Click(object sender, EventArgs e)
+        {
+            var privateKey = "0x" + prKey.Text;
+            var account = new Nethereum.Web3.Accounts.Account(privateKey);
+            var web3 = new Web3("http://localhost:7545");
+            //var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(publicKey);
+            var balance = await web3.Eth.GetBalance.SendRequestAsync(account.Address);
+            var etherAmount = Web3.Convert.FromWei(balance.Value);
+
+            MessageBox.Show(etherAmount.ToString() + " : " + balance.Value); 
         }
     }
 }
