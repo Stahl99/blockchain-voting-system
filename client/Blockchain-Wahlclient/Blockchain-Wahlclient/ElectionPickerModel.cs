@@ -29,7 +29,8 @@ namespace Blockchain_Wahlclient
                 ElectionControl electionControl = new ElectionControl();
                 electionControl.SetName(election.Name);
                 electionControl.SetId((int) election.Id);
-                electionControl.SetTimestamp(election.StartTimestamp.ToString() + election.EndTimestamp.ToString());
+                electionControl.SetTimestamp(UnixTimeStampToDateTime((double) election.StartTimestamp).ToString() + "   "
+                    + UnixTimeStampToDateTime((double)election.EndTimestamp).ToString());
 
                 frontendElections.Add(electionControl);
             }
@@ -95,6 +96,14 @@ namespace Blockchain_Wahlclient
         public int GetVotingType()
         {
             return (int) pickedElection.VotingSystem;
+        }
+
+        private DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
         }
     }
 }
