@@ -228,7 +228,7 @@ contract bvs_backend {
 
     function vote (uint256 electionId, Ballot memory ballot) public returns (bool) {
         if (!verifyElectionId(electionId)) {
-            return false;
+            revert();
         }
 
         // Check if the address is allowed to vote
@@ -238,20 +238,20 @@ contract bvs_backend {
             }
 
             if (i == _elections[electionId].eligibleVoters.length - 1) {
-                return false;
+                revert();
             }
         }
     
         // Check if the address has already been used
         for (uint i = 0; i < _elections[electionId].usedAddresses.length; i++) {
             if (_elections[electionId].usedAddresses[i] == msg.sender) {
-                return false;
+                revert();
             }
         }
         
         // Check the election time
         if (!hasStarted(electionId) || isOver(electionId)) {
-            return false;
+            revert();
         } 
         
         ballot.voterAddress = msg.sender;
@@ -305,10 +305,12 @@ contract bvs_backend {
         if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
             return "not implemented yet";
         } else {
-            return "not implemented yet"; // Not implemented yet
+            return "not implemented yet";
         } 
     }
 
+    // Returns the ballot submitted from the sender address
+    // Return ballot is empty if nothing was found
     function getVoteBallot (uint256 electionId) public view returns (Ballot memory) {
 
         Ballot memory ballot;
