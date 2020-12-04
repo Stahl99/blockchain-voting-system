@@ -15,6 +15,10 @@ namespace Blockchain_Wahlclient
         private CandidateList cl;
         private Backend backend;
         
+        /// <summary>
+        /// Constructor sets backend and creates new <c>CandidateList</c>
+        /// </summary>
+        /// <param name="backend">The backend instance to give to the CandidateList</param>
         public AlternativeVoting(Backend backend)
         {
 
@@ -24,11 +28,6 @@ namespace Blockchain_Wahlclient
             this.backend = backend;
             this.cl = new CandidateList(this.backend);
             
-        }
-
-        public void SetCandList(CandidateList cl)
-        {
-            this.cl = cl;
         }
 
         private void AlternativeVoting_Load(object sender, EventArgs e)
