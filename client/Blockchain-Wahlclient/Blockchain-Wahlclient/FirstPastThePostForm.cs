@@ -39,19 +39,25 @@ namespace Blockchain_Wahlclient
 
             // Verify the entered Information
             if(Model.VerifyVote(textBox1.Text))
-            {   
-                if(await Model.SendVote(textBox1.Text))
+            {
+                try
                 {
-                    // Vote successfull redirect to ElectionPicker
-                    MessageBox.Show("Vote sucessfull");
-                    this.Hide();
-                    var electionPickerForm = new ElectionPickerForm(this.backend);
-                    electionPickerForm.ShowDialog();
-                    this.Close();
-                }
-                else
+                    if (await Model.SendVote(textBox1.Text))
+                    {
+                        // Vote successfull redirect to ElectionPicker
+                        MessageBox.Show("Vote sucessfull");
+                        this.Hide();
+                        var electionPickerForm = new ElectionPickerForm(this.backend);
+                        electionPickerForm.ShowDialog();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("There was an error with your Vote. Please check your address and try again");
+                    }
+                } catch
                 {
-                    MessageBox.Show("There was an error with your Vote. Please check your address and try again");
+                    MessageBox.Show("Already voted from this address");
                 }
 
             }
