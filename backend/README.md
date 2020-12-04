@@ -1,4 +1,4 @@
-# DHBW Truffle Project
+# Totally Not DHBW Truffle Project
 
 ## Installation instructions
 

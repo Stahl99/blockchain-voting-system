@@ -10,7 +10,7 @@ namespace Blockchain_Wahlclient
 {
     public partial class AlternativeVotingCandidate : UserControl
     {
-
+        private int id;
         public void SetName (string name)
         {
             this.name.Text = name;
@@ -29,6 +29,16 @@ namespace Blockchain_Wahlclient
         public int GetRank()
         {
             return (int)this.rankChooser.Value;
+        }
+
+        public int GetId()
+        {
+            return this.id;
+        }
+
+        public void SetId(int id)
+        {
+            this.id = id;
         }
 
         public AlternativeVotingCandidate()

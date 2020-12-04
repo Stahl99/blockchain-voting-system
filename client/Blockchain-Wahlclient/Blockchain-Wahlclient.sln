@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blockchain-Wahlclient", "Blockchain-Wahlclient\Blockchain-Wahlclient.csproj", "{A6DDF625-5F4D-4AA3-99F1-C3B714711C38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockchain-Wahlclient", "Blockchain-Wahlclient\Blockchain-Wahlclient.csproj", "{A6DDF625-5F4D-4AA3-99F1-C3B714711C38}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockchainVotingSystem", "..\..\backend-api\BlockchainVotingSystem.csproj", "{B27ED26D-D742-4D5E-974C-6AE413BF27FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A6DDF625-5F4D-4AA3-99F1-C3B714711C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6DDF625-5F4D-4AA3-99F1-C3B714711C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6DDF625-5F4D-4AA3-99F1-C3B714711C38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B27ED26D-D742-4D5E-974C-6AE413BF27FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B27ED26D-D742-4D5E-974C-6AE413BF27FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B27ED26D-D742-4D5E-974C-6AE413BF27FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B27ED26D-D742-4D5E-974C-6AE413BF27FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
