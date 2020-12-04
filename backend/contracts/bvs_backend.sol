@@ -346,7 +346,7 @@ contract bvs_backend {
 
     function countVotes (uint256 electionId) public returns (Candidate[] memory candidateRanking, uint256[] memory voteCount) {
         if (!verifyElectionId(electionId) || !hasStarted(electionId)) {
-            return (candidateRanking, voteCount);
+            revert();
         }
 
         // If a result is already stored, return it
@@ -360,6 +360,9 @@ contract bvs_backend {
     	Candidate[] memory cands = _elections[electionId].electoralList;
         // Copy votes array
         uint256[] memory votes = _elections[electionId].votes;
+        // Copy ballots array
+        Ballot[] memory ballots = _elections[electionId].ballots;
+
         // Variables for calculation
         uint lastCandidateId;
         uint lastCandidateIndex = 0;
@@ -375,15 +378,15 @@ contract bvs_backend {
             sortVotes(votes, cands, int(0), int(votes.length - 1));
             // While there is no winner (>50% of votes), remove last candidate
             // and reassign the second prio votes
-            while (votes[votes.length-1] <= _elections[electionId].ballots.length) {
+            while (votes[votes.length-1] <= ballots.length / 2) {
                 lastCandidateId = cands[lastCandidateIndex].id;
                 // Look for ballots with the last candidate as prio 1
-                for (uint256 i = 0; i < _elections[electionId].ballots.length; i++) {
-                    if (_elections[electionId].ballots[i].ranking.length > 0 &&
-                        _elections[electionId].ballots[i].ranking[lastCandidateId] == 1) {
+                for (uint256 i = 0; i < ballots.length; i++) {
+                    if (ballots[i].ranking.length > 0 &&
+                        ballots[i].ranking[lastCandidateId] == 1) {
                             // Look for the candidate with prio 2 (candidate id = j)
-                            for (uint j = 0; j < cands.length; j++) {
-                                if (_elections[electionId].ballots[i].ranking[j] == lastCandidateIndex + 2) {
+                            for (uint j = 0; j < ballots[i].ranking.length; j++) {
+                                if (ballots[i].ranking[j] == 2) {
                                     // Add second prio to according candidate in votes array
                                     for (uint k = 0; k < cands.length; k++) {
                                         if (cands[k].id == j) {
@@ -391,6 +394,8 @@ contract bvs_backend {
                                         }
                                     }
                                 }
+                                // Reduce prios by one, unused prio 1 turns 0
+                                ballots[i].ranking[j]--;
                             }
                         }
                 }
