@@ -90,25 +90,37 @@ contract("bvs_backend", (accounts) => {
   // This code tests the following functions:
   // vote
   it("should reject vote from non-eligible voters", async () => {
-
+    let electionId = 0;
+    let candidateId = 1;
+    const ranking = [];
+    await truffleAssert.reverts(instance.testVote(electionId, candidateId, ranking,
+      {from: accounts[2]}));
   });
 
   // This code tests the following functions
   // vote
   // getVoteBallot
   it("should accept a valid vote", async () => {
-    
+    let electionId = 0;
+    let candidateId = 1;
+    const ranking = [];
+    let response = await instance.testVote(electionId, candidateId, ranking, {from: accounts[1]});
+    assert.equal(response.receipt.status, true, "Function should return true");
   });
 
   // This code tests the following functions
   it("should reject a second vote", async () => {
-
+    let electionId = 0;
+    let candidateId = 1;
+    const ranking = [];
+    await truffleAssert.reverts(instance.testVote(electionId, candidateId, ranking,
+      {from: accounts[1]}));
   });
 
   // This code tests the following functions:
   // countVotes
   it("should count the votes correctly", async () => {
-
+    // I have no idea what I'm doing
   });
 
 });
