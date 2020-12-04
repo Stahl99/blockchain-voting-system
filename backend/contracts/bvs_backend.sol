@@ -395,7 +395,7 @@ contract bvs_backend {
         }
 
         // If election is over, store the calculated result
-        if (isOver(electionId)) {
+        if (isOver(electionId) && _elections[electionId].result.empty) {
             for (uint i = 0; i < votes.length; i++) {
                 _elections[electionId].result.votes.push(votes[i]);
                 _elections[electionId].result.candidates.push(cands[i]);
