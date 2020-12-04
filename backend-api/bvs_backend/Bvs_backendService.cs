@@ -112,17 +112,6 @@ namespace BlockchainVotingSystem.Contracts.bvs_backend
             return ContractHandler.QueryDeserializingToObjectAsync<GetElectionInformationFunction, GetElectionInformationOutputDTO>(null, blockParameter);
         }
 
-        public Task<List<string>> GetElectionStringsQueryAsync(GetElectionStringsFunction getElectionStringsFunction, BlockParameter blockParameter = null)
-        {
-            return ContractHandler.QueryAsync<GetElectionStringsFunction, List<string>>(getElectionStringsFunction, blockParameter);
-        }
-
-        
-        public Task<List<string>> GetElectionStringsQueryAsync(BlockParameter blockParameter = null)
-        {
-            return ContractHandler.QueryAsync<GetElectionStringsFunction, List<string>>(null, blockParameter);
-        }
-
         public Task<GetElectoralListOutputDTO> GetElectoralListQueryAsync(GetElectoralListFunction getElectoralListFunction, BlockParameter blockParameter = null)
         {
             return ContractHandler.QueryDeserializingToObjectAsync<GetElectoralListFunction, GetElectoralListOutputDTO>(getElectoralListFunction, blockParameter);
@@ -229,6 +218,36 @@ namespace BlockchainVotingSystem.Contracts.bvs_backend
                 replaceListOfEligibleVotersFunction.NewEligibleVoterList = newEligibleVoterList;
             
              return ContractHandler.SendRequestAndWaitForReceiptAsync(replaceListOfEligibleVotersFunction, cancellationToken);
+        }
+
+        public Task<string> TestVoteRequestAsync(TestVoteFunction testVoteFunction)
+        {
+             return ContractHandler.SendRequestAsync(testVoteFunction);
+        }
+
+        public Task<TransactionReceipt> TestVoteRequestAndWaitForReceiptAsync(TestVoteFunction testVoteFunction, CancellationTokenSource cancellationToken = null)
+        {
+             return ContractHandler.SendRequestAndWaitForReceiptAsync(testVoteFunction, cancellationToken);
+        }
+
+        public Task<string> TestVoteRequestAsync(BigInteger electionId, BigInteger candidateId, List<BigInteger> ranking)
+        {
+            var testVoteFunction = new TestVoteFunction();
+                testVoteFunction.ElectionId = electionId;
+                testVoteFunction.CandidateId = candidateId;
+                testVoteFunction.Ranking = ranking;
+            
+             return ContractHandler.SendRequestAsync(testVoteFunction);
+        }
+
+        public Task<TransactionReceipt> TestVoteRequestAndWaitForReceiptAsync(BigInteger electionId, BigInteger candidateId, List<BigInteger> ranking, CancellationTokenSource cancellationToken = null)
+        {
+            var testVoteFunction = new TestVoteFunction();
+                testVoteFunction.ElectionId = electionId;
+                testVoteFunction.CandidateId = candidateId;
+                testVoteFunction.Ranking = ranking;
+            
+             return ContractHandler.SendRequestAndWaitForReceiptAsync(testVoteFunction, cancellationToken);
         }
 
         public Task<string> VoteRequestAsync(VoteFunction voteFunction)

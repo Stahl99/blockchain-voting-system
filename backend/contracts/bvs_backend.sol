@@ -423,4 +423,13 @@ contract bvs_backend {
         // Return false if ID has not been found
         return false;
     }
+
+    function testVote (uint256 _electionId, uint _candidateId, uint[] memory _ranking) public returns (bool) {
+        Ballot memory ballot = Ballot({
+            voterAddress: msg.sender,
+            candidateId: _candidateId,
+            ranking: _ranking
+        });
+        return vote(_electionId, ballot);
+    }
 }

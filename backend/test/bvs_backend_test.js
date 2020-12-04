@@ -87,4 +87,28 @@ contract("bvs_backend", (accounts) => {
     assert.equal(returnedElectoralList.length, 2, "The returned electoral list is correct");
   });*/
 
+  // This code tests the following functions:
+  // vote
+  it("should reject vote from non-eligible voters", async () => {
+
+  });
+
+  // This code tests the following functions
+  // vote
+  // getVoteBallot
+  it("should accept a valid vote", async () => {
+    
+  });
+
+  // This code tests the following functions
+  it("should reject a second vote", async () => {
+
+  });
+
+  // This code tests the following functions:
+  // countVotes
+  it("should count the votes correctly", async () => {
+
+  });
+
 });
