@@ -42,17 +42,30 @@ namespace BlockchainVotingSystem.Contracts.bvs_backend
             ContractHandler = web3.Eth.GetContractHandler(contractAddress);
         }
 
-        public Task<CountVotesOutputDTO> CountVotesQueryAsync(CountVotesFunction countVotesFunction, BlockParameter blockParameter = null)
+        public Task<string> CountVotesRequestAsync(CountVotesFunction countVotesFunction)
         {
-            return ContractHandler.QueryDeserializingToObjectAsync<CountVotesFunction, CountVotesOutputDTO>(countVotesFunction, blockParameter);
+             return ContractHandler.SendRequestAsync(countVotesFunction);
         }
 
-        public Task<CountVotesOutputDTO> CountVotesQueryAsync(BigInteger electionId, BlockParameter blockParameter = null)
+        public Task<TransactionReceipt> CountVotesRequestAndWaitForReceiptAsync(CountVotesFunction countVotesFunction, CancellationTokenSource cancellationToken = null)
+        {
+             return ContractHandler.SendRequestAndWaitForReceiptAsync(countVotesFunction, cancellationToken);
+        }
+
+        public Task<string> CountVotesRequestAsync(BigInteger electionId)
         {
             var countVotesFunction = new CountVotesFunction();
                 countVotesFunction.ElectionId = electionId;
             
-            return ContractHandler.QueryDeserializingToObjectAsync<CountVotesFunction, CountVotesOutputDTO>(countVotesFunction, blockParameter);
+             return ContractHandler.SendRequestAsync(countVotesFunction);
+        }
+
+        public Task<TransactionReceipt> CountVotesRequestAndWaitForReceiptAsync(BigInteger electionId, CancellationTokenSource cancellationToken = null)
+        {
+            var countVotesFunction = new CountVotesFunction();
+                countVotesFunction.ElectionId = electionId;
+            
+             return ContractHandler.SendRequestAndWaitForReceiptAsync(countVotesFunction, cancellationToken);
         }
 
         public Task<string> CreateElectionRequestAsync(CreateElectionFunction createElectionFunction)
@@ -134,21 +147,6 @@ namespace BlockchainVotingSystem.Contracts.bvs_backend
             return ContractHandler.QueryAsync<GetLastElectionIdFunction, BigInteger>(null, blockParameter);
         }
 
-        public Task<string> GetVoteQueryAsync(GetVoteFunction getVoteFunction, BlockParameter blockParameter = null)
-        {
-            return ContractHandler.QueryAsync<GetVoteFunction, string>(getVoteFunction, blockParameter);
-        }
-
-        
-        public Task<string> GetVoteQueryAsync(BigInteger electionId, string requestAddress, BlockParameter blockParameter = null)
-        {
-            var getVoteFunction = new GetVoteFunction();
-                getVoteFunction.ElectionId = electionId;
-                getVoteFunction.RequestAddress = requestAddress;
-            
-            return ContractHandler.QueryAsync<GetVoteFunction, string>(getVoteFunction, blockParameter);
-        }
-
         public Task<GetVoteBallotOutputDTO> GetVoteBallotQueryAsync(GetVoteBallotFunction getVoteBallotFunction, BlockParameter blockParameter = null)
         {
             return ContractHandler.QueryDeserializingToObjectAsync<GetVoteBallotFunction, GetVoteBallotOutputDTO>(getVoteBallotFunction, blockParameter);
@@ -160,6 +158,21 @@ namespace BlockchainVotingSystem.Contracts.bvs_backend
                 getVoteBallotFunction.ElectionId = electionId;
             
             return ContractHandler.QueryDeserializingToObjectAsync<GetVoteBallotFunction, GetVoteBallotOutputDTO>(getVoteBallotFunction, blockParameter);
+        }
+
+        public Task<string> GetVoteStringQueryAsync(GetVoteStringFunction getVoteStringFunction, BlockParameter blockParameter = null)
+        {
+            return ContractHandler.QueryAsync<GetVoteStringFunction, string>(getVoteStringFunction, blockParameter);
+        }
+
+        
+        public Task<string> GetVoteStringQueryAsync(BigInteger electionId, string requestAddress, BlockParameter blockParameter = null)
+        {
+            var getVoteStringFunction = new GetVoteStringFunction();
+                getVoteStringFunction.ElectionId = electionId;
+                getVoteStringFunction.RequestAddress = requestAddress;
+            
+            return ContractHandler.QueryAsync<GetVoteStringFunction, string>(getVoteStringFunction, blockParameter);
         }
 
         public Task<string> ReplaceElectoralListRequestAsync(ReplaceElectoralListFunction replaceElectoralListFunction)
