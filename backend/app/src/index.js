@@ -36,10 +36,10 @@ const App = {
 
     var i;
     for (var election of electionInfo) {
-      
+
       var votingSystemString = "";
       if (election.votingSystem == 1) {
-          votingSystemString = "alternative voting";
+        votingSystemString = "alternative voting";
       }
       else {
         votingSystemString = "standard voting";
@@ -51,13 +51,8 @@ const App = {
 
       ul.appendChild(li);
       const electoralList = await this.bvs_backend.methods.getElectoralList(election.id).call();
-      await this.bvs_backend.methods.countVotes(election.id).send({from: this.account});
+      await this.bvs_backend.methods.countVotes(election.id).send({ from: this.account });
       const electionResult = await this.bvs_backend.methods.getResult(election.id).call();
-
-      console.log ("electionresult:");
-      console.log (electionResult);
-      console.log ("electoral list:");
-      console.log (electoralList);
 
       var newUl;
       if (electoralList.length > 0) {
@@ -66,17 +61,11 @@ const App = {
         li.appendChild(newUl);
       }
 
-      electoralList.forEach (function (candidate, i) {
-
-        console.log ("candidate id:");
-        console.log(candidate.id);
-
+     electionResult.candidates.forEach(function (candidate, i) {
         var numberOfVotes = 0;
-        if (election.votingSystem == 0) {
-          for (var j = 0; j < electionResult.candidates.length; j++) {
-            if (candidate.id == electionResult.candidates[j].id) {
-              numberOfVotes = electionResult.votes[j];
-            }
+        for (var j = 0; j < electionResult.candidates.length; j++) {
+          if (candidate.id == electionResult.candidates[j].id) {
+            numberOfVotes = electionResult.votes[j];
           }
         }
 

@@ -76,7 +76,7 @@ contract bvs_backend {
     }
 
     struct Result {
-        //bool empty;
+        bool finalResult;
         Candidate[] candidates;
         uint256[] votes;
     }
@@ -101,6 +101,7 @@ contract bvs_backend {
         temp.adminAddress = electionAdminAddress;
         temp.startTimestamp = electionStartTimestamp;
         temp.endTimestamp = electionEndTimestamp;
+        temp.result.finalResult = false; // No result has been calculated
 
         _elections.push(temp); // save the new election on the blockchain
 
@@ -248,11 +249,11 @@ contract bvs_backend {
         
         // Store the vote
         if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
-            _elections[electionId].votes[tempBallot.candidateId]++;
+            _elections[electionId].votes[ballot.candidateId]++;
         } else {
             // Find prio 1 in ballot and store as vote
-            for (uint i = 0; i < tempBallot.ranking.length; i++) {
-                if (tempBallot.ranking[i] == 1) {
+            for (uint i = 0; i < ballot.ranking.length; i++) {
+                if (ballot.ranking[i] == 1) {
                     _elections[electionId].votes[i]++;
                 }
             }
@@ -333,16 +334,16 @@ contract bvs_backend {
     }
 
     function countVotes (uint256 electionId) public {
-        if (!verifyElectionId(electionId) || !hasStarted(electionId)) {
+        if (!verifyElectionId(electionId)) {
             revert();
         }
 
-        // If a result is already stored, revert
-        /*if (_elections[electionId].result.empty == false) {
-            revert();
-        }*/
+        // If final result is stored, no calculation needed
+        if (_elections[electionId].result.finalResult) {
+            return;
+        }
 
-        // Calculate result:
+        /*** Calculate result: ***/
 
         // Copy candidate array
     	Candidate[] memory cands = _elections[electionId].electoralList;
@@ -351,14 +352,19 @@ contract bvs_backend {
         // Copy ballots array
         Ballot[] memory ballots = _elections[electionId].ballots;
 
+        // Catch empty ballots array
+        if (ballots.length == 0) {
+            return;
+        }
+
         // Variables for calculation
         uint lastCandidateId;
         uint lastCandidateIndex = 0;
         
         // If election is not over or uses standard voting, "votes" array can be used
-        if (!isOver(electionId) || (_elections[electionId].votingSystem == VotingSystem.standardVoting)) {
+        if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
             // Quicksort implementation, stores candidate IDs in the order arrray
-            //sortVotes(votes, cands, int(0), int(votes.length - 1));
+            sortVotes(votes, cands, int(0), int(votes.length - 1));
         }
 
         // Election is over and uses alternative voting
@@ -366,8 +372,14 @@ contract bvs_backend {
             sortVotes(votes, cands, int(0), int(votes.length - 1));
             // While there is no winner (>50% of votes), remove last candidate
             // and reassign the second prio votes
-            while (votes[votes.length-1] <= ballots.length / 2) {
+            while (votes[votes.length - 1] <= ballots.length / 2) {
+                // If only two candidates are left the result is a draw
+                if (lastCandidateIndex == votes.length - 2) {
+                    break;
+                }
+                // Determine last candidate and set his votes to 0
                 lastCandidateId = cands[lastCandidateIndex].id;
+                votes[lastCandidateId] = 0;
                 // Look for ballots with the last candidate as prio 1
                 for (uint256 i = 0; i < ballots.length; i++) {
                     if (ballots[i].ranking.length > 0 &&
@@ -398,12 +410,11 @@ contract bvs_backend {
         delete _elections[electionId].result.candidates;
 
         // Store the calculated result
-        //if (isOver(electionId) /*&& _elections[electionId].result.empty*/) {
-            for (uint i = 0; i < votes.length; i++) {
-                _elections[electionId].result.votes.push(votes[i]);
-                _elections[electionId].result.candidates.push(cands[i]);
-            }
-        //}
+        for (uint i = 0; i < votes.length; i++) {
+            _elections[electionId].result.votes.push(votes[i]);
+            _elections[electionId].result.candidates.push(cands[i]);
+            _elections[electionId].result.finalResult = isOver(electionId);
+        }
     }
 
     function getResult (uint electionId) public view returns (uint256[] memory votes, Candidate[] memory candidates) {
