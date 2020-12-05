@@ -332,14 +332,14 @@ contract bvs_backend {
         return ballot;
     }
 
-    function countVotes (uint256 electionId) public returns (Candidate[] memory candidateRanking, uint256[] memory voteCount) {
+    function countVotes (uint256 electionId) public {
         if (!verifyElectionId(electionId) || !hasStarted(electionId)) {
             revert();
         }
 
-        // If a result is already stored, return it
+        // If a result is already stored, revert
         if (_elections[electionId].result.empty == false) {
-            return (_elections[electionId].result.candidates, _elections[electionId].result.votes);
+            revert();
         }
 
         // Calculate result:
@@ -394,15 +394,19 @@ contract bvs_backend {
             }
         }
 
-        // If election is over, store the calculated result
+        // Store the calculated result
         if (isOver(electionId) && _elections[electionId].result.empty) {
             for (uint i = 0; i < votes.length; i++) {
                 _elections[electionId].result.votes.push(votes[i]);
                 _elections[electionId].result.candidates.push(cands[i]);
             }
         }
+    }
 
-        return (cands, votes);
+    function getResult (uint electionId) public view returns (uint256[] memory votes, Candidate[] memory candidates) {
+        require(!_elections[electionId].result.empty, "No result calculated, call countVotes first");
+        return (_elections[electionId].result.votes,
+                _elections[electionId].result.candidates);
     }
 
     function isOver (uint256 electionId) private view returns (bool) {
@@ -422,5 +426,14 @@ contract bvs_backend {
         }
         // Return false if ID has not been found
         return false;
+    }
+
+    function testVote (uint256 _electionId, uint _candidateId, uint[] memory _ranking) public returns (bool) {
+        Ballot memory ballot = Ballot({
+            voterAddress: msg.sender,
+            candidateId: _candidateId,
+            ranking: _ranking
+        });
+        return vote(_electionId, ballot);
     }
 }
