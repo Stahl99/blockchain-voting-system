@@ -10,6 +10,7 @@ using BlockchainVotingSystem.Contracts.bvs_backend.ContractDefinition;
 using Nethereum.Web3;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Web3.Accounts.Managed;
+using System.IO;
 
 namespace blockchain_admintool
 {
@@ -22,7 +23,7 @@ namespace blockchain_admintool
         TmpElectionObject currentElection;
         GetElectoralListOutputDTO backendCandidates;
 
-        public async void CreateElection(string admAdr, int votingSys, List<Candidate> candList, DateTime start, DateTime stop, string description, int voterCount)
+        public async void CreateElection(string admAdr, int votingSys, List<Candidate> candList, DateTime start, DateTime stop, string description, int voterCount, string prKeyLoc)
         {
 
             
@@ -34,13 +35,27 @@ namespace blockchain_admintool
 
             await votingService.ReplaceElectoralListRequestAsync(id, candList);
 
-            List<String> voters = new List<string>(){"0x3D350e8FAdDFE27C33CD16c03178326E82012b4c", "0x861E2334a5A0Ab09Db7d2E49cb4f1c138dA55253", "0xf722b4A940C7f7A20CA3bF4ff5d21C49875FC34c", "0x4d93FF07B5b7D3B24Fc6374F6470785C67FB6ba4",
-                "0x2d3E9280E7bFACa1720f302fB49172719A60dBa4", "0x072D8d0979c2Ff8b2367886FCDB04600392863eC", "0x1f96059FEBFc08C3fA2ba0b57921569227810A62", "0x3F60c6eBF19A76801Fc5e96db993b9d6082E34F6", "0xb35d1689421D7a51b778F70CF7990Fe01F4A3894",
-                "0xA30668a30C500388D687fB2E50c35eaaB3dF1eA8" };
+            List<String> voters = new List<string>();
+
+            List<String> privateKeys = new List<string>();
+
+            for (int i = 0; i < voterCount; i++)
+            {
+                var ecKey = Nethereum.Signer.EthECKey.GenerateKey();
+                var privateKey = ecKey.GetPrivateKeyAsBytes().ToHex();
+                var account = new Account(privateKey);
+
+                voters.Add(account.Address.ToString());
+                privateKeys.Add(privateKey.ToString());
+
+                await web3.Eth.GetEtherTransferService().TransferEtherAndWaitForReceiptAsync(account.Address, 3.3m);
+            }
 
             await votingService.ReplaceListOfEligibleVotersRequestAsync(id, voters);
 
+            PrintPrKeys(privateKeys, prKeyLoc);
 
+            MessageBox.Show("Wahl erfolgreich erstellt");
 
         }
 
@@ -71,6 +86,20 @@ namespace blockchain_admintool
             // create voting service with new contract adress
             this.votingService = new Bvs_backendService(web3, contractAdress);
             return true;
+        }
+
+        public void PrintPrKeys(List<string> prKeys, string path)
+        {
+
+            using var sw = new StreamWriter(path + "\\PrivKeys.txt");
+            
+            foreach(String s in prKeys)
+            {
+                sw.WriteLine(s);
+            }
+
+            sw.Close();
+
         }
 
         public void SetBlockchainUrl(String url, String walletAddr)

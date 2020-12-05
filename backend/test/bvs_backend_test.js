@@ -15,7 +15,6 @@ contract("bvs_backend", (accounts) => {
 
   beforeEach(async () => {
     instance = await BVS_backend.deployed();
-    //instance.defaultAccount = "0xf722b4A940C7f7A20CA3bF4ff5d21C49875FC34c";
 
     // create elections for the test
     // admin addresses are test users
@@ -23,7 +22,7 @@ contract("bvs_backend", (accounts) => {
     // timestamps are now and a time a few days in the future
     await instance.createElection("0x3D350e8FAdDFE27C33CD16c03178326E82012b4c", 0, name1, startTimestamp1, endTimestamp1);
     await instance.createElection("0x861E2334a5A0Ab09Db7d2E49cb4f1c138dA55253", 1, name2, startTimestamp1, endTimestamp1);
-    await instance.createElection("0xf722b4A940C7f7A20CA3bF4ff5d21C49875FC34c", 0, name3, startTimestamp2, endTimestamp2);
+    await instance.createElection(accounts[0], 0, name3, startTimestamp2, endTimestamp2);
     
   });
 
@@ -69,23 +68,23 @@ contract("bvs_backend", (accounts) => {
   // This code tests the following functions:
   // replaceElectoralList
   // getElectoralList
-  /*it("tests replaceElectoralList and getElectoralList", async () => {
+  it("tests replaceElectoralList and getElectoralList", async () => {
     
     let testSuccessful = false;
     let definiedElectoralList = [{firstName:'first1', lastName:'last1', party:'party1', id: 0},{firstName:'first2', lastName:'last2', party:'party2', id: 1}];
     let lastElectionId = await instance.getLastElectionId(); // get the id of the last created election
 
-    let replaceElectoralListStatus = await instance.replaceElectoralList(lastElectionId, definiedElectoralList);
+    let replaceElectoralListStatus = await instance.replaceElectoralList(lastElectionId, definiedElectoralList, {from: accounts[0]});
     let returnedElectoralList = await instance.getElectoralList(lastElectionId);
 
-    //if (returnedElectoralList[0].firstName == "first1" && returnedElectoralList[0].lastName == "last1" && returnedElectoralList[0].party == "party1" && returnedElectoralList[0].id == 0 &&
-    //    returnedElectoralList[1].firstName == "first2" && returnedElectoralList[1].lastName == "last2" && returnedElectoralList[1].party == "party2" && returnedElectoralList[1].id == 1 &&
-    //    replaceElectoralListStatus) {
-    //      testSuccessful = true;
-    //}
+    if (returnedElectoralList[0].firstName == "first1" && returnedElectoralList[0].lastName == "last1" && returnedElectoralList[0].party == "party1" && returnedElectoralList[0].id == 0 &&
+        returnedElectoralList[1].firstName == "first2" && returnedElectoralList[1].lastName == "last2" && returnedElectoralList[1].party == "party2" && returnedElectoralList[1].id == 1 &&
+        replaceElectoralListStatus) {
+          testSuccessful = true;
+    }
 
-    assert.equal(returnedElectoralList.length, 2, "The returned electoral list is correct");
-  });*/
+    assert.equal(testSuccessful, true, "The returned electoral list is correct");
+  });
 
   // This code tests the following functions:
   // vote
