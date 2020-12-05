@@ -76,7 +76,7 @@ contract bvs_backend {
     }
 
     struct Result {
-        bool empty;
+        //bool empty;
         Candidate[] candidates;
         uint256[] votes;
     }
@@ -338,9 +338,9 @@ contract bvs_backend {
         }
 
         // If a result is already stored, revert
-        if (_elections[electionId].result.empty == false) {
+        /*if (_elections[electionId].result.empty == false) {
             revert();
-        }
+        }*/
 
         // Calculate result:
 
@@ -358,7 +358,7 @@ contract bvs_backend {
         // If election is not over or uses standard voting, "votes" array can be used
         if (!isOver(electionId) || (_elections[electionId].votingSystem == VotingSystem.standardVoting)) {
             // Quicksort implementation, stores candidate IDs in the order arrray
-            sortVotes(votes, cands, int(0), int(votes.length - 1));
+            //sortVotes(votes, cands, int(0), int(votes.length - 1));
         }
 
         // Election is over and uses alternative voting
@@ -394,17 +394,20 @@ contract bvs_backend {
             }
         }
 
+        delete _elections[electionId].result.votes;
+        delete _elections[electionId].result.candidates;
+
         // Store the calculated result
-        if (isOver(electionId) && _elections[electionId].result.empty) {
+        //if (isOver(electionId) /*&& _elections[electionId].result.empty*/) {
             for (uint i = 0; i < votes.length; i++) {
                 _elections[electionId].result.votes.push(votes[i]);
                 _elections[electionId].result.candidates.push(cands[i]);
             }
-        }
+        //}
     }
 
     function getResult (uint electionId) public view returns (uint256[] memory votes, Candidate[] memory candidates) {
-        require(!_elections[electionId].result.empty, "No result calculated, call countVotes first");
+        //require(!_elections[electionId].result.empty, "No result calculated, call countVotes first");
         return (_elections[electionId].result.votes,
                 _elections[electionId].result.candidates);
     }

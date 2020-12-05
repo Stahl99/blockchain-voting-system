@@ -19,8 +19,8 @@ const App = {
       );
 
       // get accounts
-      //const accounts = await web3.eth.getAccounts();
-      //this.account = accounts[0];
+      const accounts = await web3.eth.getAccounts();
+      this.account = accounts[0];
 
       this.loadElections();
     } catch (error) {
@@ -29,8 +29,6 @@ const App = {
   },
 
   loadElections: async function () {
-    //const { electionInfo } = this.bvs_backend.methods;
-    //electionInfo = await getElectionInformation().call();
 
     const electionInfo = await this.bvs_backend.methods.getElectionInformation().call();
 
@@ -39,12 +37,27 @@ const App = {
     var i;
     for (var election of electionInfo) {
       
+      var votingSystemString = "";
+      if (election.votingSystem == 1) {
+          votingSystemString = "alternative voting";
+      }
+      else {
+        votingSystemString = "standard voting";
+      }
+
       var li = document.createElement("li");
       li.setAttribute('id', election.name);
-      li.appendChild(document.createTextNode(election.name));
+      li.appendChild(document.createTextNode(election.name + " (" + votingSystemString + ")"));
 
       ul.appendChild(li);
       const electoralList = await this.bvs_backend.methods.getElectoralList(election.id).call();
+      await this.bvs_backend.methods.countVotes(election.id).send({from: this.account});
+      const electionResult = await this.bvs_backend.methods.getResult(election.id).call();
+
+      console.log ("electionresult:");
+      console.log (electionResult);
+      console.log ("electoral list:");
+      console.log (electoralList);
 
       var newUl;
       if (electoralList.length > 0) {
@@ -53,12 +66,25 @@ const App = {
         li.appendChild(newUl);
       }
 
-      for (var candidate of electoralList) {
+      electoralList.forEach (function (candidate, i) {
+
+        console.log ("candidate id:");
+        console.log(candidate.id);
+
+        var numberOfVotes = 0;
+        if (election.votingSystem == 0) {
+          for (var j = 0; j < electionResult.candidates.length; j++) {
+            if (candidate.id == electionResult.candidates[j].id) {
+              numberOfVotes = electionResult.votes[j];
+            }
+          }
+        }
+
         var newLi = document.createElement("li");
         newLi.setAttribute('id', candidate.firstName + candidate.lastName);
-        newLi.appendChild(document.createTextNode(candidate.firstName + " " + candidate.lastName + ": " + candidate.party));
+        newLi.appendChild(document.createTextNode(candidate.firstName + " " + candidate.lastName + ": " + candidate.party + " (votes: " + numberOfVotes + ")"));
         newUl.appendChild(newLi);
-      }
+      });
     }
   },
 
