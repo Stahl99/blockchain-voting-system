@@ -33,7 +33,10 @@ namespace blockchain_admintool
 
             MessageBox.Show(id.ToString());
 
-            await votingService.ReplaceElectoralListRequestAsync(id, candList);
+            foreach(Candidate c in candList)
+            {
+                await votingService.AddCandidateRequestAsync(id, c);
+            }
 
             List<String> voters = new List<string>();
 
