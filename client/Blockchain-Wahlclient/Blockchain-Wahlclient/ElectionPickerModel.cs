@@ -34,8 +34,8 @@ namespace Blockchain_Wahlclient
                 ElectionControl electionControl = new ElectionControl();
                 electionControl.SetName(election.Name);
                 electionControl.SetId((int) election.Id);
-                electionControl.SetTimestamp(UnixTimeStampToDateTime((double) election.StartTimestamp).ToString() + "   "
-                    + UnixTimeStampToDateTime((double)election.EndTimestamp).ToString());
+                electionControl.SetTimestamp("Start: " + UnixTimeStampToDateTime((double) election.StartTimestamp).ToString() + "   "
+                    + "End: " + UnixTimeStampToDateTime((double)election.EndTimestamp).ToString());
 
                 frontendElections.Add(electionControl);
             }
