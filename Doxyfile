@@ -844,8 +844,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  =  \
-                         C:\Users\luise\workspace\blockchain-voting-system\client\Blockchain-Wahlclient\Blockchain-Wahlclient \
+INPUT                  = C:\Users\luise\workspace\blockchain-voting-system\client\Blockchain-Wahlclient\Blockchain-Wahlclient \
                          C:\Users\luise\workspace\blockchain-voting-system\admin-tool\Blockchain-Admintool\blockchain-admintool
 
 # This tag can be used to specify the character encoding of the source files
@@ -2028,7 +2027,7 @@ RTF_SOURCE_CODE        = NO
 # classes and files.
 # The default value is: NO.
 
-GENERATE_MAN           = NO
+GENERATE_MAN           = YES
 
 # The MAN_OUTPUT tag is used to specify where the man pages will be put. If a
 # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of
