@@ -31,8 +31,6 @@ namespace blockchain_admintool
 
             System.Numerics.BigInteger id = votingService.GetLastElectionIdQueryAsync().Result;
 
-            MessageBox.Show(id.ToString());
-
             foreach(Candidate c in candList)
             {
                 await votingService.AddCandidateRequestAsync(id, c);
@@ -67,11 +65,7 @@ namespace blockchain_admintool
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             Int32 unixdt = (Int32)(d.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 
-            MessageBox.Show(unixdt.ToString());
-
             System.Numerics.BigInteger tmp = (System.Numerics.BigInteger)unixdt;
-
-            MessageBox.Show(unixdt.ToString());
 
             return unixdt;
         }
