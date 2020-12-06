@@ -18,7 +18,7 @@ const App = {
         deployedNetwork.address
       );
 
-      // get accounts
+      // get accounts (needed for countVotes function)
       const accounts = await web3.eth.getAccounts();
       this.account = accounts[0];
 
@@ -30,13 +30,16 @@ const App = {
 
   loadElections: async function () {
 
+    // get basic info about the elections
     const electionInfo = await this.bvs_backend.methods.getElectionInformation().call();
 
+    // create list for the elections
     var ul = document.getElementById("election-list");
 
-    var i;
+    // iterate over all elections
     for (var election of electionInfo) {
 
+      // set the voting system string for display
       var votingSystemString = "";
       if (election.votingSystem == 1) {
         votingSystemString = "alternative voting";
@@ -45,18 +48,20 @@ const App = {
         votingSystemString = "standard voting";
       }
 
+      // create list element for the election
       var li = document.createElement("li");
       li.setAttribute('id', election.name);
       li.appendChild(document.createTextNode(election.name + " (" + votingSystemString + ")"));
-
       ul.appendChild(li);
+
+      // get the electoral list of the election
       const electoralList = await this.bvs_backend.methods.getElectoralList(election.id).call();
+
+      // count all votes and get the current standing / result
       await this.bvs_backend.methods.countVotes(election.id).send({ from: this.account });
       const electionResult = await this.bvs_backend.methods.getResult(election.id).call();
 
-      console.log(electoralList);
-      console.log(electionResult);
-
+      // create a new list for the candidates if there are any
       var newUl;
       if (electoralList.length > 0) {
         newUl = document.createElement("ul");
@@ -64,6 +69,9 @@ const App = {
         li.appendChild(newUl);
       }
 
+      // if no one has voted election result is empty
+      // if this is the case the electoral list is used for display
+      // otherwise the election result array is used as it is already sorted correctly
       var searchArray;
       if (electionResult.candidates.length > 0) {
         searchArray = electionResult.candidates;
@@ -71,14 +79,18 @@ const App = {
         searchArray = electoralList;
       }
 
+      // iterate over the candidates
       searchArray.forEach(function (candidate, i) {
-        var numberOfVotes = 0;
+
+        var numberOfVotes = 0; 
+        // check how many votes a candidate has
         for (var j = 0; j < electionResult.candidates.length; j++) {
           if (candidate.id == electionResult.candidates[j].id) {
             numberOfVotes = electionResult.votes[j];
           }
         }
 
+        // create a new list element for the candidate
         var newLi = document.createElement("li");
         newLi.setAttribute('id', candidate.firstName + candidate.lastName);
         newLi.appendChild(document.createTextNode(candidate.firstName + " " + candidate.lastName + ": " + candidate.party + " (votes: " + numberOfVotes + ")"));
