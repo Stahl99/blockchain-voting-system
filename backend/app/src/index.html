@@ -12,13 +12,23 @@
   <body>
     <h1>Blockchain Voting System | Voting Results</h1>
     
-    <ul id="election-list"></ul>
+    <ul id="election-list"></ul><br>
 
-    <p id="status"></p>
-    <p>
-      <strong>Hint:</strong> open the browser developer console to view any
-      errors and warnings.
-    </p>
+    <h1>Check ballot</h1>
+
+    <label for="electionId">Election id:</label>
+    <input type="number" id="electionId" placeholder="e.g. 0" />
+
+    <label for="voterKey">Voter private key:</label>
+    <input
+      type="text"
+      id="voterKey"
+      placeholder="e.g. 0x2899b5bae3a3ba6c6e163440db9098967e6d1a44b6faa5cf8b403a4746aacbda"
+    />
+    <button onclick="App.checkBallot()">Check ballot</button>
+
+    <p id="ballot"></p>
+
     <script src="index.js"></script>
   </body>
 </html>

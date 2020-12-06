@@ -317,7 +317,7 @@ contract bvs_backend {
 
         Ballot memory ballot;
         ballot.voterAddress = address(0);
-        ballot.candidateId = block.timestamp;// return length of ballot array for debug
+        ballot.candidateId = 0;
 
         if (!verifyElectionId(electionId)) {
             return ballot;
