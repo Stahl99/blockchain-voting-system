@@ -54,6 +54,9 @@ const App = {
       await this.bvs_backend.methods.countVotes(election.id).send({ from: this.account });
       const electionResult = await this.bvs_backend.methods.getResult(election.id).call();
 
+      console.log(electoralList);
+      console.log(electionResult);
+
       var newUl;
       if (electoralList.length > 0) {
         newUl = document.createElement("ul");
@@ -61,7 +64,14 @@ const App = {
         li.appendChild(newUl);
       }
 
-     electionResult.candidates.forEach(function (candidate, i) {
+      var searchArray;
+      if (electionResult.candidates.length > 0) {
+        searchArray = electionResult.candidates;
+      } else {
+        searchArray = electoralList;
+      }
+
+      searchArray.forEach(function (candidate, i) {
         var numberOfVotes = 0;
         for (var j = 0; j < electionResult.candidates.length; j++) {
           if (candidate.id == electionResult.candidates[j].id) {
@@ -76,37 +86,6 @@ const App = {
       });
     }
   },
-
-  /*refreshBalance: async function () {
-    const { balanceOf, decimals } = this.bvs_backend.methods;
-    const balance = await balanceOf(this.account).call();
-    const decimal = await decimals().call();
-
-    const balanceElement = document.getElementsByClassName("balance")[0];
-    balanceElement.innerHTML = `${balance / Math.pow(10, decimal)}.${(
-      balance % 100
-    )
-      .toString()
-      .padStart(2, "0")}`;
-  },
-
-  sendCoin: async function () {
-    const amount = parseInt(document.getElementById("amount").value);
-    const receiver = document.getElementById("receiver").value;
-
-    this.setStatus("Initiating transaction... (please wait)");
-
-    const { transfer } = this.dhbw.methods;
-    await transfer(receiver, amount * 100).send({ from: this.account });
-
-    this.setStatus("Transaction complete!");
-    this.refreshBalance();
-  },
-
-  setStatus: function (message) {
-    const status = document.getElementById("status");
-    status.innerHTML = message;
-  },*/
 };
 
 window.App = App;
