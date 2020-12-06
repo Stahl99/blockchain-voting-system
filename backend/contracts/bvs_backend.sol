@@ -176,6 +176,19 @@ contract bvs_backend {
 
     }
 
+    function addCandidate (uint256 electionId, Candidate memory newCandidate) public {
+
+        for (uint i = 0; i < _elections.length; i++) {
+
+            // find the correct election
+            if (_elections[i].electionId == electionId) {
+                _elections[i].electoralList.push(newCandidate);
+                _elections[i].votes.push(0);
+            }
+
+        }
+    }
+
     // returns the ids, names, start- and end-timestamps of all elections
     // in a temporary election object with all needed return values
     // this is done so that the C# code can be generated better

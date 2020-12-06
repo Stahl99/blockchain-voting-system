@@ -42,6 +42,34 @@ namespace BlockchainVotingSystem.Contracts.bvs_backend
             ContractHandler = web3.Eth.GetContractHandler(contractAddress);
         }
 
+        public Task<string> AddCandidateRequestAsync(AddCandidateFunction addCandidateFunction)
+        {
+             return ContractHandler.SendRequestAsync(addCandidateFunction);
+        }
+
+        public Task<TransactionReceipt> AddCandidateRequestAndWaitForReceiptAsync(AddCandidateFunction addCandidateFunction, CancellationTokenSource cancellationToken = null)
+        {
+             return ContractHandler.SendRequestAndWaitForReceiptAsync(addCandidateFunction, cancellationToken);
+        }
+
+        public Task<string> AddCandidateRequestAsync(BigInteger electionId, Candidate newCandidate)
+        {
+            var addCandidateFunction = new AddCandidateFunction();
+                addCandidateFunction.ElectionId = electionId;
+                addCandidateFunction.NewCandidate = newCandidate;
+            
+             return ContractHandler.SendRequestAsync(addCandidateFunction);
+        }
+
+        public Task<TransactionReceipt> AddCandidateRequestAndWaitForReceiptAsync(BigInteger electionId, Candidate newCandidate, CancellationTokenSource cancellationToken = null)
+        {
+            var addCandidateFunction = new AddCandidateFunction();
+                addCandidateFunction.ElectionId = electionId;
+                addCandidateFunction.NewCandidate = newCandidate;
+            
+             return ContractHandler.SendRequestAndWaitForReceiptAsync(addCandidateFunction, cancellationToken);
+        }
+
         public Task<string> CountVotesRequestAsync(CountVotesFunction countVotesFunction)
         {
              return ContractHandler.SendRequestAsync(countVotesFunction);
