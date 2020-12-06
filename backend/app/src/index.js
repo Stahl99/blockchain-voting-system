@@ -1,10 +1,10 @@
 import Web3 from "web3";
-import dhbwCoinArtifact from "../../build/contracts/DHBWCoin.json";
+import bvs_backendArtifact from "../../build/contracts/bvs_backend.json";
 
 const App = {
   web3: null,
   account: null,
-  dhbw: null,
+  bvs_backend: null,
 
   start: async function () {
     const { web3 } = this;
@@ -12,9 +12,9 @@ const App = {
     try {
       // get contract instance
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = dhbwCoinArtifact.networks[networkId];
-      this.dhbw = new web3.eth.Contract(
-        dhbwCoinArtifact.abi,
+      const deployedNetwork = bvs_backendArtifact.networks[networkId];
+      this.bvs_backend = new web3.eth.Contract(
+        bvs_backendArtifact.abi,
         deployedNetwork.address
       );
 
@@ -22,41 +22,69 @@ const App = {
       const accounts = await web3.eth.getAccounts();
       this.account = accounts[0];
 
-      this.refreshBalance();
+      this.loadElections();
     } catch (error) {
       console.error("Could not connect to contract or chain.");
     }
   },
 
-  refreshBalance: async function () {
-    const { balanceOf, decimals } = this.dhbw.methods;
-    const balance = await balanceOf(this.account).call();
-    const decimal = await decimals().call();
+  loadElections: async function () {
 
-    const balanceElement = document.getElementsByClassName("balance")[0];
-    balanceElement.innerHTML = `${balance / Math.pow(10, decimal)}.${(
-      balance % 100
-    )
-      .toString()
-      .padStart(2, "0")}`;
-  },
+    const electionInfo = await this.bvs_backend.methods.getElectionInformation().call();
 
-  sendCoin: async function () {
-    const amount = parseInt(document.getElementById("amount").value);
-    const receiver = document.getElementById("receiver").value;
+    var ul = document.getElementById("election-list");
 
-    this.setStatus("Initiating transaction... (please wait)");
+    var i;
+    for (var election of electionInfo) {
 
-    const { transfer } = this.dhbw.methods;
-    await transfer(receiver, amount * 100).send({ from: this.account });
+      var votingSystemString = "";
+      if (election.votingSystem == 1) {
+        votingSystemString = "alternative voting";
+      }
+      else {
+        votingSystemString = "standard voting";
+      }
 
-    this.setStatus("Transaction complete!");
-    this.refreshBalance();
-  },
+      var li = document.createElement("li");
+      li.setAttribute('id', election.name);
+      li.appendChild(document.createTextNode(election.name + " (" + votingSystemString + ")"));
 
-  setStatus: function (message) {
-    const status = document.getElementById("status");
-    status.innerHTML = message;
+      ul.appendChild(li);
+      const electoralList = await this.bvs_backend.methods.getElectoralList(election.id).call();
+      await this.bvs_backend.methods.countVotes(election.id).send({ from: this.account });
+      const electionResult = await this.bvs_backend.methods.getResult(election.id).call();
+
+      console.log(electoralList);
+      console.log(electionResult);
+
+      var newUl;
+      if (electoralList.length > 0) {
+        newUl = document.createElement("ul");
+        newUl.setAttribute('id', election.name + "-candidate-list");
+        li.appendChild(newUl);
+      }
+
+      var searchArray;
+      if (electionResult.candidates.length > 0) {
+        searchArray = electionResult.candidates;
+      } else {
+        searchArray = electoralList;
+      }
+
+      searchArray.forEach(function (candidate, i) {
+        var numberOfVotes = 0;
+        for (var j = 0; j < electionResult.candidates.length; j++) {
+          if (candidate.id == electionResult.candidates[j].id) {
+            numberOfVotes = electionResult.votes[j];
+          }
+        }
+
+        var newLi = document.createElement("li");
+        newLi.setAttribute('id', candidate.firstName + candidate.lastName);
+        newLi.appendChild(document.createTextNode(candidate.firstName + " " + candidate.lastName + ": " + candidate.party + " (votes: " + numberOfVotes + ")"));
+        newUl.appendChild(newLi);
+      });
+    }
   },
 };
 

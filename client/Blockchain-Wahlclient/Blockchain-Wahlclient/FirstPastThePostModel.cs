@@ -95,20 +95,19 @@ namespace Blockchain_Wahlclient
             }
 
             // check if the adress has the correct length
-            if (votingAdress.Length != 42)
-            {
-                FPTPform.ShowErrorText("Adress has incorrect size");
-                return false;
-            }
+            //if (votingAdress.Length != 42)
+            //{
+            //    FPTPform.ShowErrorText("Adress has incorrect size");
+            //    return false;
+            //}
 
             // if everything is ok return true
             return true;
         }
 
-        public void SendVote(String votingAdress)
+        public async Task<bool> SendVote(String votingAdress)
         {
-            var task = Task.Run(async () => { await backend.SendVoteStandard(votingAdress, votedCandidate); } );
-            task.Wait();
+            return await backend.SendVoteStandard(votingAdress, votedCandidate);
         }
 
         public bool OnlyHexInString(string test)
