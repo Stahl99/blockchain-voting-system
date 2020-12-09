@@ -230,7 +230,7 @@ contract bvs_backend {
 
     function vote (uint256 electionId, Ballot memory ballot) public returns (bool) {
         if (!verifyElectionId(electionId)) {
-            revert();
+            revert("Invalid election ID");
         }
 
         // Check if the address is allowed to vote
@@ -240,20 +240,20 @@ contract bvs_backend {
             }
 
             if (i == _elections[electionId].eligibleVoters.length - 1) {
-                revert();
+                revert("Address is not an eligible voter");
             }
         }
     
         // Check if the address has already been used
         for (uint i = 0; i < _elections[electionId].usedAddresses.length; i++) {
             if (_elections[electionId].usedAddresses[i] == msg.sender) {
-                revert();
+                revert("Address has already voted");
             }
         }
         
         // Check the election time
         if (!hasStarted(electionId) || isOver(electionId)) {
-            revert();
+            revert("Out of election timeframe");
         } 
         
         ballot.voterAddress = msg.sender;
@@ -426,7 +426,7 @@ contract bvs_backend {
         for (uint i = 0; i < votes.length; i++) {
             _elections[electionId].result.votes.push(votes[i]);
             _elections[electionId].result.candidates.push(cands[i]);
-            _elections[electionId].result.finalResult = isOver(electionId);
+            _elections[electionId].result.finalResult = (isOver(electionId) || (_elections[electionId].usedAddresses.length == _elections[electionId].eligibleVoters.length));
         }
     }
 
