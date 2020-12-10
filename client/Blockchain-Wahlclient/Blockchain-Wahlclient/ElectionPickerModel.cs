@@ -20,6 +20,11 @@ namespace Blockchain_Wahlclient
         }
 
         // Load all elections from Backend and show them in Form
+
+        /// <summary>
+        /// Load all elections. Create <c>ElectionControl</c> objects for them and add them to the List of frontend elections
+        /// </summary>
+        /// <returns>A Task</returns>
         public async Task LoadElections()
         {
             await WaitForElections();
@@ -29,8 +34,8 @@ namespace Blockchain_Wahlclient
                 ElectionControl electionControl = new ElectionControl();
                 electionControl.SetName(election.Name);
                 electionControl.SetId((int) election.Id);
-                electionControl.SetTimestamp(UnixTimeStampToDateTime((double) election.StartTimestamp).ToString() + "   "
-                    + UnixTimeStampToDateTime((double)election.EndTimestamp).ToString());
+                electionControl.SetTimestamp("Start: " + UnixTimeStampToDateTime((double) election.StartTimestamp).ToString() + "   "
+                    + "End: " + UnixTimeStampToDateTime((double)election.EndTimestamp).ToString());
 
                 frontendElections.Add(electionControl);
             }
@@ -38,6 +43,10 @@ namespace Blockchain_Wahlclient
             
         }
 
+        /// <summary>
+        /// Adds all elections to the given <c>FlowLayoutPanel</c> <paramref name="flp"/> and displays them
+        /// </summary>
+        /// <param name="flp">The <c>FlowLayoutPanel</c> </param>
         public void ShowElections(ref FlowLayoutPanel flp)
         {
             foreach (ElectionControl ec in frontendElections)
@@ -53,7 +62,12 @@ namespace Blockchain_Wahlclient
         }
             
                
-
+        /// <summary>
+        /// Validates the picked election and sets the selected election in the backend.
+        /// Shows error messages to user if the input is wrong
+        /// </summary>
+        /// <returns>True if the method was successful
+        /// False if there was and error</returns>
         public bool ValidatePick()
         {
             ElectionControl pickedElectionControl = null;
@@ -92,12 +106,22 @@ namespace Blockchain_Wahlclient
             }
         }
 
-        // Return voting type 0 = Standard, 1 = Alternative Voting
+        /// <summary>
+        /// Returns the voting system of the picked election
+        /// </summary>
+        /// <returns>An int representing the voting system.
+        /// 0 = First past the post voting
+        /// 1 = Alternative voting</returns>
         public int GetVotingType()
         {
             return (int) pickedElection.VotingSystem;
         }
 
+        /// <summary>
+        /// Converts a unix timestamp to a <c>DateTime</c> object
+        /// </summary>
+        /// <param name="unixTimeStamp">The unix timestamp to be converted</param>
+        /// <returns>A <c>DateTime</c> object representing the date given in the unix timestamp</returns>
         private DateTime UnixTimeStampToDateTime(double unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch

@@ -1,4 +1,4 @@
-# Totally Not DHBW Truffle Project
+# Blockchain Voting System Backend
 
 ## Installation instructions
 
@@ -35,29 +35,3 @@
    `http://localhost:7545`.
 6. Now you can try to connect to the frontend, if running, at
    http://localhost:8080.
-7. If you can see in that you own 100 DHBW Coins in the frontend, everything is
-   set up correctly.
-
-## Remote Development
-
-### Requirements
-
-- [Docker](https://www.docker.com/products/docker-desktop) (not Docker-Toolbox)
-- [Visual Studio Code](https://code.visualstudio.com/)
-  - Extension: [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
-
-### Instructions
-
-1. Clone this repository
-2. Open directory in VS Code
-3. Open commands (CTRL/⌘ + SHIFT + P)
-4. Select: _Remote-Containers: Reopen in Container_
-5. Wait until the build is finished
-6. Open a terminal via Terminal -> New Terminal
-7. Run `./run.sh`
-8. In the open tmux session, run `yarn migrate`
-
-You can now access the frontend at http://localhost:8080 or run `yarn test` in
-the VS Code console. See
-[Connect to frontend in browser](#connect-to-frontend-in-browser) on how to use
-the frontend.

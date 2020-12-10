@@ -126,16 +126,5 @@ namespace blockchain_admintool
             }
         }
 
-        private async void button2_Click(object sender, EventArgs e)
-        {
-            var privateKey = "0x" + prKey.Text;
-            var account = new Nethereum.Web3.Accounts.Account(privateKey);
-            var web3 = new Web3("http://localhost:7545");
-            //var txCount = await web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(publicKey);
-            var balance = await web3.Eth.GetBalance.SendRequestAsync(account.Address);
-            var etherAmount = Web3.Convert.FromWei(balance.Value);
-
-            MessageBox.Show(etherAmount.ToString() + " : " + balance.Value); 
-        }
     }
 }
