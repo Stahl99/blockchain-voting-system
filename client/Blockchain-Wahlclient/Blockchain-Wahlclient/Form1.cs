@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Blockchain_Wahlclient
 {
+    /// <summary>
+    /// Start Form
+    /// </summary>
     public partial class Form1 : Form
     {
         private Backend backend = new Backend();
@@ -17,6 +20,11 @@ namespace Blockchain_Wahlclient
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// Handles Clicks on the submit button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void submitButton_Click(object sender, EventArgs e)
         {
             if(backend.InitService(this.blockchainUrlTB.Text, this.electionAdressTB.Text))
@@ -28,9 +36,5 @@ namespace Blockchain_Wahlclient
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

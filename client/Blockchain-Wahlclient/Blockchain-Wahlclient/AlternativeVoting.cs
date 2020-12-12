@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace Blockchain_Wahlclient
 {
+    /// <summary>
+    /// The Form to display Alternative Voting elections
+    /// </summary>
     public partial class AlternativeVoting : Form
     {
 
@@ -30,11 +33,21 @@ namespace Blockchain_Wahlclient
             
         }
 
+        /// <summary>
+        /// On Load function that displays the candidates on the frontend
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AlternativeVoting_Load(object sender, EventArgs e)
         {
             cl.BuildFrontend(ref this.flowLayoutPanel1);
         }
 
+        /// <summary>
+        /// Handles Clicks on the vote button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void submitVote_Click(object sender, EventArgs e)
         {
             cl.SecureRanks();

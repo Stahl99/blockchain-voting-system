@@ -2,7 +2,6 @@ var class_blockchain___wahlclient_1_1_form1 =
 [
     [ "Form1", "class_blockchain___wahlclient_1_1_form1.html#adfa1e771e9c4868db1ad7a6075ffc9c7", null ],
     [ "Dispose", "class_blockchain___wahlclient_1_1_form1.html#ae68edb4fcaeb126e21529060d915cb2d", null ],
-    [ "Form1_Load", "class_blockchain___wahlclient_1_1_form1.html#ad82c5cfd1d0daf0c83dc857c3d1f67e7", null ],
     [ "InitializeComponent", "class_blockchain___wahlclient_1_1_form1.html#a147b07cc0c37c58d245cb4ce987aaafb", null ],
     [ "submitButton_Click", "class_blockchain___wahlclient_1_1_form1.html#a54230d6980c0b7889de5a85e3cb26e3b", null ],
     [ "backend", "class_blockchain___wahlclient_1_1_form1.html#ad60327cc5cb6e0b94b367522d8552232", null ],

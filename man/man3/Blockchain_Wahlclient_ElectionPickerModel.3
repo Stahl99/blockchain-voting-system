@@ -1,0 +1,131 @@
+.TH "Blockchain_Wahlclient.ElectionPickerModel" 3 "Sat Dec 12 2020" "Blockchain-Client" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Blockchain_Wahlclient.ElectionPickerModel \- Class that implements functions for the \fBElectionPickerForm\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "async Task \fBLoadElections\fP ()"
+.br
+.RI "Load all elections\&. Create \fC\fBElectionControl\fP\fP objects for them and add them to the List of frontend elections "
+.ti -1c
+.RI "void \fBShowElections\fP (ref FlowLayoutPanel flp)"
+.br
+.RI "Adds all elections to the given \fCFlowLayoutPanel\fP \fIflp\fP  and displays them "
+.ti -1c
+.RI "bool \fBValidatePick\fP ()"
+.br
+.RI "Validates the picked election and sets the selected election in the backend\&. Shows error messages to user if the input is wrong "
+.ti -1c
+.RI "int \fBGetVotingType\fP ()"
+.br
+.RI "Returns the voting system of the picked election "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "\fBBackend\fP \fBBackend\fP\fC [get, set]\fP"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "async Task \fBWaitForElections\fP ()"
+.br
+.ti -1c
+.RI "DateTime \fBUnixTimeStampToDateTime\fP (double unixTimeStamp)"
+.br
+.RI "Converts a unix timestamp to a \fCDateTime\fP object "
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "List< TmpElectionObject > \fBelections\fP"
+.br
+.ti -1c
+.RI "TmpElectionObject \fBpickedElection\fP"
+.br
+.ti -1c
+.RI "List< \fBElectionControl\fP > \fBfrontendElections\fP = new List<\fBElectionControl\fP>()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Class that implements functions for the \fBElectionPickerForm\fP 
+
+
+.SH "Member Function Documentation"
+.PP 
+.SS "int Blockchain_Wahlclient\&.ElectionPickerModel\&.GetVotingType ()"
+
+.PP
+Returns the voting system of the picked election 
+.PP
+\fBReturns\fP
+.RS 4
+An int representing the voting system\&. 0 = First past the post voting 1 = Alternative voting
+.RE
+.PP
+
+.SS "async Task Blockchain_Wahlclient\&.ElectionPickerModel\&.LoadElections ()"
+
+.PP
+Load all elections\&. Create \fC\fBElectionControl\fP\fP objects for them and add them to the List of frontend elections 
+.PP
+\fBReturns\fP
+.RS 4
+A Task
+.RE
+.PP
+
+.SS "void Blockchain_Wahlclient\&.ElectionPickerModel\&.ShowElections (ref FlowLayoutPanel flp)"
+
+.PP
+Adds all elections to the given \fCFlowLayoutPanel\fP \fIflp\fP  and displays them 
+.PP
+\fBParameters\fP
+.RS 4
+\fIflp\fP The \fCFlowLayoutPanel\fP 
+.RE
+.PP
+
+.SS "DateTime Blockchain_Wahlclient\&.ElectionPickerModel\&.UnixTimeStampToDateTime (double unixTimeStamp)\fC [private]\fP"
+
+.PP
+Converts a unix timestamp to a \fCDateTime\fP object 
+.PP
+\fBParameters\fP
+.RS 4
+\fIunixTimeStamp\fP The unix timestamp to be converted
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A \fCDateTime\fP object representing the date given in the unix timestamp
+.RE
+.PP
+
+.SS "bool Blockchain_Wahlclient\&.ElectionPickerModel\&.ValidatePick ()"
+
+.PP
+Validates the picked election and sets the selected election in the backend\&. Shows error messages to user if the input is wrong 
+.PP
+\fBReturns\fP
+.RS 4
+True if the method was successful False if there was and error
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Blockchain-Client from the source code\&.
