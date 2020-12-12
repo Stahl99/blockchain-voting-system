@@ -24,6 +24,8 @@ function sortVotes (uint256[] memory votes, bvs_backend.Candidate[] memory candi
         sortVotes(votes, candidates, i, right);
 }
 
+/// @title Blockchain Voting System (BVS) backend
+/// @author K. Radke, L. Neuffer, L. Seyboldt, S. Stahl
 contract bvs_backend {
 
     struct Candidate {
@@ -90,14 +92,12 @@ contract bvs_backend {
 
     constructor() {}
 
-    /// <summary>
-    /// creates a new election
-    /// </summary>
-    /// <param name="electionAdminAddress">Wallet address of the admin account</param>
-    /// <param name="electionVotingSystem">Voting system of the election</param>
-    /// <param name="electionName">Description / name of the election</param>
-    /// <param name="electionStartTimestamp">Unix timestamp of the beginning of the election</param>
-    /// <param name="electionEndTimestamp">Unix timestamp of the end of the election</param>
+    /// @notice creates a new election
+    /// @param electionAdminAddress Wallet address of the admin account
+    /// @param electionVotingSystem Voting system of the election
+    /// @param electionName Description / name of the election
+    /// @param electionStartTimestamp Unix timestamp of the beginning of the election
+    /// @param electionEndTimestamp Unix timestamp of the end of the election
     function createElection (address electionAdminAddress, VotingSystem electionVotingSystem, string memory electionName,
     uint256 electionStartTimestamp, uint256 electionEndTimestamp) public {
         
@@ -114,20 +114,16 @@ contract bvs_backend {
 
     }
 
-    /// <summary>
-    /// Returns the election id of the last created election
-    /// </summary>
-    /// <returns>Election id of the last created election</returns>
+    /// @notice Returns the election id of the last created election
+    /// @return Election id of the last created election
     function getLastElectionId () public view returns (uint256) {
         return _elections.length-1;
     }
 
-    /// <summary>
-    /// Replaces the list of the current eligible voters for a given election
-    /// </summary>
-    /// <param name="electionId">Id of the election whose eligible voters list is to be replaced</param>
-    /// <param name="newEligibleVoterList">List of addresses of the new eligible voters</param>
-    /// <returns>Returns true if successfull; false otherwise</returns>
+    /// @notice Replaces the list of the current eligible voters for a given election
+    /// @param electionId Id of the election whose eligible voters list is to be replaced
+    /// @param newEligibleVoterList List of addresses of the new eligible voters
+    /// @return Returns true if successfull; false otherwise
     function replaceListOfEligibleVoters (uint256 electionId, address[] memory newEligibleVoterList) public returns (bool) {
 
         for (uint i = 0; i < _elections.length; i++) {
@@ -153,12 +149,10 @@ contract bvs_backend {
 
     }
 
-    /// <summary>
-    /// Replaces the list of the current electoral list for a given election
-    /// </summary>
-    /// <param name="electionId">Id of the election whose electoral list is to be replaced</param>
-    /// <param name="newElectoralList">List of candidates for the election</param>
-    /// <returns>Returns true if successfull; false otherwise</returns>
+    /// @notice Replaces the list of the current electoral list for a given election
+    /// @param electionId Id of the election whose electoral list is to be replaced<
+    /// @param newElectoralList List of candidates for the election
+    /// @return Returns true if successfull; false otherwise
 
     function replaceElectoralList (uint256 electionId, Candidate[] memory newElectoralList) public returns (bool) {
 
@@ -196,11 +190,9 @@ contract bvs_backend {
 
     }
 
-    /// <summary>
-    /// Adds a candidate to the electoral list for a given election
-    /// </summary>
-    /// <param name="electionId">Id of the election to which the new candidate is to be added</param>
-    /// <param name="newCandidate">Data of the new candidate</param>
+    /// @notice Adds a candidate to the electoral list for a given election
+    /// @param electionId Id of the election to which the new candidate is to be added
+    /// @param newCandidate Data of the new candidate
     function addCandidate (uint256 electionId, Candidate memory newCandidate) public {
 
         for (uint i = 0; i < _elections.length; i++) {
@@ -214,11 +206,8 @@ contract bvs_backend {
         }
     }
 
-    /// <summary>
-    /// Returns the ids, names, start- and end-timestamps of all elections in a temporary election object.
-    /// This is done so that the C# code can be generated better.
-    /// </summary>
-    /// <returns>Returns the ids, names, start- and end-timestamps of all elections in a temporary election object</returns>
+    /// @notice Returns the ids, names, start- and end-timestamps of all elections in a temporary election object. This is done so that the C# code can be generated better.
+    /// @return Returns the ids, names, start- and end-timestamps of all elections in a temporary election object
     function getElectionInformation () public view returns (TmpElectionObject[] memory) {
 
         // creates tmp election object with all elements that have to be returned
@@ -241,11 +230,9 @@ contract bvs_backend {
 
     }
 
-    /// <summary>
-    /// Returns the electoral list for the given election id
-    /// </summary>
-    /// <param name="electionId">Id of the election of which the electoral list is to be returned</param>
-    /// <returns>Returns the electoral list for the given election id</returns>
+    /// @notice Returns the electoral list for the given election id
+    /// @param electionId Id of the election of which the electoral list is to be returned
+    /// @return candidates returns the electoral list for the given election id
     function getElectoralList (uint256 electionId) public view returns (Candidate[] memory candidates) {
 
         for (uint i = 0; i < _elections.length; i++) {
