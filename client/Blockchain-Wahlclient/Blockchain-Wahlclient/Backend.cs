@@ -36,7 +36,7 @@ namespace Blockchain_Wahlclient
         /// <param name="url">The url of the blockchain</param>
         /// <param name="contractAdress">The adress of the voting contract</param>
         /// <returns></returns>
-        public bool InitService(String url, String contractAdress)
+        public bool InitService(String url, String contractAddress)
         {
             // check on not null
             if(url.Length == 0 || contractAddress.Length == 0)
@@ -46,7 +46,7 @@ namespace Blockchain_Wahlclient
 
             // The order of these functions is important! Web3 object is needed for service
             SetBlockchainUrl(url);
-            if(!SetContractAdress(contractAdress))
+            if(!SetContractAdress(contractAddress))
             {
                 return false;
             }
