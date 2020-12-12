@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace Blockchain_Wahlclient
 {
+    /// <summary>
+    /// Class to represent a list of candidates and to implement functions for the AlternativeVotingForm
+    /// </summary>
     public class CandidateList : IEnumerable, IEnumerator
     {
 
@@ -16,6 +19,10 @@ namespace Blockchain_Wahlclient
 
         int position = 0;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="backend">The backend the class is initialized with</param>
         public CandidateList(Backend backend)
         {
             this.backend = backend;
@@ -45,11 +52,11 @@ namespace Blockchain_Wahlclient
             get { return candidates[position]; }
         }
 
-        public void AddCandidate(Candidate c)
-        {
-            this.candidates.Add(c);
-        }
-
+        /// <summary>
+        /// Check if the set ranks are correct.
+        /// All numbers from 1 to n (number of candidates) are entered
+        /// </summary>
+        /// <returns></returns>
         public bool CheckRanks()
         {
             int i = 1;
@@ -70,6 +77,11 @@ namespace Blockchain_Wahlclient
             return true;
         }
 
+        /// <summary>
+        /// Creates a User Control for every candidate and adds them to the FlowLayoutPanel,
+        /// so they can be displayed on the form
+        /// </summary>
+        /// <param name="flp">The FlowLayoutPanel the User Controls should be added to</param>
         public void BuildFrontend(ref FlowLayoutPanel flp)        
         {            
 
@@ -90,6 +102,9 @@ namespace Blockchain_Wahlclient
             }
         }
 
+        /// <summary>
+        /// Transfer the ranks entered on the frontend to the list of candidates
+        /// </summary>
         public void SecureRanks()
         {
 

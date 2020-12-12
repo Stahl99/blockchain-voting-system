@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace Blockchain_Wahlclient
 {
+    /// <summary>
+    /// Class that implements functions for the ElectionPickerForm
+    /// </summary>
     class ElectionPickerModel
     {
         public Backend Backend { get; set; }
@@ -55,7 +58,7 @@ namespace Blockchain_Wahlclient
             }
         }
 
-        public async Task WaitForElections()
+        private async Task WaitForElections()
         {
             this.elections = await Backend.LoadElectionInformationAsync();
 

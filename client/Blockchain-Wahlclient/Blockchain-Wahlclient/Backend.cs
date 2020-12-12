@@ -12,6 +12,9 @@ using Nethereum.Web3.Accounts;
 
 namespace Blockchain_Wahlclient
 {
+    /// <summary>
+    /// Class to handle communication with the blockchain backend
+    /// </summary>
     public class Backend
     {
         private String url;
@@ -35,6 +38,12 @@ namespace Blockchain_Wahlclient
         /// <returns></returns>
         public bool InitService(String url, String contractAdress)
         {
+            // check on not null
+            if(url.Length == 0 || contractAddress.Length == 0)
+            {
+                return false;
+            }
+
             // The order of these functions is important! Web3 object is needed for service
             SetBlockchainUrl(url);
             if(!SetContractAdress(contractAdress))

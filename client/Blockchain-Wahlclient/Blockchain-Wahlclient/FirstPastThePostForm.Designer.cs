@@ -91,7 +91,6 @@
             this.label2.Size = new System.Drawing.Size(133, 21);
             this.label2.TabIndex = 1;
             this.label2.Text = "List of candidates:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // FirstPastThePostForm
             // 

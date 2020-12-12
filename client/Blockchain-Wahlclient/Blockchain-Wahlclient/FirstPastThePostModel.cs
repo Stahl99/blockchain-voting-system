@@ -7,6 +7,9 @@ using static System.Windows.Forms.CheckedListBox;
 
 namespace Blockchain_Wahlclient
 {
+    /// <summary>
+    /// Class to implement functions for the FirstPastThePostForm
+    /// </summary>
     public class FirstPastThePostModel
     {
         private FirstPastThePostForm FPTPform;
