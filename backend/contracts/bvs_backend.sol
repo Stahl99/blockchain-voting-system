@@ -90,7 +90,14 @@ contract bvs_backend {
 
     constructor() {}
 
-    // creates a new election and returns the election id to the caller
+    /// <summary>
+    /// creates a new election
+    /// </summary>
+    /// <param name="electionAdminAddress">Wallet address of the admin account</param>
+    /// <param name="electionVotingSystem">Voting system of the election</param>
+    /// <param name="electionName">Description / name of the election</param>
+    /// <param name="electionStartTimestamp">Unix timestamp of the beginning of the election</param>
+    /// <param name="electionEndTimestamp">Unix timestamp of the end of the election</param>
     function createElection (address electionAdminAddress, VotingSystem electionVotingSystem, string memory electionName,
     uint256 electionStartTimestamp, uint256 electionEndTimestamp) public {
         
@@ -107,12 +114,20 @@ contract bvs_backend {
 
     }
 
+    /// <summary>
+    /// Returns the election id of the last created election
+    /// </summary>
+    /// <returns>Election id of the last created election</returns>
     function getLastElectionId () public view returns (uint256) {
         return _elections.length-1;
     }
 
-    // replaces the list of the current eligible voters for a given election
-    // returns true if successfull; false otherwise
+    /// <summary>
+    /// Replaces the list of the current eligible voters for a given election
+    /// </summary>
+    /// <param name="electionId">Id of the election whose eligible voters list is to be replaced</param>
+    /// <param name="newEligibleVoterList">List of addresses of the new eligible voters</param>
+    /// <returns>Returns true if successfull; false otherwise</returns>
     function replaceListOfEligibleVoters (uint256 electionId, address[] memory newEligibleVoterList) public returns (bool) {
 
         for (uint i = 0; i < _elections.length; i++) {
@@ -138,8 +153,13 @@ contract bvs_backend {
 
     }
 
-    // replaces the list of the current electoral list for a given election
-    // returns true if successfull; false otherwise
+    /// <summary>
+    /// Replaces the list of the current electoral list for a given election
+    /// </summary>
+    /// <param name="electionId">Id of the election whose electoral list is to be replaced</param>
+    /// <param name="newElectoralList">List of candidates for the election</param>
+    /// <returns>Returns true if successfull; false otherwise</returns>
+
     function replaceElectoralList (uint256 electionId, Candidate[] memory newElectoralList) public returns (bool) {
 
         for (uint i = 0; i < _elections.length; i++) {
@@ -176,6 +196,11 @@ contract bvs_backend {
 
     }
 
+    /// <summary>
+    /// Adds a candidate to the electoral list for a given election
+    /// </summary>
+    /// <param name="electionId">Id of the election to which the new candidate is to be added</param>
+    /// <param name="newCandidate">Data of the new candidate</param>
     function addCandidate (uint256 electionId, Candidate memory newCandidate) public {
 
         for (uint i = 0; i < _elections.length; i++) {
@@ -189,9 +214,11 @@ contract bvs_backend {
         }
     }
 
-    // returns the ids, names, start- and end-timestamps of all elections
-    // in a temporary election object with all needed return values
-    // this is done so that the C# code can be generated better
+    /// <summary>
+    /// Returns the ids, names, start- and end-timestamps of all elections in a temporary election object.
+    /// This is done so that the C# code can be generated better.
+    /// </summary>
+    /// <returns>Returns the ids, names, start- and end-timestamps of all elections in a temporary election object</returns>
     function getElectionInformation () public view returns (TmpElectionObject[] memory) {
 
         // creates tmp election object with all elements that have to be returned
@@ -214,7 +241,11 @@ contract bvs_backend {
 
     }
 
-    // returns the electoral list for a given election
+    /// <summary>
+    /// Returns the electoral list for the given election id
+    /// </summary>
+    /// <param name="electionId">Id of the election of which the electoral list is to be returned</param>
+    /// <returns>Returns the electoral list for the given election id</returns>
     function getElectoralList (uint256 electionId) public view returns (Candidate[] memory candidates) {
 
         for (uint i = 0; i < _elections.length; i++) {
