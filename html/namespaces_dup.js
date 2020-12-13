@@ -1,4 +1,5 @@
 var namespaces_dup =
 [
-    [ "Blockchain_Wahlclient", "namespace_blockchain___wahlclient.html", null ]
+    [ "blockchain_admintool", "namespaceblockchain__admintool.html", null ],
+    [ "Blockchain_Wahlclient", "namespace_blockchain___wahlclient.html", "namespace_blockchain___wahlclient" ]
 ];
