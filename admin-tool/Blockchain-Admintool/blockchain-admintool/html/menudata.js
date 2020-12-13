@@ -22,31 +22,5 @@
 
  @licend  The above is the entire license notice for the JavaScript code in this file
 */
-var NAVTREE =
-[
-  [ "Blockchain-Client", "index.html", [
-    [ "readme", "md_client_readme.html", null ],
-    [ "Packages", "namespaces.html", [
-      [ "Packages", "namespaces.html", "namespaces_dup" ]
-    ] ],
-    [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
-      [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
-      ] ]
-    ] ]
-  ] ]
-];
-
-var NAVTREEINDEX =
-[
-"annotated.html",
-"namespaces.html"
-];
-
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var menudata={children:[
+{text:"Main Page",url:"index.html"}]}

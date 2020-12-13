@@ -65,7 +65,7 @@ namespace Blockchain_Wahlclient
             {
                 for (int a = i; a < candidates.Count; a++)
                 {
-                    if (c.GetRank() == candidates[i].GetRank() || c.GetRank() > candidates.Count)
+                    if (c.GetRank() == candidates[a].GetRank() || c.GetRank() > candidates.Count)
                     {
                         return false;
                     }

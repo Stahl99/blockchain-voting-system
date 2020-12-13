@@ -27,6 +27,14 @@ namespace blockchain_admintool
             
         }
 
+        /// <summary>
+        /// "Save election" button click function
+        /// creates new candidate list with frontend indexes as candidate ids
+        /// checks user inputs for mistakes
+        /// calls the createElection function
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click_1(object sender, EventArgs e)
         {
             List<Candidate> candidates = new List<Candidate>();
@@ -76,7 +84,11 @@ namespace blockchain_admintool
 
            
         }
-
+        /// <summary>
+        /// returns a .NET DateTime object for election beginning defined by user
+        /// converts to universal central time because time functions on the blockchain also use UTC
+        /// </summary>
+        /// <returns></returns>
         private DateTime GetStartDate()
         {
             DateTime dt = new DateTime(day_start.Value.Year, day_start.Value.Month, day_start.Value.Day, clock_start.Value.Hour, clock_start.Value.Minute, 0).ToUniversalTime();
@@ -84,6 +96,11 @@ namespace blockchain_admintool
             return dt;
         }
 
+        /// <summary>
+        /// returns a .NET DateTime object for election beginning defined by user
+        /// converts to universal central time because time functions on the blockchain also use UTC
+        /// </summary>
+        /// <returns></returns>
         private DateTime GetStopDate()
         {
             DateTime dt = new DateTime(day_stop.Value.Year, day_stop.Value.Month, day_stop.Value.Day, clock_stop.Value.Hour, clock_stop.Value.Minute, 0).ToUniversalTime();
@@ -91,6 +108,13 @@ namespace blockchain_admintool
 
             return dt;
         }
+
+        /// <summary>
+        /// Add candidate button function
+        /// Adds new Candidate user control on frontend
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addCand_Click(object sender, EventArgs e)
         {
             candidate c = new candidate();
@@ -108,6 +132,11 @@ namespace blockchain_admintool
             this.candList.Controls.Add(c);
         }
 
+        /// <summary>
+        /// Takes one candidate user control away from frontend
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void reduceCand_Click(object sender, EventArgs e)
         {
             if (this.candList.Controls.Count == 6)
@@ -125,6 +154,5 @@ namespace blockchain_admintool
                 this.candList.Controls.RemoveAt(this.candList.Controls.Count - 1);
             }
         }
-
     }
 }

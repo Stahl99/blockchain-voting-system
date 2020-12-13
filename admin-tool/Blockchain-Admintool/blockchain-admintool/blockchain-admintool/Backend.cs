@@ -23,6 +23,21 @@ namespace blockchain_admintool
         TmpElectionObject currentElection;
         GetElectoralListOutputDTO backendCandidates;
 
+        /// <summary>
+        /// creates election with given admin address and time stamps and wirtes on blockchain with CreateElection()
+        /// adds given candidates to blockchain with AddCandidate()
+        /// creates new voter accounts with public and private keys
+        /// transfers enough ether to voter accounts to run vote-function on blockchain
+        /// writes public keys of voter accounts in eligible voter list of the created election with ReplaceListOfEligibleVoters()
+        /// </summary>
+        /// <param name="admAdr"></param>
+        /// <param name="votingSys"></param>
+        /// <param name="candList"></param>
+        /// <param name="start"></param>
+        /// <param name="stop"></param>
+        /// <param name="description"></param>
+        /// <param name="voterCount"></param>
+        /// <param name="prKeyLoc"></param>
         public async void CreateElection(string admAdr, int votingSys, List<Candidate> candList, DateTime start, DateTime stop, string description, int voterCount, string prKeyLoc)
         {
 
@@ -60,6 +75,11 @@ namespace blockchain_admintool
 
         }
 
+        /// <summary>
+        /// converts .net datetime objects to unix time stamps
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
         public System.Numerics.BigInteger DateToUnix(DateTime d)
         {
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -70,6 +90,11 @@ namespace blockchain_admintool
             return unixdt;
         }
 
+        /// <summary>
+        /// set contract address from user input
+        /// </summary>
+        /// <param name="contractAdress"></param>
+        /// <returns></returns>
 
         public bool SetContractAdress(String contractAdress)
         {
@@ -85,6 +110,12 @@ namespace blockchain_admintool
             return true;
         }
 
+        /// <summary>
+        /// Takes a Strinig-list with private keys and prints them into a .txt file in given path
+        /// </summary>
+        /// <param name="prKeys"></param>
+        /// <param name="path"></param>
+
         public void PrintPrKeys(List<string> prKeys, string path)
         {
 
@@ -98,7 +129,11 @@ namespace blockchain_admintool
             sw.Close();
 
         }
-
+        /// <summary>
+        /// Initalizes Web3-object with given blockchain URL and given Admin-wallet
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="walletAddr"></param>
         public void SetBlockchainUrl(String url, String walletAddr)
         {
             if (url.Length != 0)
@@ -119,7 +154,13 @@ namespace blockchain_admintool
             }
         }
 
-        // Init the contract service with a blockchain url and contractAdress
+        /// <summary>
+        /// Init the contract service with a blockchain url, admin wallet address and contractAdress
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="contractAdress"></param>
+        /// <param name="walletAddr"></param>
+        /// <returns></returns>
         public bool InitService(String url, String contractAdress, string walletAddr)
         {
             // The order of these functions is important! Web3 object is needed for service
@@ -132,7 +173,12 @@ namespace blockchain_admintool
             return true;
         }
 
-        private bool OnlyHexInString(string test)
+        /// <summary>
+        /// checks if string is in hex format
+        /// </summary>
+        /// <param name="test"></param>
+        /// <returns></returns>
+        public bool OnlyHexInString(string test)
         {
             // For C-style hex notation (0xFF) you can use @"\A\b(0[xX])?[0-9a-fA-F]+\b\Z"
             return System.Text.RegularExpressions.Regex.IsMatch(test, @"\A\b(0[xX])?[0-9a-fA-F]+\b\Z");
