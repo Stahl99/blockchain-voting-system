@@ -1,4 +1,4 @@
-# How to use the Blockchain Voting Client
+# How to use the Blockchain Admintool
 
 * Go to https://github.com/Stahl99/blockchain-voting-system/releases/ to get the latest release of the client side applications
 * Download and extract the .zip files
