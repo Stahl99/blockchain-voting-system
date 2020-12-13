@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['onlyhexinstring_31',['OnlyHexInString',['../class_blockchain___wahlclient_1_1_backend.html#acee09e09c67d13b35208d2562e8e3fcf',1,'Blockchain_Wahlclient.Backend.OnlyHexInString()'],['../class_blockchain___wahlclient_1_1_first_past_the_post_model.html#a237d43f6455f304b99edfb6c8986c4fc',1,'Blockchain_Wahlclient.FirstPastThePostModel.OnlyHexInString()'],['../classblockchain__admintool_1_1_backend.html#a9099e5c152298df4dba81f1c92b77fa7',1,'blockchain_admintool.Backend.OnlyHexInString()']]]
+  ['loadelections_28',['LoadElections',['../class_blockchain___wahlclient_1_1_election_picker_model.html#a1208ce1e7e5aee22a30216b5cff281d9',1,'Blockchain_Wahlclient::ElectionPickerModel']]]
 ];

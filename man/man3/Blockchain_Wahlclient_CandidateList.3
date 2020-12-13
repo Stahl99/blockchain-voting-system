@@ -1,0 +1,119 @@
+.TH "Blockchain_Wahlclient.CandidateList" 3 "Mon Dec 14 2020" "Blockchain-Client" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Blockchain_Wahlclient.CandidateList \- Class to represent a list of candidates and to implement functions for the AlternativeVotingForm  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits IEnumerable, and IEnumerator\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCandidateList\fP (\fBBackend\fP backend)"
+.br
+.RI "Constructor "
+.ti -1c
+.RI "IEnumerator \fBGetEnumerator\fP ()"
+.br
+.ti -1c
+.RI "bool \fBMoveNext\fP ()"
+.br
+.ti -1c
+.RI "void \fBReset\fP ()"
+.br
+.ti -1c
+.RI "bool \fBCheckRanks\fP ()"
+.br
+.RI "Check if the set ranks are correct\&. All numbers from 1 to n (number of candidates) are entered "
+.ti -1c
+.RI "void \fBBuildFrontend\fP (ref FlowLayoutPanel flp)"
+.br
+.RI "Creates a User Control for every candidate and adds them to the FlowLayoutPanel, so they can be displayed on the form "
+.ti -1c
+.RI "void \fBSecureRanks\fP ()"
+.br
+.RI "Transfer the ranks entered on the frontend to the list of candidates "
+.ti -1c
+.RI "List< \fBCandidate\fP > \fBGetCandidates\fP ()"
+.br
+.ti -1c
+.RI "bool \fBOnlyHexInString\fP (string test)"
+.br
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "object \fBCurrent\fP\fC [get]\fP"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "List< \fBCandidate\fP > \fBcandidates\fP = new List<\fBCandidate\fP>()"
+.br
+.ti -1c
+.RI "List< \fBAlternativeVotingCandidate\fP > \fBcandsFrontend\fP = new List<\fBAlternativeVotingCandidate\fP>()"
+.br
+.ti -1c
+.RI "\fBBackend\fP \fBbackend\fP"
+.br
+.ti -1c
+.RI "int \fBposition\fP = 0"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Class to represent a list of candidates and to implement functions for the AlternativeVotingForm 
+
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Blockchain_Wahlclient\&.CandidateList\&.CandidateList (\fBBackend\fP backend)"
+
+.PP
+Constructor 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbackend\fP The backend the class is initialized with
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Blockchain_Wahlclient\&.CandidateList\&.BuildFrontend (ref FlowLayoutPanel flp)"
+
+.PP
+Creates a User Control for every candidate and adds them to the FlowLayoutPanel, so they can be displayed on the form 
+.PP
+\fBParameters\fP
+.RS 4
+\fIflp\fP The FlowLayoutPanel the User Controls should be added to
+.RE
+.PP
+
+.SS "bool Blockchain_Wahlclient\&.CandidateList\&.CheckRanks ()"
+
+.PP
+Check if the set ranks are correct\&. All numbers from 1 to n (number of candidates) are entered 
+.PP
+\fBReturns\fP
+.RS 4
+
+.RE
+.PP
+
+.SS "void Blockchain_Wahlclient\&.CandidateList\&.SecureRanks ()"
+
+.PP
+Transfer the ranks entered on the frontend to the list of candidates 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Blockchain-Client from the source code\&.

@@ -1,0 +1,143 @@
+.TH "Blockchain_Wahlclient.AlternativeVoting" 3 "Mon Dec 14 2020" "Blockchain-Client" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Blockchain_Wahlclient.AlternativeVoting \- The Form to display Alternative Voting elections  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits Form\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBAlternativeVoting\fP (\fBBackend\fP backend)"
+.br
+.RI "Constructor sets backend and creates new \fC\fBCandidateList\fP\fP "
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "override void \fBDispose\fP (bool disposing)"
+.br
+.RI "Clean up any resources being used\&. "
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBAlternativeVoting_Load\fP (object sender, EventArgs e)"
+.br
+.RI "On Load function that displays the candidates on the frontend "
+.ti -1c
+.RI "async void \fBsubmitVote_Click\fP (object sender, EventArgs e)"
+.br
+.RI "Handles Clicks on the vote button "
+.ti -1c
+.RI "void \fBInitializeComponent\fP ()"
+.br
+.RI "Required method for Designer support - do not modify the contents of this method with the code editor\&. "
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBCandidateList\fP \fBcl\fP"
+.br
+.ti -1c
+.RI "\fBBackend\fP \fBbackend\fP"
+.br
+.ti -1c
+.RI "System\&.ComponentModel\&.IContainer \fBcomponents\fP = null"
+.br
+.RI "Required designer variable\&. "
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.FlowLayoutPanel \fBflowLayoutPanel1\fP"
+.br
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.Label \fBlabel1\fP"
+.br
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.Button \fBsubmitVote\fP"
+.br
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.TextBox \fBtextBox1\fP"
+.br
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.Label \fBlabel2\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The Form to display Alternative Voting elections 
+
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Blockchain_Wahlclient\&.AlternativeVoting\&.AlternativeVoting (\fBBackend\fP backend)"
+
+.PP
+Constructor sets backend and creates new \fC\fBCandidateList\fP\fP 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbackend\fP The backend instance to give to the \fBCandidateList\fP
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Blockchain_Wahlclient\&.AlternativeVoting\&.AlternativeVoting_Load (object sender, EventArgs e)\fC [private]\fP"
+
+.PP
+On Load function that displays the candidates on the frontend 
+.PP
+\fBParameters\fP
+.RS 4
+\fIsender\fP 
+.br
+\fIe\fP 
+.RE
+.PP
+
+.SS "override void Blockchain_Wahlclient\&.AlternativeVoting\&.Dispose (bool disposing)\fC [protected]\fP"
+
+.PP
+Clean up any resources being used\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIdisposing\fP true if managed resources should be disposed; otherwise, false\&.
+.RE
+.PP
+
+.SS "void Blockchain_Wahlclient\&.AlternativeVoting\&.InitializeComponent ()\fC [private]\fP"
+
+.PP
+Required method for Designer support - do not modify the contents of this method with the code editor\&. 
+.SS "async void Blockchain_Wahlclient\&.AlternativeVoting\&.submitVote_Click (object sender, EventArgs e)\fC [private]\fP"
+
+.PP
+Handles Clicks on the vote button 
+.PP
+\fBParameters\fP
+.RS 4
+\fIsender\fP 
+.br
+\fIe\fP 
+.RE
+.PP
+
+.SH "Member Data Documentation"
+.PP 
+.SS "System\&.ComponentModel\&.IContainer Blockchain_Wahlclient\&.AlternativeVoting\&.components = null\fC [private]\fP"
+
+.PP
+Required designer variable\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Blockchain-Client from the source code\&.

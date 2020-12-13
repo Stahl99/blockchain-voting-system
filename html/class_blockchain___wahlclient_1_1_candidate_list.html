@@ -91,12 +91,15 @@ $(document).ready(function(){initNavTree('class_blockchain___wahlclient_1_1_cand
 </div><!--header-->
 <div class="contents">
 
+<p>Class to represent a list of candidates and to implement functions for the AlternativeVotingForm  
+ <a href="class_blockchain___wahlclient_1_1_candidate_list.html#details">More...</a></p>
+
 <p>Inherits IEnumerable, and IEnumerator.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0348e8b7f5a59894f61281b780afda9d"><td class="memItemLeft" align="right" valign="top"><a id="a0348e8b7f5a59894f61281b780afda9d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>CandidateList</b> (<a class="el" href="class_blockchain___wahlclient_1_1_backend.html">Backend</a> backend)</td></tr>
+<tr class="memitem:a0348e8b7f5a59894f61281b780afda9d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_blockchain___wahlclient_1_1_candidate_list.html#a0348e8b7f5a59894f61281b780afda9d">CandidateList</a> (<a class="el" href="class_blockchain___wahlclient_1_1_backend.html">Backend</a> backend)</td></tr>
+<tr class="memdesc:a0348e8b7f5a59894f61281b780afda9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor  <a href="class_blockchain___wahlclient_1_1_candidate_list.html#a0348e8b7f5a59894f61281b780afda9d">More...</a><br /></td></tr>
 <tr class="separator:a0348e8b7f5a59894f61281b780afda9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa58cacfd3335cbe7b2a2bb8a4c65ae40"><td class="memItemLeft" align="right" valign="top"><a id="aa58cacfd3335cbe7b2a2bb8a4c65ae40"></a>
 IEnumerator&#160;</td><td class="memItemRight" valign="bottom"><b>GetEnumerator</b> ()</td></tr>
@@ -107,17 +110,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>MoveNext</b> ()</td><
 <tr class="memitem:a0bd372ba8906e6e40de425ee20c73426"><td class="memItemLeft" align="right" valign="top"><a id="a0bd372ba8906e6e40de425ee20c73426"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Reset</b> ()</td></tr>
 <tr class="separator:a0bd372ba8906e6e40de425ee20c73426"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af35999050450cd721a8c38220c809a1e"><td class="memItemLeft" align="right" valign="top"><a id="af35999050450cd721a8c38220c809a1e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AddCandidate</b> (<a class="el" href="class_blockchain___wahlclient_1_1_candidate.html">Candidate</a> c)</td></tr>
-<tr class="separator:af35999050450cd721a8c38220c809a1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ed06ce95d553916a321b40e5c108f73"><td class="memItemLeft" align="right" valign="top"><a id="a5ed06ce95d553916a321b40e5c108f73"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>CheckRanks</b> ()</td></tr>
+<tr class="memitem:a5ed06ce95d553916a321b40e5c108f73"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_blockchain___wahlclient_1_1_candidate_list.html#a5ed06ce95d553916a321b40e5c108f73">CheckRanks</a> ()</td></tr>
+<tr class="memdesc:a5ed06ce95d553916a321b40e5c108f73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the set ranks are correct. All numbers from 1 to n (number of candidates) are entered  <a href="class_blockchain___wahlclient_1_1_candidate_list.html#a5ed06ce95d553916a321b40e5c108f73">More...</a><br /></td></tr>
 <tr class="separator:a5ed06ce95d553916a321b40e5c108f73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae0c8dfcf105d3c04919952dbb103b7a"><td class="memItemLeft" align="right" valign="top"><a id="aae0c8dfcf105d3c04919952dbb103b7a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>BuildFrontend</b> (ref FlowLayoutPanel flp)</td></tr>
+<tr class="memitem:aae0c8dfcf105d3c04919952dbb103b7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_blockchain___wahlclient_1_1_candidate_list.html#aae0c8dfcf105d3c04919952dbb103b7a">BuildFrontend</a> (ref FlowLayoutPanel flp)</td></tr>
+<tr class="memdesc:aae0c8dfcf105d3c04919952dbb103b7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a User Control for every candidate and adds them to the FlowLayoutPanel, so they can be displayed on the form  <a href="class_blockchain___wahlclient_1_1_candidate_list.html#aae0c8dfcf105d3c04919952dbb103b7a">More...</a><br /></td></tr>
 <tr class="separator:aae0c8dfcf105d3c04919952dbb103b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0916426eb1785e5d44734ce2d2ea6c7f"><td class="memItemLeft" align="right" valign="top"><a id="a0916426eb1785e5d44734ce2d2ea6c7f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SecureRanks</b> ()</td></tr>
+<tr class="memitem:a0916426eb1785e5d44734ce2d2ea6c7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_blockchain___wahlclient_1_1_candidate_list.html#a0916426eb1785e5d44734ce2d2ea6c7f">SecureRanks</a> ()</td></tr>
+<tr class="memdesc:a0916426eb1785e5d44734ce2d2ea6c7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transfer the ranks entered on the frontend to the list of candidates  <a href="class_blockchain___wahlclient_1_1_candidate_list.html#a0916426eb1785e5d44734ce2d2ea6c7f">More...</a><br /></td></tr>
 <tr class="separator:a0916426eb1785e5d44734ce2d2ea6c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a374a4fe8b308689a2e83acb2664764c2"><td class="memItemLeft" align="right" valign="top"><a id="a374a4fe8b308689a2e83acb2664764c2"></a>
 List&lt; <a class="el" href="class_blockchain___wahlclient_1_1_candidate.html">Candidate</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetCandidates</b> ()</td></tr>
@@ -147,6 +147,101 @@ List&lt; <a class="el" href="class_blockchain___wahlclient_1_1_alternative_votin
 int&#160;</td><td class="memItemRight" valign="bottom"><b>position</b> = 0</td></tr>
 <tr class="separator:add5ca1fb04d1ebea6f2f6c4f6843f637"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class to represent a list of candidates and to implement functions for the AlternativeVotingForm </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0348e8b7f5a59894f61281b780afda9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0348e8b7f5a59894f61281b780afda9d">&#9670;&nbsp;</a></span>CandidateList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Blockchain_Wahlclient.CandidateList.CandidateList </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_blockchain___wahlclient_1_1_backend.html">Backend</a>&#160;</td>
+          <td class="paramname"><em>backend</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">backend</td><td>The backend the class is initialized with</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aae0c8dfcf105d3c04919952dbb103b7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae0c8dfcf105d3c04919952dbb103b7a">&#9670;&nbsp;</a></span>BuildFrontend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Blockchain_Wahlclient.CandidateList.BuildFrontend </td>
+          <td>(</td>
+          <td class="paramtype">ref FlowLayoutPanel&#160;</td>
+          <td class="paramname"><em>flp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a User Control for every candidate and adds them to the FlowLayoutPanel, so they can be displayed on the form </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flp</td><td>The FlowLayoutPanel the User Controls should be added to</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5ed06ce95d553916a321b40e5c108f73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ed06ce95d553916a321b40e5c108f73">&#9670;&nbsp;</a></span>CheckRanks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Blockchain_Wahlclient.CandidateList.CheckRanks </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if the set ranks are correct. All numbers from 1 to n (number of candidates) are entered </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a0916426eb1785e5d44734ce2d2ea6c7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0916426eb1785e5d44734ce2d2ea6c7f">&#9670;&nbsp;</a></span>SecureRanks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Blockchain_Wahlclient.CandidateList.SecureRanks </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Transfer the ranks entered on the frontend to the list of candidates </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>client/Blockchain-Wahlclient/Blockchain-Wahlclient/CandidateList.cs</li>
 </ul>

@@ -1,7 +1,6 @@
 var class_blockchain___wahlclient_1_1_candidate_list =
 [
     [ "CandidateList", "class_blockchain___wahlclient_1_1_candidate_list.html#a0348e8b7f5a59894f61281b780afda9d", null ],
-    [ "AddCandidate", "class_blockchain___wahlclient_1_1_candidate_list.html#af35999050450cd721a8c38220c809a1e", null ],
     [ "BuildFrontend", "class_blockchain___wahlclient_1_1_candidate_list.html#aae0c8dfcf105d3c04919952dbb103b7a", null ],
     [ "CheckRanks", "class_blockchain___wahlclient_1_1_candidate_list.html#a5ed06ce95d553916a321b40e5c108f73", null ],
     [ "GetCandidates", "class_blockchain___wahlclient_1_1_candidate_list.html#a374a4fe8b308689a2e83acb2664764c2", null ],

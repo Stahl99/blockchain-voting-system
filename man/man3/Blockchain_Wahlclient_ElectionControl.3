@@ -1,0 +1,104 @@
+.TH "Blockchain_Wahlclient.ElectionControl" 3 "Mon Dec 14 2020" "Blockchain-Client" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Blockchain_Wahlclient.ElectionControl \- User Control that represents a election and can be displayed on the frontend  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits UserControl\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBSetName\fP (string name)"
+.br
+.ti -1c
+.RI "void \fBSetTimestamp\fP (string timestamp)"
+.br
+.ti -1c
+.RI "String \fBGetName\fP ()"
+.br
+.ti -1c
+.RI "String \fBGetTimestamp\fP ()"
+.br
+.ti -1c
+.RI "bool \fBGetChecked\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetId\fP (int id)"
+.br
+.ti -1c
+.RI "int \fBGetId\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "override void \fBDispose\fP (bool disposing)"
+.br
+.RI "Clean up any resources being used\&. "
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBInitializeComponent\fP ()"
+.br
+.RI "Required method for Designer support - do not modify the contents of this method with the code editor\&. "
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "int \fBid\fP"
+.br
+.ti -1c
+.RI "System\&.ComponentModel\&.IContainer \fBcomponents\fP = null"
+.br
+.RI "Required designer variable\&. "
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.Label \fBname\fP"
+.br
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.Label \fBtimestamp\fP"
+.br
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.CheckBox \fBvotingCheckbox\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+User Control that represents a election and can be displayed on the frontend 
+
+
+.SH "Member Function Documentation"
+.PP 
+.SS "override void Blockchain_Wahlclient\&.ElectionControl\&.Dispose (bool disposing)\fC [protected]\fP"
+
+.PP
+Clean up any resources being used\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIdisposing\fP true if managed resources should be disposed; otherwise, false\&.
+.RE
+.PP
+
+.SS "void Blockchain_Wahlclient\&.ElectionControl\&.InitializeComponent ()\fC [private]\fP"
+
+.PP
+Required method for Designer support - do not modify the contents of this method with the code editor\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "System\&.ComponentModel\&.IContainer Blockchain_Wahlclient\&.ElectionControl\&.components = null\fC [private]\fP"
+
+.PP
+Required designer variable\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Blockchain-Client from the source code\&.

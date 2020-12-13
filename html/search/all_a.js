@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['printprkeys_32',['PrintPrKeys',['../classblockchain__admintool_1_1_backend.html#a468d79c4d05b2851babed164da613166',1,'blockchain_admintool::Backend']]]
+  ['onlyhexinstring_29',['OnlyHexInString',['../class_blockchain___wahlclient_1_1_backend.html#acee09e09c67d13b35208d2562e8e3fcf',1,'Blockchain_Wahlclient.Backend.OnlyHexInString()'],['../class_blockchain___wahlclient_1_1_first_past_the_post_model.html#a237d43f6455f304b99edfb6c8986c4fc',1,'Blockchain_Wahlclient.FirstPastThePostModel.OnlyHexInString()']]]
 ];

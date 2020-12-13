@@ -8,6 +8,9 @@ using System.Windows.Forms;
 
 namespace Blockchain_Wahlclient
 {
+    /// <summary>
+    /// User Control that represents an entry in the list of candidates that can be displayed on a form
+    /// </summary>
     public partial class StandardVotingCandidate : UserControl
     {
         private int id;

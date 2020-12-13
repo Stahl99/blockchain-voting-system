@@ -83,6 +83,7 @@ $(document).ready(function(){initNavTree('classblockchain__admintool_1_1_backend
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classblockchain__admintool_1_1_backend-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -92,26 +93,29 @@ $(document).ready(function(){initNavTree('classblockchain__admintool_1_1_backend
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adc6b190709371683e71f71148d92accd"><td class="memItemLeft" align="right" valign="top">async void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblockchain__admintool_1_1_backend.html#adc6b190709371683e71f71148d92accd">CreateElection</a> (string admAdr, int votingSys, List&lt; Candidate &gt; candList, DateTime start, DateTime stop, string description, int voterCount, string prKeyLoc)</td></tr>
-<tr class="memdesc:adc6b190709371683e71f71148d92accd"><td class="mdescLeft">&#160;</td><td class="mdescRight">creates election with given admin address and time stamps and wirtes on blockchain with <a class="el" href="classblockchain__admintool_1_1_backend.html#adc6b190709371683e71f71148d92accd" title="creates election with given admin address and time stamps and wirtes on blockchain with CreateElectio...">CreateElection()</a> adds given candidates to blockchain with AddCandidate() creates new voter accounts with public and private keys transfers enough ether to voter accounts to run vote-function on blockchain writes public keys of voter accounts in eligible voter list of the created election with ReplaceListOfEligibleVoters()  <a href="classblockchain__admintool_1_1_backend.html#adc6b190709371683e71f71148d92accd">More...</a><br /></td></tr>
+<tr class="memitem:adc6b190709371683e71f71148d92accd"><td class="memItemLeft" align="right" valign="top"><a id="adc6b190709371683e71f71148d92accd"></a>
+async void&#160;</td><td class="memItemRight" valign="bottom"><b>CreateElection</b> (string admAdr, int votingSys, List&lt; Candidate &gt; candList, DateTime start, DateTime stop, string description, int voterCount, string prKeyLoc)</td></tr>
 <tr class="separator:adc6b190709371683e71f71148d92accd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43beca2ce4d266aa6b9f056081e6bce6"><td class="memItemLeft" align="right" valign="top">System.Numerics.BigInteger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblockchain__admintool_1_1_backend.html#a43beca2ce4d266aa6b9f056081e6bce6">DateToUnix</a> (DateTime d)</td></tr>
-<tr class="memdesc:a43beca2ce4d266aa6b9f056081e6bce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">converts .net datetime objects to unix time stamps  <a href="classblockchain__admintool_1_1_backend.html#a43beca2ce4d266aa6b9f056081e6bce6">More...</a><br /></td></tr>
+<tr class="memitem:a43beca2ce4d266aa6b9f056081e6bce6"><td class="memItemLeft" align="right" valign="top"><a id="a43beca2ce4d266aa6b9f056081e6bce6"></a>
+System.Numerics.BigInteger&#160;</td><td class="memItemRight" valign="bottom"><b>DateToUnix</b> (DateTime d)</td></tr>
 <tr class="separator:a43beca2ce4d266aa6b9f056081e6bce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5856c12db961fd8cbbab6bc3b584b8b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblockchain__admintool_1_1_backend.html#ae5856c12db961fd8cbbab6bc3b584b8b">SetContractAdress</a> (String contractAdress)</td></tr>
-<tr class="memdesc:ae5856c12db961fd8cbbab6bc3b584b8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">set contract address from user input  <a href="classblockchain__admintool_1_1_backend.html#ae5856c12db961fd8cbbab6bc3b584b8b">More...</a><br /></td></tr>
+<tr class="memitem:ae5856c12db961fd8cbbab6bc3b584b8b"><td class="memItemLeft" align="right" valign="top"><a id="ae5856c12db961fd8cbbab6bc3b584b8b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SetContractAdress</b> (String contractAdress)</td></tr>
 <tr class="separator:ae5856c12db961fd8cbbab6bc3b584b8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a468d79c4d05b2851babed164da613166"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblockchain__admintool_1_1_backend.html#a468d79c4d05b2851babed164da613166">PrintPrKeys</a> (List&lt; string &gt; prKeys, string path)</td></tr>
-<tr class="memdesc:a468d79c4d05b2851babed164da613166"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes a Strinig-list with private keys and prints them into a .txt file in given path  <a href="classblockchain__admintool_1_1_backend.html#a468d79c4d05b2851babed164da613166">More...</a><br /></td></tr>
+<tr class="memitem:a468d79c4d05b2851babed164da613166"><td class="memItemLeft" align="right" valign="top"><a id="a468d79c4d05b2851babed164da613166"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>PrintPrKeys</b> (List&lt; string &gt; prKeys, string path)</td></tr>
 <tr class="separator:a468d79c4d05b2851babed164da613166"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f4e2c5d73410179294b2cd363aea4a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblockchain__admintool_1_1_backend.html#a6f4e2c5d73410179294b2cd363aea4a4">SetBlockchainUrl</a> (String url, String walletAddr)</td></tr>
-<tr class="memdesc:a6f4e2c5d73410179294b2cd363aea4a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initalizes Web3-object with given blockchain URL and given Admin-wallet  <a href="classblockchain__admintool_1_1_backend.html#a6f4e2c5d73410179294b2cd363aea4a4">More...</a><br /></td></tr>
+<tr class="memitem:a6f4e2c5d73410179294b2cd363aea4a4"><td class="memItemLeft" align="right" valign="top"><a id="a6f4e2c5d73410179294b2cd363aea4a4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetBlockchainUrl</b> (String url, String walletAddr)</td></tr>
 <tr class="separator:a6f4e2c5d73410179294b2cd363aea4a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adeadc5cacdeebc78a3234ff8f4dce9e5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblockchain__admintool_1_1_backend.html#adeadc5cacdeebc78a3234ff8f4dce9e5">InitService</a> (String url, String contractAdress, string walletAddr)</td></tr>
-<tr class="memdesc:adeadc5cacdeebc78a3234ff8f4dce9e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init the contract service with a blockchain url, admin wallet address and contractAdress  <a href="classblockchain__admintool_1_1_backend.html#adeadc5cacdeebc78a3234ff8f4dce9e5">More...</a><br /></td></tr>
+<tr class="memitem:adeadc5cacdeebc78a3234ff8f4dce9e5"><td class="memItemLeft" align="right" valign="top"><a id="adeadc5cacdeebc78a3234ff8f4dce9e5"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>InitService</b> (String url, String contractAdress, string walletAddr)</td></tr>
 <tr class="separator:adeadc5cacdeebc78a3234ff8f4dce9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9099e5c152298df4dba81f1c92b77fa7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classblockchain__admintool_1_1_backend.html#a9099e5c152298df4dba81f1c92b77fa7">OnlyHexInString</a> (string test)</td></tr>
-<tr class="memdesc:a9099e5c152298df4dba81f1c92b77fa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">checks if string is in hex format  <a href="classblockchain__admintool_1_1_backend.html#a9099e5c152298df4dba81f1c92b77fa7">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a9099e5c152298df4dba81f1c92b77fa7"><td class="memItemLeft" align="right" valign="top"><a id="a9099e5c152298df4dba81f1c92b77fa7"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>OnlyHexInString</b> (string test)</td></tr>
 <tr class="separator:a9099e5c152298df4dba81f1c92b77fa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
@@ -132,286 +136,6 @@ TmpElectionObject&#160;</td><td class="memItemRight" valign="bottom"><b>currentE
 GetElectoralListOutputDTO&#160;</td><td class="memItemRight" valign="bottom"><b>backendCandidates</b></td></tr>
 <tr class="separator:ab8e8f6fcb14a6716eb3b23465c48e859"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="adc6b190709371683e71f71148d92accd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc6b190709371683e71f71148d92accd">&#9670;&nbsp;</a></span>CreateElection()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">async void blockchain_admintool.Backend.CreateElection </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>admAdr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>votingSys</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">List&lt; Candidate &gt;&#160;</td>
-          <td class="paramname"><em>candList</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">DateTime&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">DateTime&#160;</td>
-          <td class="paramname"><em>stop</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>description</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>voterCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>prKeyLoc</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>creates election with given admin address and time stamps and wirtes on blockchain with <a class="el" href="classblockchain__admintool_1_1_backend.html#adc6b190709371683e71f71148d92accd" title="creates election with given admin address and time stamps and wirtes on blockchain with CreateElectio...">CreateElection()</a> adds given candidates to blockchain with AddCandidate() creates new voter accounts with public and private keys transfers enough ether to voter accounts to run vote-function on blockchain writes public keys of voter accounts in eligible voter list of the created election with ReplaceListOfEligibleVoters() </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">admAdr</td><td></td></tr>
-    <tr><td class="paramname">votingSys</td><td></td></tr>
-    <tr><td class="paramname">candList</td><td></td></tr>
-    <tr><td class="paramname">start</td><td></td></tr>
-    <tr><td class="paramname">stop</td><td></td></tr>
-    <tr><td class="paramname">description</td><td></td></tr>
-    <tr><td class="paramname">voterCount</td><td></td></tr>
-    <tr><td class="paramname">prKeyLoc</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a43beca2ce4d266aa6b9f056081e6bce6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43beca2ce4d266aa6b9f056081e6bce6">&#9670;&nbsp;</a></span>DateToUnix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">System.Numerics.BigInteger blockchain_admintool.Backend.DateToUnix </td>
-          <td>(</td>
-          <td class="paramtype">DateTime&#160;</td>
-          <td class="paramname"><em>d</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>converts .net datetime objects to unix time stamps </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">d</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a id="adeadc5cacdeebc78a3234ff8f4dce9e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adeadc5cacdeebc78a3234ff8f4dce9e5">&#9670;&nbsp;</a></span>InitService()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool blockchain_admintool.Backend.InitService </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>url</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>contractAdress</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>walletAddr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Init the contract service with a blockchain url, admin wallet address and contractAdress </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">url</td><td></td></tr>
-    <tr><td class="paramname">contractAdress</td><td></td></tr>
-    <tr><td class="paramname">walletAddr</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a id="a9099e5c152298df4dba81f1c92b77fa7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9099e5c152298df4dba81f1c92b77fa7">&#9670;&nbsp;</a></span>OnlyHexInString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool blockchain_admintool.Backend.OnlyHexInString </td>
-          <td>(</td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>test</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>checks if string is in hex format </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">test</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a id="a468d79c4d05b2851babed164da613166"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a468d79c4d05b2851babed164da613166">&#9670;&nbsp;</a></span>PrintPrKeys()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void blockchain_admintool.Backend.PrintPrKeys </td>
-          <td>(</td>
-          <td class="paramtype">List&lt; string &gt;&#160;</td>
-          <td class="paramname"><em>prKeys</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">string&#160;</td>
-          <td class="paramname"><em>path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Takes a Strinig-list with private keys and prints them into a .txt file in given path </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">prKeys</td><td></td></tr>
-    <tr><td class="paramname">path</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a6f4e2c5d73410179294b2cd363aea4a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f4e2c5d73410179294b2cd363aea4a4">&#9670;&nbsp;</a></span>SetBlockchainUrl()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void blockchain_admintool.Backend.SetBlockchainUrl </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>url</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>walletAddr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initalizes Web3-object with given blockchain URL and given Admin-wallet </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">url</td><td></td></tr>
-    <tr><td class="paramname">walletAddr</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ae5856c12db961fd8cbbab6bc3b584b8b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5856c12db961fd8cbbab6bc3b584b8b">&#9670;&nbsp;</a></span>SetContractAdress()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool blockchain_admintool.Backend.SetContractAdress </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>contractAdress</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>set contract address from user input </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">contractAdress</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>admin-tool/Blockchain-Admintool/blockchain-admintool/blockchain-admintool/Backend.cs</li>
 </ul>

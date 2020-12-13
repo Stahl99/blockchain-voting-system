@@ -6,7 +6,7 @@
 
 1. Install Python 3 and Node LTS on your system.
 2. Clone this repository.
-3. In the repository directory, run `npm i` or `yarn`.
+3. In the backend directory, run `npm i` or `yarn`.
 4. Run `npm start` or `yarn start`.
 5. Run `npm run migrate` or `yarn migrate`.
 6. Run `npm test` or `yarn test`.

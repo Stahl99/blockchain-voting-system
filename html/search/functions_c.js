@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['unixtimestamptodatetime_91',['UnixTimeStampToDateTime',['../class_blockchain___wahlclient_1_1_election_picker_model.html#a03269e15360d13012765adf53bc7a57b',1,'Blockchain_Wahlclient::ElectionPickerModel']]]
+  ['validatepick_93',['ValidatePick',['../class_blockchain___wahlclient_1_1_election_picker_model.html#a93d255f63c331848bdae83793fe37478',1,'Blockchain_Wahlclient::ElectionPickerModel']]],
+  ['verifyvote_94',['VerifyVote',['../class_blockchain___wahlclient_1_1_first_past_the_post_model.html#a22d32f149691c30a93541adf43559e72',1,'Blockchain_Wahlclient::FirstPastThePostModel']]]
 ];

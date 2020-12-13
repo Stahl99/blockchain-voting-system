@@ -1,0 +1,94 @@
+.TH "Blockchain_Wahlclient.Candidate" 3 "Mon Dec 14 2020" "Blockchain-Client" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Blockchain_Wahlclient.Candidate \- Class to represent a candidate  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCandidate\fP (BlockchainVotingSystem\&.Contracts\&.bvs_backend\&.ContractDefinition\&.Candidate candidate)"
+.br
+.RI "Constructor to create a candidate object from a backend candidate object "
+.ti -1c
+.RI "\fBCandidate\fP (int id, string surname, string lastName, string party)"
+.br
+.RI "Constructor "
+.ti -1c
+.RI "string \fBGetFullName\fP ()"
+.br
+.ti -1c
+.RI "string \fBGetParty\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetRank\fP (int rank)"
+.br
+.ti -1c
+.RI "int \fBGetRank\fP ()"
+.br
+.ti -1c
+.RI "int \fBGetId\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "int \fBid\fP"
+.br
+.ti -1c
+.RI "string \fBsurname\fP"
+.br
+.ti -1c
+.RI "string \fBlastName\fP"
+.br
+.ti -1c
+.RI "string \fBparty\fP"
+.br
+.ti -1c
+.RI "int \fBrank\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Class to represent a candidate 
+
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Blockchain_Wahlclient\&.Candidate\&.Candidate (BlockchainVotingSystem\&.Contracts\&.bvs_backend\&.ContractDefinition\&.Candidate candidate)"
+
+.PP
+Constructor to create a candidate object from a backend candidate object 
+.PP
+\fBParameters\fP
+.RS 4
+\fIcandidate\fP The backend candidate
+.RE
+.PP
+
+.SS "Blockchain_Wahlclient\&.Candidate\&.Candidate (int id, string surname, string lastName, string party)"
+
+.PP
+Constructor 
+.PP
+\fBParameters\fP
+.RS 4
+\fIid\fP The candidate id
+.br
+\fIsurname\fP The surname of the candidate
+.br
+\fIlastName\fP The lastname of the candidate
+.br
+\fIparty\fP The party of the candidate
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Blockchain-Client from the source code\&.

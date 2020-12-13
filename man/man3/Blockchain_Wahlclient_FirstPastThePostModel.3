@@ -1,0 +1,147 @@
+.TH "Blockchain_Wahlclient.FirstPastThePostModel" 3 "Mon Dec 14 2020" "Blockchain-Client" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Blockchain_Wahlclient.FirstPastThePostModel \- Class to implement functions for the \fBFirstPastThePostForm\fP  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBFirstPastThePostModel\fP (\fBBackend\fP backend)"
+.br
+.RI "Constructor sets backend instance and loads candidate information for the current election "
+.ti -1c
+.RI "void \fBBuildCandidateList\fP (ref FlowLayoutPanel flp)"
+.br
+.RI "Creates \fC\fBStandardVotingCandidate\fP\fP Control for the frontend from the list of candidates "
+.ti -1c
+.RI "bool \fBVerifyVote\fP (String votingAdress)"
+.br
+.RI "Verifies the selected and given voting options and shows error text if there are problems "
+.ti -1c
+.RI "async Task< bool > \fBSendVote\fP (String votingAdress)"
+.br
+.RI "Calls the backend function to send the vote "
+.ti -1c
+.RI "bool \fBOnlyHexInString\fP (string test)"
+.br
+.RI "Checks if only hex characters are in a String and its has the format 0x\&.\&.\&.\&. "
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBInitFormReference\fP ()"
+.br
+.RI "Find the currently open \fC\fBFirstPastThePostForm\fP\fP instance "
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBFirstPastThePostForm\fP \fBFPTPform\fP"
+.br
+.ti -1c
+.RI "List< \fBCandidate\fP > \fBcandidates\fP = new List<\fBCandidate\fP>()"
+.br
+.ti -1c
+.RI "List< \fBStandardVotingCandidate\fP > \fBcandidatesViewList\fP = new List<\fBStandardVotingCandidate\fP>()"
+.br
+.ti -1c
+.RI "\fBCandidate\fP \fBvotedCandidate\fP"
+.br
+.ti -1c
+.RI "\fBBackend\fP \fBbackend\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Class to implement functions for the \fBFirstPastThePostForm\fP 
+
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Blockchain_Wahlclient\&.FirstPastThePostModel\&.FirstPastThePostModel (\fBBackend\fP backend)"
+
+.PP
+Constructor sets backend instance and loads candidate information for the current election 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbackend\fP The backend instance to be set
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Blockchain_Wahlclient\&.FirstPastThePostModel\&.BuildCandidateList (ref FlowLayoutPanel flp)"
+
+.PP
+Creates \fC\fBStandardVotingCandidate\fP\fP Control for the frontend from the list of candidates 
+.PP
+\fBParameters\fP
+.RS 4
+\fIflp\fP A reference to the used \fCFlowLayoutPanel\fP on the open form
+.RE
+.PP
+
+.SS "void Blockchain_Wahlclient\&.FirstPastThePostModel\&.InitFormReference ()\fC [private]\fP"
+
+.PP
+Find the currently open \fC\fBFirstPastThePostForm\fP\fP instance 
+.SS "bool Blockchain_Wahlclient\&.FirstPastThePostModel\&.OnlyHexInString (string test)"
+
+.PP
+Checks if only hex characters are in a String and its has the format 0x\&.\&.\&.\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fItest\fP The string to be checked
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+\fCTrue\fP if only Hex characters are in the given String \fCFalse\fP if the String contains other characters
+.RE
+.PP
+
+.SS "async Task<bool> Blockchain_Wahlclient\&.FirstPastThePostModel\&.SendVote (String votingAdress)"
+
+.PP
+Calls the backend function to send the vote 
+.PP
+\fBParameters\fP
+.RS 4
+\fIvotingAdress\fP The private key of the voter
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A task wrapping a bool to indicate if the voting was successful
+.RE
+.PP
+
+.SS "bool Blockchain_Wahlclient\&.FirstPastThePostModel\&.VerifyVote (String votingAdress)"
+
+.PP
+Verifies the selected and given voting options and shows error text if there are problems 
+.PP
+\fBParameters\fP
+.RS 4
+\fIvotingAdress\fP The private key of the voter
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+True if all given info is correct False if something is not correct
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Blockchain-Client from the source code\&.

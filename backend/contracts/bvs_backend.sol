@@ -2,7 +2,13 @@
 pragma solidity ^0.7.2;
 pragma experimental ABIEncoderV2;
 
-// Sorts both arrays (votes and candidates) according to the amount of votes using QuickSort
+/**
+* @notice Quicksort implementation to sort votes and candidates array in ascending order
+* @param votes The votes array to be sorted
+* @param candidates The candidates array, it will be sorted the same way as votes array
+* @param left Left side index of the list for recursive call
+* @param right Right side index of the list for recursive call
+*/
 function sortVotes (uint256[] memory votes, bvs_backend.Candidate[] memory candidates, int left, int right) pure {
     int i = left;
     int j = right;
@@ -24,6 +30,8 @@ function sortVotes (uint256[] memory votes, bvs_backend.Candidate[] memory candi
         sortVotes(votes, candidates, i, right);
 }
 
+/// @title Blockchain Voting System (BVS) backend
+/// @author K. Radke, L. Neuffer, L. Seyboldt, S. Stahl
 contract bvs_backend {
 
     struct Candidate {
@@ -90,7 +98,12 @@ contract bvs_backend {
 
     constructor() {}
 
-    // creates a new election and returns the election id to the caller
+    /// @notice creates a new election
+    /// @param electionAdminAddress Wallet address of the admin account
+    /// @param electionVotingSystem Voting system of the election
+    /// @param electionName Description / name of the election
+    /// @param electionStartTimestamp Unix timestamp of the beginning of the election
+    /// @param electionEndTimestamp Unix timestamp of the end of the election
     function createElection (address electionAdminAddress, VotingSystem electionVotingSystem, string memory electionName,
     uint256 electionStartTimestamp, uint256 electionEndTimestamp) public {
         
@@ -107,12 +120,16 @@ contract bvs_backend {
 
     }
 
+    /// @notice Returns the election id of the last created election
+    /// @return Election id of the last created election
     function getLastElectionId () public view returns (uint256) {
         return _elections.length-1;
     }
 
-    // replaces the list of the current eligible voters for a given election
-    // returns true if successfull; false otherwise
+    /// @notice Replaces the list of the current eligible voters for a given election
+    /// @param electionId Id of the election whose eligible voters list is to be replaced
+    /// @param newEligibleVoterList List of addresses of the new eligible voters
+    /// @return Returns true if successfull; false otherwise
     function replaceListOfEligibleVoters (uint256 electionId, address[] memory newEligibleVoterList) public returns (bool) {
 
         for (uint i = 0; i < _elections.length; i++) {
@@ -138,8 +155,11 @@ contract bvs_backend {
 
     }
 
-    // replaces the list of the current electoral list for a given election
-    // returns true if successfull; false otherwise
+    /// @notice Replaces the list of the current electoral list for a given election
+    /// @param electionId Id of the election whose electoral list is to be replaced<
+    /// @param newElectoralList List of candidates for the election
+    /// @return Returns true if successfull; false otherwise
+
     function replaceElectoralList (uint256 electionId, Candidate[] memory newElectoralList) public returns (bool) {
 
         for (uint i = 0; i < _elections.length; i++) {
@@ -176,6 +196,9 @@ contract bvs_backend {
 
     }
 
+    /// @notice Adds a candidate to the electoral list for a given election
+    /// @param electionId Id of the election to which the new candidate is to be added
+    /// @param newCandidate Data of the new candidate
     function addCandidate (uint256 electionId, Candidate memory newCandidate) public {
 
         for (uint i = 0; i < _elections.length; i++) {
@@ -189,9 +212,8 @@ contract bvs_backend {
         }
     }
 
-    // returns the ids, names, start- and end-timestamps of all elections
-    // in a temporary election object with all needed return values
-    // this is done so that the C# code can be generated better
+    /// @notice Returns the ids, names, start- and end-timestamps of all elections in a temporary election object. This is done so that the C# code can be generated better.
+    /// @return Returns the ids, names, start- and end-timestamps of all elections in a temporary election object
     function getElectionInformation () public view returns (TmpElectionObject[] memory) {
 
         // creates tmp election object with all elements that have to be returned
@@ -214,7 +236,9 @@ contract bvs_backend {
 
     }
 
-    // returns the electoral list for a given election
+    /// @notice Returns the electoral list for the given election id
+    /// @param electionId Id of the election of which the electoral list is to be returned
+    /// @return candidates returns the electoral list for the given election id
     function getElectoralList (uint256 electionId) public view returns (Candidate[] memory candidates) {
 
         for (uint i = 0; i < _elections.length; i++) {
@@ -228,6 +252,12 @@ contract bvs_backend {
         return candidates;
     }
 
+    /**
+    * @notice Function used for voting. Checks if voter is eligible, has not already voted and is inside the timeframe.
+    * @param electionId ID of the election the ballot is for
+    * @param ballot Complete ballot with with candidate ID or ranking set
+    * @return true on success
+    */
     function vote (uint256 electionId, Ballot memory ballot) public returns (bool) {
         if (!verifyElectionId(electionId)) {
             revert("Invalid election ID");
@@ -278,41 +308,11 @@ contract bvs_backend {
         return true;
     }
 
-    function getVoteString (uint256 electionId, address requestAddress) public view returns (string memory) {
-        if (!verifyElectionId(electionId)) {
-            return "Invalid Election ID";
-        } 
-
-        // Check if the address has voted
-        address[] memory usedAddressesCpy = _elections[electionId].usedAddresses;
-        for (uint256 i = 0; i < usedAddressesCpy.length; i++) {
-            if (usedAddressesCpy[i] == requestAddress) {
-                break;
-            }
-            if (i == usedAddressesCpy.length - 1) {
-                return "No vote submitted";
-            }
-        }        
-
-        // Find the ballot
-        Ballot memory ballot;
-        for (uint256 i = 0; i < _elections[electionId].ballots.length; i++) {
-            ballot = _elections[electionId].ballots[i];
-            if (ballot.voterAddress == requestAddress) {
-                break;
-            }
-        }
-
-        // Return result based on voting system (standard or alternative)
-        if (_elections[electionId].votingSystem == VotingSystem.standardVoting) {
-            return "not implemented yet";
-        } else {
-            return "not implemented yet";
-        } 
-    }
-
-    // Returns the ballot submitted from the sender address
-    // Return ballot is empty if nothing was found
+    /**
+    * @notice Returns the ballot submitted from the sender address
+    * @param electionId ID of the election that should contain the ballot
+    * @return Submitted ballot if found, empty ballot if not found
+    */
     function getVoteBallot (uint256 electionId) public view returns (Ballot memory) {
 
         Ballot memory ballot;
@@ -346,6 +346,10 @@ contract bvs_backend {
         return ballot;
     }
 
+    /**
+    * @notice Counts votes at the current state of the election and stores the result
+    * @param electionId ID of the election that should be counted
+    */
     function countVotes (uint256 electionId) public {
         if (!verifyElectionId(electionId)) {
             revert();
@@ -430,20 +434,40 @@ contract bvs_backend {
         }
     }
 
+    /**
+    * @notice Returns the stored result
+    * @param electionId ID of the requested election
+    * @return votes array contains the amount of votes, candidates is a sorted electoral list
+    */
     function getResult (uint electionId) public view returns (uint256[] memory votes, Candidate[] memory candidates) {
         //require(!_elections[electionId].result.empty, "No result calculated, call countVotes first");
         return (_elections[electionId].result.votes,
                 _elections[electionId].result.candidates);
     }
 
+    /**
+    * @notice Used to determine if an election is over
+    * @param electionId ID of the election
+    * @return Returns true if the election timeframe is over
+    */
     function isOver (uint256 electionId) private view returns (bool) {
         return (_elections[electionId].endTimestamp < block.timestamp);
     }
 
+    /**
+    * @notice Used to determine if an election has started
+    * @param electionId ID of the election
+    * @return Returns true if the election timeframe has started
+    */
     function hasStarted (uint256 electionId) private view returns (bool) {
         return (_elections[electionId].startTimestamp < block.timestamp);
     }
 
+    /**
+    * @notice Used to check if an election ID is valid
+    * @param electionId ID of the election to check
+    * @return Returns true if the election can be found
+    */
     function verifyElectionId (uint256 electionId) private view returns (bool) {
         // Check if an election ID is valid
         for (uint256 i = 0; i < _elections.length; i++) {
@@ -453,14 +477,5 @@ contract bvs_backend {
         }
         // Return false if ID has not been found
         return false;
-    }
-
-    function testVote (uint256 _electionId, uint _candidateId, uint[] memory _ranking) public returns (bool) {
-        Ballot memory ballot = Ballot({
-            voterAddress: msg.sender,
-            candidateId: _candidateId,
-            ranking: _ranking
-        });
-        return vote(_electionId, ballot);
     }
 }

@@ -1,0 +1,237 @@
+.TH "Blockchain_Wahlclient.Backend" 3 "Mon Dec 14 2020" "Blockchain-Client" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Blockchain_Wahlclient.Backend \- Class to handle communication with the blockchain backend  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBInitService\fP (String url, String contractAddress)"
+.br
+.RI "Init the contract service with a blockchain url and contractAdress "
+.ti -1c
+.RI "List< \fBCandidate\fP > \fBGetCandidateInfo\fP ()"
+.br
+.RI "Get the List of Canidates for the current election "
+.ti -1c
+.RI "async Task< bool > \fBSendVoteStandard\fP (String votingAdress, \fBCandidate\fP candidate)"
+.br
+.RI "Send the vote for a first past the post election to the blockchain "
+.ti -1c
+.RI "async Task< bool > \fBSendVoteAlternativeAsync\fP (String votingAdress, List< \fBCandidate\fP > candidateList)"
+.br
+.RI "Send the vote for a alternative voting election to the blockchain "
+.ti -1c
+.RI "async Task< List< TmpElectionObject > > \fBLoadElectionInformationAsync\fP ()"
+.br
+.ti -1c
+.RI "async Task \fBLoadCandidateInfoAsync\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetCurrentElection\fP (int electionId)"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBSetBlockchainUrl\fP (String url)"
+.br
+.RI "Generates the Web3 object with the given blockchain url "
+.ti -1c
+.RI "void \fBSetAccount\fP (String voterKey)"
+.br
+.RI "Generates an account from the private key of the voter and sets the account to the web3 object "
+.ti -1c
+.RI "bool \fBSetContractAdress\fP (String contractAdress)"
+.br
+.RI "Sets the address of the smart contract and creates the backendService to communicate with the blockchain "
+.ti -1c
+.RI "bool \fBOnlyHexInString\fP (string test)"
+.br
+.RI "Checks if only hex characters are in a String and its has the format 0x\&.\&.\&.\&. "
+.ti -1c
+.RI "bool \fBAreBallotsEqual\fP (Ballot a, Ballot b)"
+.br
+.RI "Compares two Ballots "
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "String \fBurl\fP"
+.br
+.ti -1c
+.RI "String \fBcontractAddress\fP"
+.br
+.ti -1c
+.RI "Account \fBvotingAccount\fP"
+.br
+.ti -1c
+.RI "Web3 \fBweb3\fP"
+.br
+.ti -1c
+.RI "Bvs_backendService \fBvotingService\fP"
+.br
+.ti -1c
+.RI "GetElectionInformationOutputDTO \fBallElectionInfo\fP"
+.br
+.ti -1c
+.RI "TmpElectionObject \fBcurrentElection\fP"
+.br
+.ti -1c
+.RI "GetElectoralListOutputDTO \fBbackendCandidates\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Class to handle communication with the blockchain backend 
+
+
+.SH "Member Function Documentation"
+.PP 
+.SS "bool Blockchain_Wahlclient\&.Backend\&.AreBallotsEqual (Ballot a, Ballot b)\fC [private]\fP"
+
+.PP
+Compares two Ballots 
+.PP
+\fBParameters\fP
+.RS 4
+\fIa\fP First Ballot to compare
+.br
+\fIb\fP Second Ballot to compare
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+\fCTrue\fP if they contain the same values\&. \fCFalse\fP if atleast one value is different
+.RE
+.PP
+
+.SS "List<\fBCandidate\fP> Blockchain_Wahlclient\&.Backend\&.GetCandidateInfo ()"
+
+.PP
+Get the List of Canidates for the current election 
+.PP
+\fBReturns\fP
+.RS 4
+A List of \fC\fBCandidate\fP\fP
+.RE
+.PP
+
+.SS "bool Blockchain_Wahlclient\&.Backend\&.InitService (String url, String contractAddress)"
+
+.PP
+Init the contract service with a blockchain url and contractAdress 
+.PP
+\fBParameters\fP
+.RS 4
+\fIurl\fP The url of the blockchain
+.br
+\fIcontractAdress\fP The adress of the voting contract
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.RE
+.PP
+
+.SS "bool Blockchain_Wahlclient\&.Backend\&.OnlyHexInString (string test)\fC [private]\fP"
+
+.PP
+Checks if only hex characters are in a String and its has the format 0x\&.\&.\&.\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fItest\fP The string to be checked
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+\fCTrue\fP if only Hex characters are in the given String \fCFalse\fP if the String contains other characters
+.RE
+.PP
+
+.SS "async Task<bool> Blockchain_Wahlclient\&.Backend\&.SendVoteAlternativeAsync (String votingAdress, List< \fBCandidate\fP > candidateList)"
+
+.PP
+Send the vote for a alternative voting election to the blockchain 
+.PP
+\fBParameters\fP
+.RS 4
+\fIvotingAdress\fP The private key of the voter
+.br
+\fIcandidateList\fP The list of candidates for the current election
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A task wrapping a bool to indicate if the voting was successful
+.RE
+.PP
+
+.SS "async Task<bool> Blockchain_Wahlclient\&.Backend\&.SendVoteStandard (String votingAdress, \fBCandidate\fP candidate)"
+
+.PP
+Send the vote for a first past the post election to the blockchain 
+.PP
+\fBParameters\fP
+.RS 4
+\fIvotingAdress\fP The private key of the voter
+.br
+\fIcandidate\fP The candidate the voter has voted for
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A task wrapping a bool to indicate if the voting was successful
+.RE
+.PP
+
+.SS "void Blockchain_Wahlclient\&.Backend\&.SetAccount (String voterKey)\fC [private]\fP"
+
+.PP
+Generates an account from the private key of the voter and sets the account to the web3 object 
+.PP
+\fBParameters\fP
+.RS 4
+\fIvoterKey\fP The private key of the voter
+.RE
+.PP
+
+.SS "void Blockchain_Wahlclient\&.Backend\&.SetBlockchainUrl (String url)\fC [private]\fP"
+
+.PP
+Generates the Web3 object with the given blockchain url 
+.PP
+\fBParameters\fP
+.RS 4
+\fIurl\fP The url of the blockchain
+.RE
+.PP
+
+.SS "bool Blockchain_Wahlclient\&.Backend\&.SetContractAdress (String contractAdress)\fC [private]\fP"
+
+.PP
+Sets the address of the smart contract and creates the backendService to communicate with the blockchain 
+.PP
+\fBParameters\fP
+.RS 4
+\fIcontractAdress\fP The address of the contract
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+If the method was successful
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Blockchain-Client from the source code\&.

@@ -1,0 +1,60 @@
+.TH "blockchain_admintool.Backend" 3 "Mon Dec 14 2020" "Blockchain-Client" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+blockchain_admintool.Backend
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "async void \fBCreateElection\fP (string admAdr, int votingSys, List< Candidate > candList, DateTime start, DateTime stop, string description, int voterCount, string prKeyLoc)"
+.br
+.ti -1c
+.RI "System\&.Numerics\&.BigInteger \fBDateToUnix\fP (DateTime d)"
+.br
+.ti -1c
+.RI "bool \fBSetContractAdress\fP (String contractAdress)"
+.br
+.ti -1c
+.RI "void \fBPrintPrKeys\fP (List< string > prKeys, string path)"
+.br
+.ti -1c
+.RI "void \fBSetBlockchainUrl\fP (String url, String walletAddr)"
+.br
+.ti -1c
+.RI "bool \fBInitService\fP (String url, String contractAdress, string walletAddr)"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBOnlyHexInString\fP (string test)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "Web3 \fBweb3\fP"
+.br
+.ti -1c
+.RI "Bvs_backendService \fBvotingService\fP"
+.br
+.ti -1c
+.RI "GetElectionInformationOutputDTO \fBallElectionInfo\fP"
+.br
+.ti -1c
+.RI "TmpElectionObject \fBcurrentElection\fP"
+.br
+.ti -1c
+.RI "GetElectoralListOutputDTO \fBbackendCandidates\fP"
+.br
+.in -1c
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Blockchain-Client from the source code\&.

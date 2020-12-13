@@ -1,0 +1,159 @@
+.TH "Blockchain_Wahlclient.FirstPastThePostForm" 3 "Mon Dec 14 2020" "Blockchain-Client" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Blockchain_Wahlclient.FirstPastThePostForm \- Form to display the FirstPastThePost voting screen  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits Form\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBFirstPastThePostForm\fP (\fBBackend\fP backend)"
+.br
+.ti -1c
+.RI "void \fBShowErrorText\fP (string text)"
+.br
+.RI "Displays an Error on the ErrorLabel "
+.ti -1c
+.RI "void \fBHideErrorText\fP ()"
+.br
+.RI "Hides the Error Text "
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "override void \fBDispose\fP (bool disposing)"
+.br
+.RI "Clean up any resources being used\&. "
+.in -1c
+.SS "Properties"
+
+.in +1c
+.ti -1c
+.RI "\fBFirstPastThePostModel\fP \fBModel\fP\fC [get, set]\fP"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "async void \fBbutton1_Click\fP (object sender, EventArgs e)"
+.br
+.RI "Handles click on the vote button "
+.ti -1c
+.RI "void \fBFirstPastThePostForm_Load\fP (object sender, EventArgs e)"
+.br
+.RI "On Load function to load and display the candidate list "
+.ti -1c
+.RI "void \fBInitializeComponent\fP ()"
+.br
+.RI "Required method for Designer support - do not modify the contents of this method with the code editor\&. "
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBBackend\fP \fBbackend\fP"
+.br
+.ti -1c
+.RI "System\&.ComponentModel\&.IContainer \fBcomponents\fP = null"
+.br
+.RI "Required designer variable\&. "
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.Label \fBErrorLabel\fP"
+.br
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.Button \fBsubmitButton\fP"
+.br
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.Label \fBlabel1\fP"
+.br
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.TextBox \fBtextBox1\fP"
+.br
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.FlowLayoutPanel \fBflowLayoutPanel1\fP"
+.br
+.ti -1c
+.RI "System\&.Windows\&.Forms\&.Label \fBlabel2\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Form to display the FirstPastThePost voting screen 
+
+
+.SH "Member Function Documentation"
+.PP 
+.SS "async void Blockchain_Wahlclient\&.FirstPastThePostForm\&.button1_Click (object sender, EventArgs e)\fC [private]\fP"
+
+.PP
+Handles click on the vote button 
+.PP
+\fBParameters\fP
+.RS 4
+\fIsender\fP 
+.br
+\fIe\fP 
+.RE
+.PP
+
+.SS "override void Blockchain_Wahlclient\&.FirstPastThePostForm\&.Dispose (bool disposing)\fC [protected]\fP"
+
+.PP
+Clean up any resources being used\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIdisposing\fP true if managed resources should be disposed; otherwise, false\&.
+.RE
+.PP
+
+.SS "void Blockchain_Wahlclient\&.FirstPastThePostForm\&.FirstPastThePostForm_Load (object sender, EventArgs e)\fC [private]\fP"
+
+.PP
+On Load function to load and display the candidate list 
+.PP
+\fBParameters\fP
+.RS 4
+\fIsender\fP 
+.br
+\fIe\fP 
+.RE
+.PP
+
+.SS "void Blockchain_Wahlclient\&.FirstPastThePostForm\&.HideErrorText ()"
+
+.PP
+Hides the Error Text 
+.SS "void Blockchain_Wahlclient\&.FirstPastThePostForm\&.InitializeComponent ()\fC [private]\fP"
+
+.PP
+Required method for Designer support - do not modify the contents of this method with the code editor\&. 
+.SS "void Blockchain_Wahlclient\&.FirstPastThePostForm\&.ShowErrorText (string text)"
+
+.PP
+Displays an Error on the ErrorLabel 
+.PP
+\fBParameters\fP
+.RS 4
+\fItext\fP The error text to display
+.RE
+.PP
+
+.SH "Member Data Documentation"
+.PP 
+.SS "System\&.ComponentModel\&.IContainer Blockchain_Wahlclient\&.FirstPastThePostForm\&.components = null\fC [private]\fP"
+
+.PP
+Required designer variable\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Blockchain-Client from the source code\&.
