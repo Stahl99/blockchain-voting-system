@@ -3,7 +3,7 @@ var class_blockchain___wahlclient_1_1_backend =
     [ "Backend", "class_blockchain___wahlclient_1_1_backend.html#aef4a9519a5d3d6cb87f456e58c9fc295", null ],
     [ "AreBallotsEqual", "class_blockchain___wahlclient_1_1_backend.html#a2b74668625962f1b50b4893a1d8bb3a7", null ],
     [ "GetCandidateInfo", "class_blockchain___wahlclient_1_1_backend.html#a0d7acf898fc1814a8b16332fc41c4da6", null ],
-    [ "InitService", "class_blockchain___wahlclient_1_1_backend.html#aece7d8670b2ba08e31e507da901a9334", null ],
+    [ "InitService", "class_blockchain___wahlclient_1_1_backend.html#a164751f0f413e4eeddb438899f74fb6d", null ],
     [ "LoadCandidateInfoAsync", "class_blockchain___wahlclient_1_1_backend.html#a2bfb9867e190aa690de3ac75e4e147fe", null ],
     [ "LoadElectionInformationAsync", "class_blockchain___wahlclient_1_1_backend.html#a59bedbff1329b7b7cd859211213b5914", null ],
     [ "OnlyHexInString", "class_blockchain___wahlclient_1_1_backend.html#acee09e09c67d13b35208d2562e8e3fcf", null ],
