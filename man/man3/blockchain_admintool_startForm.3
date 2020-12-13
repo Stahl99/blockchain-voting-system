@@ -25,18 +25,23 @@ Inherits Form\&.
 .ti -1c
 .RI "void \fBbutton1_Click_1\fP (object sender, EventArgs e)"
 .br
+.RI "'Save election' button click function creates new candidate list with frontend indexes as candidate ids checks user inputs for mistakes calls the createElection function "
 .ti -1c
 .RI "DateTime \fBGetStartDate\fP ()"
 .br
+.RI "returns a \&.NET DateTime object for election beginning defined by user converts to universal central time because time functions on the blockchain also use UTC "
 .ti -1c
 .RI "DateTime \fBGetStopDate\fP ()"
 .br
+.RI "returns a \&.NET DateTime object for election beginning defined by user converts to universal central time because time functions on the blockchain also use UTC "
 .ti -1c
 .RI "void \fBaddCand_Click\fP (object sender, EventArgs e)"
 .br
+.RI "Add candidate button function Adds new Candidate user control on frontend "
 .ti -1c
 .RI "void \fBreduceCand_Click\fP (object sender, EventArgs e)"
 .br
+.RI "Takes one candidate user control away from frontend "
 .ti -1c
 .RI "void \fBInitializeComponent\fP ()"
 .br
@@ -133,6 +138,32 @@ Inherits Form\&.
 .in -1c
 .SH "Member Function Documentation"
 .PP 
+.SS "void blockchain_admintool\&.startForm\&.addCand_Click (object sender, EventArgs e)\fC [private]\fP"
+
+.PP
+Add candidate button function Adds new Candidate user control on frontend 
+.PP
+\fBParameters\fP
+.RS 4
+\fIsender\fP 
+.br
+\fIe\fP 
+.RE
+.PP
+
+.SS "void blockchain_admintool\&.startForm\&.button1_Click_1 (object sender, EventArgs e)\fC [private]\fP"
+
+.PP
+'Save election' button click function creates new candidate list with frontend indexes as candidate ids checks user inputs for mistakes calls the createElection function 
+.PP
+\fBParameters\fP
+.RS 4
+\fIsender\fP 
+.br
+\fIe\fP 
+.RE
+.PP
+
 .SS "override void blockchain_admintool\&.startForm\&.Dispose (bool disposing)\fC [protected]\fP"
 
 .PP
@@ -144,10 +175,45 @@ Clean up any resources being used\&.
 .RE
 .PP
 
+.SS "DateTime blockchain_admintool\&.startForm\&.GetStartDate ()\fC [private]\fP"
+
+.PP
+returns a \&.NET DateTime object for election beginning defined by user converts to universal central time because time functions on the blockchain also use UTC 
+.PP
+\fBReturns\fP
+.RS 4
+
+.RE
+.PP
+
+.SS "DateTime blockchain_admintool\&.startForm\&.GetStopDate ()\fC [private]\fP"
+
+.PP
+returns a \&.NET DateTime object for election beginning defined by user converts to universal central time because time functions on the blockchain also use UTC 
+.PP
+\fBReturns\fP
+.RS 4
+
+.RE
+.PP
+
 .SS "void blockchain_admintool\&.startForm\&.InitializeComponent ()\fC [private]\fP"
 
 .PP
 Required method for Designer support - do not modify the contents of this method with the code editor\&. 
+.SS "void blockchain_admintool\&.startForm\&.reduceCand_Click (object sender, EventArgs e)\fC [private]\fP"
+
+.PP
+Takes one candidate user control away from frontend 
+.PP
+\fBParameters\fP
+.RS 4
+\fIsender\fP 
+.br
+\fIe\fP 
+.RE
+.PP
+
 .SH "Member Data Documentation"
 .PP 
 .SS "System\&.ComponentModel\&.IContainer blockchain_admintool\&.startForm\&.components = null\fC [private]\fP"

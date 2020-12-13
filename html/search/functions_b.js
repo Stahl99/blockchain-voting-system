@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unixtimestamptodatetime_92',['UnixTimeStampToDateTime',['../class_blockchain___wahlclient_1_1_election_picker_model.html#a03269e15360d13012765adf53bc7a57b',1,'Blockchain_Wahlclient::ElectionPickerModel']]]
+  ['reducecand_5fclick_100',['reduceCand_Click',['../classblockchain__admintool_1_1start_form.html#a4c8aecbdb632715b8bb9de79fe9ea463',1,'blockchain_admintool::startForm']]]
 ];

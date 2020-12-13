@@ -25,7 +25,6 @@
 var NAVTREE =
 [
   [ "Blockchain-Client", "index.html", [
-    [ "readme", "md_client_readme.html", null ],
     [ "Packages", "namespaces.html", [
       [ "Packages", "namespaces.html", "namespaces_dup" ]
     ] ],
@@ -45,7 +44,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"namespaces.html"
+"namespaceblockchain__admintool.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

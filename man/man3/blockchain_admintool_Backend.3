@@ -12,28 +12,31 @@ blockchain_admintool.Backend
 .ti -1c
 .RI "async void \fBCreateElection\fP (string admAdr, int votingSys, List< Candidate > candList, DateTime start, DateTime stop, string description, int voterCount, string prKeyLoc)"
 .br
+.RI "creates election with given admin address and time stamps and wirtes on blockchain with \fBCreateElection()\fP adds given candidates to blockchain with AddCandidate() creates new voter accounts with public and private keys transfers enough ether to voter accounts to run vote-function on blockchain writes public keys of voter accounts in eligible voter list of the created election with ReplaceListOfEligibleVoters() "
 .ti -1c
 .RI "System\&.Numerics\&.BigInteger \fBDateToUnix\fP (DateTime d)"
 .br
+.RI "converts \&.net datetime objects to unix time stamps "
 .ti -1c
 .RI "bool \fBSetContractAdress\fP (String contractAdress)"
 .br
+.RI "set contract address from user input "
 .ti -1c
 .RI "void \fBPrintPrKeys\fP (List< string > prKeys, string path)"
 .br
+.RI "Takes a Strinig-list with private keys and prints them into a \&.txt file in given path "
 .ti -1c
 .RI "void \fBSetBlockchainUrl\fP (String url, String walletAddr)"
 .br
+.RI "Initalizes Web3-object with given blockchain URL and given Admin-wallet "
 .ti -1c
 .RI "bool \fBInitService\fP (String url, String contractAdress, string walletAddr)"
 .br
-.in -1c
-.SS "Private Member Functions"
-
-.in +1c
+.RI "Init the contract service with a blockchain url, admin wallet address and contractAdress "
 .ti -1c
 .RI "bool \fBOnlyHexInString\fP (string test)"
 .br
+.RI "checks if string is in hex format "
 .in -1c
 .SS "Private Attributes"
 
@@ -54,6 +57,123 @@ blockchain_admintool.Backend
 .RI "GetElectoralListOutputDTO \fBbackendCandidates\fP"
 .br
 .in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "async void blockchain_admintool\&.Backend\&.CreateElection (string admAdr, int votingSys, List< Candidate > candList, DateTime start, DateTime stop, string description, int voterCount, string prKeyLoc)"
+
+.PP
+creates election with given admin address and time stamps and wirtes on blockchain with \fBCreateElection()\fP adds given candidates to blockchain with AddCandidate() creates new voter accounts with public and private keys transfers enough ether to voter accounts to run vote-function on blockchain writes public keys of voter accounts in eligible voter list of the created election with ReplaceListOfEligibleVoters() 
+.PP
+\fBParameters\fP
+.RS 4
+\fIadmAdr\fP 
+.br
+\fIvotingSys\fP 
+.br
+\fIcandList\fP 
+.br
+\fIstart\fP 
+.br
+\fIstop\fP 
+.br
+\fIdescription\fP 
+.br
+\fIvoterCount\fP 
+.br
+\fIprKeyLoc\fP 
+.RE
+.PP
+
+.SS "System\&.Numerics\&.BigInteger blockchain_admintool\&.Backend\&.DateToUnix (DateTime d)"
+
+.PP
+converts \&.net datetime objects to unix time stamps 
+.PP
+\fBParameters\fP
+.RS 4
+\fId\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.RE
+.PP
+
+.SS "bool blockchain_admintool\&.Backend\&.InitService (String url, String contractAdress, string walletAddr)"
+
+.PP
+Init the contract service with a blockchain url, admin wallet address and contractAdress 
+.PP
+\fBParameters\fP
+.RS 4
+\fIurl\fP 
+.br
+\fIcontractAdress\fP 
+.br
+\fIwalletAddr\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.RE
+.PP
+
+.SS "bool blockchain_admintool\&.Backend\&.OnlyHexInString (string test)"
+
+.PP
+checks if string is in hex format 
+.PP
+\fBParameters\fP
+.RS 4
+\fItest\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.RE
+.PP
+
+.SS "void blockchain_admintool\&.Backend\&.PrintPrKeys (List< string > prKeys, string path)"
+
+.PP
+Takes a Strinig-list with private keys and prints them into a \&.txt file in given path 
+.PP
+\fBParameters\fP
+.RS 4
+\fIprKeys\fP 
+.br
+\fIpath\fP 
+.RE
+.PP
+
+.SS "void blockchain_admintool\&.Backend\&.SetBlockchainUrl (String url, String walletAddr)"
+
+.PP
+Initalizes Web3-object with given blockchain URL and given Admin-wallet 
+.PP
+\fBParameters\fP
+.RS 4
+\fIurl\fP 
+.br
+\fIwalletAddr\fP 
+.RE
+.PP
+
+.SS "bool blockchain_admintool\&.Backend\&.SetContractAdress (String contractAdress)"
+
+.PP
+set contract address from user input 
+.PP
+\fBParameters\fP
+.RS 4
+\fIcontractAdress\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+.RE
+.PP
+
 
 .SH "Author"
 .PP 
